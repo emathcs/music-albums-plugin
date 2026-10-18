@@ -1,0 +1,433 @@
+/*!
+ * Bootstrap Grid v5.3.8 (https://getbootstrap.com/)
+ * Copyright 2011-2025 The Bootstrap Authors
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+.albums-container,
+.albums-container-fluid,
+.albums-container-xxl,
+.albums-container-xl,
+.albums-container-lg,
+.albums-container-md,
+.albums-container-sm {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 576px) {
+    .albums-container-sm, .albums-container {
+        max-width: 540px;
+    }
+}
+@media (min-width: 768px) {
+    .albums-container-md, .albums-container-sm, .albums-container {
+        max-width: 720px;
+    }
+}
+@media (min-width: 992px) {
+    .albums-container-lg, .albums-container-md, .albums-container-sm, .albums-container {
+        max-width: 960px;
+    }
+}
+@media (min-width: 1200px) {
+    .albums-container-xl, .albums-container-lg, .albums-container-md, .albums-container-sm, .albums-container {
+        max-width: 1140px;
+    }
+}
+@media (min-width: 1400px) {
+    .albums-container-xxl, .albums-container-xl, .albums-container-lg, .albums-container-md, .albums-container-sm, .albums-container {
+        max-width: 1320px;
+    }
+}
+:root {
+    --bs-breakpoint-xs: 0;
+    --bs-breakpoint-sm: 576px;
+    --bs-breakpoint-md: 768px;
+    --bs-breakpoint-lg: 992px;
+    --bs-breakpoint-xl: 1200px;
+    --bs-breakpoint-xxl: 1400px;
+}
+
+.albums-row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+.albums-row > * {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-top: var(--bs-gutter-y);
+}
+
+.albums-col {
+    flex: 1 0 0;
+}
+
+.albums-col-auto {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+.albums-col-1 {
+    flex: 0 0 auto;
+    width: 8.33333333%;
+}
+
+.albums-col-2 {
+    flex: 0 0 auto;
+    width: 16.66666667%;
+}
+
+.albums-col-3 {
+    flex: 0 0 auto;
+    width: 25%;
+}
+
+.albums-col-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+}
+
+.albums-col-5 {
+    flex: 0 0 auto;
+    width: 41.66666667%;
+}
+
+.albums-col-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.albums-col-7 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+}
+
+.albums-col-8 {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+}
+
+.albums-col-9 {
+    flex: 0 0 auto;
+    width: 75%;
+}
+
+.albums-col-10 {
+    flex: 0 0 auto;
+    width: 83.33333333%;
+}
+
+.albums-col-11 {
+    flex: 0 0 auto;
+    width: 91.66666667%;
+}
+
+.albums-col-12 {
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+@media (min-width: 576px) {
+    .albums-col-sm {
+        flex: 1 0 0;
+    }
+    .albums-col-sm-auto {
+        flex: 0 0 auto;
+        width: auto;
+    }
+    .albums-col-sm-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .albums-col-sm-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .albums-col-sm-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .albums-col-sm-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .albums-col-sm-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .albums-col-sm-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .albums-col-sm-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .albums-col-sm-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .albums-col-sm-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .albums-col-sm-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .albums-col-sm-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .albums-col-sm-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .albums-offset-sm-9 {
+        margin-left: 75%;
+    }
+}
+@media (min-width: 768px) {
+    .albums-col-md {
+        flex: 1 0 0;
+    }
+    .albums-col-md-auto {
+        flex: 0 0 auto;
+        width: auto;
+    }
+    .albums-col-md-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .albums-col-md-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .albums-col-md-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .albums-col-md-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .albums-col-md-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .albums-col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .albums-col-md-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .albums-col-md-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .albums-col-md-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .albums-col-md-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .albums-col-md-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .albums-col-md-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+@media (min-width: 992px) {
+    .albums-col-lg {
+        flex: 1 0 0;
+    }
+    .albums-col-lg-auto {
+        flex: 0 0 auto;
+        width: auto;
+    }
+    .albums-col-lg-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .albums-col-lg-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .albums-col-lg-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .albums-col-lg-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .albums-col-lg-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .albums-col-lg-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .albums-col-lg-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .albums-col-lg-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .albums-col-lg-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .albums-col-lg-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .albums-col-lg-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .albums-col-lg-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+@media (min-width: 1200px) {
+    .albums-col-xl {
+        flex: 1 0 0;
+    }
+    .albums-col-xl-auto {
+        flex: 0 0 auto;
+        width: auto;
+    }
+    .albums-col-xl-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .albums-col-xl-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .albums-col-xl-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .albums-col-xl-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .albums-col-xl-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .albums-col-xl-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .albums-col-xl-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .albums-col-xl-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .albums-col-xl-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .albums-col-xl-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .albums-col-xl-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .albums-col-xl-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+@media (min-width: 1400px) {
+    .albums-col-xxl {
+        flex: 1 0 0;
+    }
+    .albums-col-xxl-auto {
+        flex: 0 0 auto;
+        width: auto;
+    }
+    .albums-col-xxl-1 {
+        flex: 0 0 auto;
+        width: 8.33333333%;
+    }
+    .albums-col-xxl-2 {
+        flex: 0 0 auto;
+        width: 16.66666667%;
+    }
+    .albums-col-xxl-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .albums-col-xxl-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%;
+    }
+    .albums-col-xxl-5 {
+        flex: 0 0 auto;
+        width: 41.66666667%;
+    }
+    .albums-col-xxl-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .albums-col-xxl-7 {
+        flex: 0 0 auto;
+        width: 58.33333333%;
+    }
+    .albums-col-xxl-8 {
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
+    .albums-col-xxl-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+    .albums-col-xxl-10 {
+        flex: 0 0 auto;
+        width: 83.33333333%;
+    }
+    .albums-col-xxl-11 {
+        flex: 0 0 auto;
+        width: 91.66666667%;
+    }
+    .albums-col-xxl-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+/*# sourceMappingURL=bootstrap-grid.css.map */
