@@ -26,6 +26,11 @@ if ( ! defined( 'AP_VERSION' ) ) {
 }
 
 /**
+ * Loading custom template
+ */
+require_once plugin_dir_path( __FILE__ ) . 'wp-admin/includes/template.php';
+
+/**
  * Registering the plugin into the admin section
  */
 function albums_admin_menu() {
@@ -42,18 +47,94 @@ function albums_admin_menu() {
 add_action( 'admin_menu', 'albums_admin_menu' );
 
 /**
- * Albums admin page
+ * Initializing and registering the settings via API settings
  */
+
+// Default values for the option
+function albums_local_args() {
+    return array(
+        'default'           => '',
+        'type'              => 'string',
+        'sanitize_callback' => 'sanitize_text_field',
+    );
+}
+
+// Registering the settings.
+function albums_admin_init() {
+    add_settings_section(
+        'albums_main_section', // Section ID
+        'Albums',              // Section Title
+        '',                    // Callback function to output section text
+        'albums-settings'      // Page slug where this section goes
+    );
+
+    // Registering the Album setting option in the wp_options table
+    register_setting(
+        'albums_settings_group', // Option group name
+        'albums_option',         // Actual option key name
+        albums_local_args()
+    );
+    // Album image input field
+    add_settings_field(
+        'album',               // Field ID
+        'Album',               // Field label on the left side
+        'albums_callback',     // Callback function to output the input element
+        'albums-settings',     // Page slug
+        'albums_main_section', // Section ID
+        array()
+    );
+}
+add_action( 'admin_init', 'albums_admin_init' );
+
+/**
+ * Callback function to render the fields
+ */
+function albums_callback( $args = array() ) {
+    $id = 'albums';
+    $name = 'albums';
+    $value = esc_attr( get_option(  $id . '_option', '' ) );
+    $class = 'albums-form-control';
+    $placeholder = '';
+    // Generating the inputs
+    echo '<div class="albums-col albums-col-sm-12">';
+    echo '    <label for="name" class="albums-form-label">Name</label>';
+    echo '    <input type="text" id="' . $id . '" name="' . $name . '_option" value="' . $value .  '" class="'. $class . '" placeholder="' . $placeholder . '" />';
+    echo "</div>";
+
+}
+
+/**
+ * Rendering the fields in the admin section
+ */
+
+// Local form function
+function albums_form($type = null) {
+    echo '<form action="options.php" method="post" class="albums-form albums-row">';
+    // Output nonce, action, and option group hidden fields for security
+    settings_fields( 'albums_settings_group' );
+    // Output all sections registered to this page
+    albums_do_settings_sections( 'albums-settings' );
+    // Output standard submission button
+    echo '    <div class="albums-col albums-col-3 albums-submit">';
+    submit_button( 'Save Changes', 'primary', 'submit', false, '');
+    echo '    </div>';
+    echo '</form>';
+}
+
+// Albums admin page
 function albums_render_settings_page() {
     // Verify if the user has permission to view this page
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
     }
     echo '<div class="albums-wrap">';
-    echo '    <div class="albums-container">';
+    echo '    <div class="albums-container albums-panel">';
     echo '        <div class="albums-row">';
-    echo '            <div class="albums-col-xs albums-panel">';
+    echo '            <div class="albums-col-xs">';
     echo '                <h1>' . esc_html( get_admin_page_title() ) . '</h1>';
+    echo '            </div>';
+    echo '            <div class="albums-col-xs">';
+    albums_form();
     echo '            </div>';
     echo '        </div>';
     echo '    </div>';
