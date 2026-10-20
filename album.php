@@ -73,7 +73,7 @@ function select() {
 // Insert
 function insert() {
     $welcome_name = 'Pamela Robin';
-    $table_name = $wpdb->prefix . 'robin_albums';
+    $table_name = $wpdb->prefix . 'albums';
     $wpdb->insert(
         $table_name,
         array(
