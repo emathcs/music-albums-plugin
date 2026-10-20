@@ -38,26 +38,49 @@ function jal_install() {
     $charset_collate = $wpdb->get_charset_collate();
     require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-    $table_name = $wpdb->prefix . 'robin_albums';
-    $sql  = "CREATE TABLE ". $table_name . " (";
+    $table_1 = $wpdb->prefix . 'albums';
+
+    $sql  = "CREATE TABLE ". $table_1 . " (";
     $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    name varchar(255) NOT NULL,";
+    $sql .= "    name varchar(255) NOT NULL";
     $sql .= ") " . $charset_collate . ";";
+
     dbDelta( $sql );
 
-    $table_name = $wpdb->prefix . 'robin_songs';
-    $sql  = "CREATE TABLE ". $table_name . " (";
+    add_option( 'jal_db_version', $jal_db_version );
+
+    $table_2 = $wpdb->prefix . 'songs';
+
+    $sql  = "CREATE TABLE ". $table_2 . " (";
     $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
     $sql .= "    name varchar(255) NOT NULL,";
     $sql .= "    album_id int(11),";
-    $sql .= "    INDEX alb_ind (album_id),";
-    $sql .= "    FOREIGN KEY (album_id) REFERENCES album(id) ON DELETE CASCADE";
+    $sql .= "    FOREIGN KEY (album_id) REFERENCES " . $table_1 . "(id) ON DELETE CASCADE";
     $sql .= ") " . $charset_collate . ";";
+
     dbDelta( $sql );
 
     add_option( 'jal_db_version', $jal_db_version );
 }
 register_activation_hook( __FILE__, 'jal_install' );
+
+// Select
+function select() {
+    global $wpdb;
+    return $wpdb->get_results("SELECT * FROM {$wpdb->prefix}albums");
+}
+
+// Insert
+function insert() {
+    $welcome_name = 'Pamela Robin';
+    $table_name = $wpdb->prefix . 'robin_albums';
+    $wpdb->insert(
+        $table_name,
+        array(
+            'name' => $welcome_name,
+        )
+    );
+}
 
 /**
  * Loading custom template
