@@ -258,9 +258,37 @@ function albums_render_settings_page() {
     echo panelClose();
 }
 
+// Album form
+function album_form() {
+    $id = 'cover';
+    $name = 'cover';
+    $value = esc_attr( get_option(  $id . '_option', '' ) );
+    $class = 'form-control';
+    $placeholder = '';
+    echo '<form action="options.php" method="post">';
+    settings_fields( 'albums_settings_group' );
+    echo '<div class="albums-col col-sm-12">';
+    echo '    <label for="name" class="form-label">Cover</label>';
+    echo '    <input type="text" id="' . $id . '" name="' . $name . '_option" value="' . $value .  '" class="'. $class . '" placeholder="' . $placeholder . '" />';
+    echo "</div>";
+
+    $id = 'name';
+    $name = 'name';
+    echo '<div class="albums-col col-sm-12">';
+    echo '    <label for="name" class="form-label">Name</label>';
+    echo '    <input type="text" id="' . $id . '" name="' . $name . '_option" value="' . $value .  '" class="'. $class . '" placeholder="' . $placeholder . '" />';
+    echo "</div>";
+    echo '    <div class="albums-col albums-submit">';
+
+    submit_button( 'Save Changes', 'primary', 'submit', false, '');
+    echo '    </div>';
+    echo '</form>';
+}
+
 // Add a new album
 function add_new_album_html() {
     echo panelOpen( 'Add a new album' );
+    album_form();
     echo panelClose();
 }
 
