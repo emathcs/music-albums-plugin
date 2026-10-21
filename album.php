@@ -150,11 +150,11 @@ function albums_callback( $args = array() ) {
     $id = 'albums';
     $name = 'albums';
     $value = esc_attr( get_option(  $id . '_option', '' ) );
-    $class = 'albums-form-control';
+    $class = 'form-control';
     $placeholder = '';
     // Generating the inputs
-    echo '<div class="albums-col albums-col-sm-12">';
-    echo '    <label for="name" class="albums-form-label">Name</label>';
+    echo '<div class="albums-col col-sm-12">';
+    echo '    <label for="name" class="form-label">Name</label>';
     echo '    <input type="text" id="' . $id . '" name="' . $name . '_option" value="' . $value .  '" class="'. $class . '" placeholder="' . $placeholder . '" />';
     echo "</div>";
 
@@ -166,16 +166,37 @@ function albums_callback( $args = array() ) {
 
 // Local form function
 function albums_form($type = null) {
-    echo '<form action="options.php" method="post" class="albums-form albums-row">';
+    echo '<form action="options.php" method="post" class="form row">';
     // Output nonce, action, and option group hidden fields for security
     settings_fields( 'albums_settings_group' );
     // Output all sections registered to this page
     albums_do_settings_sections( 'albums-settings' );
     // Output standard submission button
-    echo '    <div class="albums-col albums-col-3 albums-submit">';
+    echo '    <div class="albums-col albums-submit">';
     submit_button( 'Save Changes', 'primary', 'submit', false, '');
     echo '    </div>';
     echo '</form>';
+}
+
+// Open the panel
+function panelOpen($title = '') {
+    $render  = '<div class="albums-wrap">';
+    $render .= '    <div class="container albums-panel">';
+    $render .= '        <div class="row">';
+    $render .= '            <div class="col-xs">';
+    $render .= '                <h1>' . esc_html( $title ) . '</h1>';
+    $render .= '            </div>';
+    $render .= '            <div class="col-xs">';
+    return $render;
+}
+
+// Close the panel
+function panelClose() {
+    $render  = '            </div>';
+    $render .= '        </div>';
+    $render .= '    </div>';
+    $render .= '</div>';
+    return $render;
 }
 
 // Albums admin page
@@ -184,18 +205,9 @@ function albums_render_settings_page() {
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
     }
-    echo '<div class="albums-wrap">';
-    echo '    <div class="albums-container albums-panel">';
-    echo '        <div class="albums-row">';
-    echo '            <div class="albums-col-xs">';
-    echo '                <h1>' . esc_html( get_admin_page_title() ) . '</h1>';
-    echo '            </div>';
-    echo '            <div class="albums-col-xs">';
+    echo panelOpen( get_admin_page_title() );
     albums_form();
-    echo '            </div>';
-    echo '        </div>';
-    echo '    </div>';
-    echo '</div>';
+    echo panelClose();
 }
 
 /**
@@ -208,6 +220,6 @@ function albums_admin_enqueue_scripts( $hook ) {
     }
     // Loading the assets
     wp_enqueue_style( 'albums_admin_css', plugins_url('/assets/css/admin.css', __FILE__), array(), AP_VERSION );
-    wp_enqueue_style( 'albums_bootstrap_grid_css', plugins_url('/assets/css/bootstrap-grid.css', __FILE__), array(), AP_VERSION );
+    wp_enqueue_style( 'albums_bootstrap_css', plugins_url('/assets/css/bootstrap.css', __FILE__), array(), AP_VERSION );
 }
 add_action('admin_enqueue_scripts', 'albums_admin_enqueue_scripts');

@@ -1,5 +1,5 @@
 .albums-wrap {
-    padding-right: 50px;
+    padding-right: 20px;
 }
 
 .albums-panel {
@@ -7,18 +7,7 @@
     box-shadow: rgba(3, 27, 78, 0.25) 0px 0px 20px;
 }
 
-.albums-form-control {
-    width: 100% !important;
-}
-
 .albums-submit .button {
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-.albums-form-label {
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--bs-body-color);
 }
