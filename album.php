@@ -103,6 +103,16 @@ function albums_admin_menu() {
         'dashicons-format-gallery',    // Left menu icon
         '81'                           // The left menu link appears after the Settings link
     );
+
+    // Add
+    add_submenu_page(
+        'albums-settings',     // Parent menu slug
+        'Add a new album',     // Page title
+        'Add',                 // Menu title
+        'manage_options',      // Capability
+        'albums-settings-add', // Menu slug
+        'add_new_album_html'   // Callback function
+    );
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
 
@@ -213,6 +223,8 @@ function albums_render_settings_page() {
     $total = count( $records );
 
     echo panelOpen( get_admin_page_title() );
+    echo '<a class="btn btn-sm btn-primary">Add a new album</a>';
+
     echo '<table class="table table-sm table-striped table-hover table-bordered">';
     echo '<thead>';
     echo '<tr>';
@@ -236,12 +248,19 @@ function albums_render_settings_page() {
     echo panelClose();
 }
 
+// Add a new album
+function add_new_album_html() {
+    echo panelOpen( get_admin_page_title() );
+    albums_form();
+    echo panelClose();
+}
+
 /**
  * Enqueue admin scripts and styles
  */
 function albums_admin_enqueue_scripts( $hook ) {
     // Load scripts only on your specific plugin settings page
-    if ($hook !== 'toplevel_page_albums-settings') {
+    if ( ! ($hook === 'toplevel_page_albums-settings' || $hook === 'albums_page_albums-settings-add') ) {
         return;
     }
     // Loading the assets
