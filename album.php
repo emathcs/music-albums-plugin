@@ -106,12 +106,22 @@ function albums_admin_menu() {
 
     // Add
     add_submenu_page(
-        'albums-settings',     // Parent menu slug
+        '',                    // Parent menu slug
         'Add a new album',     // Page title
-        'Add',                 // Menu title
+        '',                    // Menu title
         'manage_options',      // Capability
         'albums-settings-add', // Menu slug
         'add_new_album_html'   // Callback function
+    );
+
+    // Add
+    add_submenu_page(
+        '',                     // Parent menu slug
+        'Edit album',           // Page title
+        '',                     // Menu title
+        'manage_options',       // Capability
+        'albums-settings-edit', // Menu slug
+        'edit_album_html'       // Callback function
     );
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
@@ -223,7 +233,7 @@ function albums_render_settings_page() {
     $total = count( $records );
 
     echo panelOpen( get_admin_page_title() );
-    echo '<a class="btn btn-sm btn-primary">Add a new album</a>';
+    echo '<a href="?page=albums-settings-add" class="btn btn-sm btn-primary">Add a new album</a>';
 
     echo '<table class="table table-sm table-striped table-hover table-bordered">';
     echo '<thead>';
@@ -239,7 +249,7 @@ function albums_render_settings_page() {
         echo '<th scope="row">' . ($i + 1) . '</th>';
         echo '<td>' . $records[$i]->name . '</td>';
         echo '<td class="col-action"><button class="btn btn-sm btn-secondary">View</button></td>';
-        echo '<td class="col-action"><button class="btn btn-sm btn-warning">Edit</button>';
+        echo '<td class="col-action"><a href="?page=albums-settings-edit&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
         echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
         echo '</tr>';
     }
@@ -250,8 +260,13 @@ function albums_render_settings_page() {
 
 // Add a new album
 function add_new_album_html() {
-    echo panelOpen( get_admin_page_title() );
-    albums_form();
+    echo panelOpen( 'Add a new album' );
+    echo panelClose();
+}
+
+// Edit album
+function edit_album_html() {
+    echo panelOpen( 'Edit album' );
     echo panelClose();
 }
 
@@ -260,7 +275,7 @@ function add_new_album_html() {
  */
 function albums_admin_enqueue_scripts( $hook ) {
     // Load scripts only on your specific plugin settings page
-    if ( ! ($hook === 'toplevel_page_albums-settings' || $hook === 'albums_page_albums-settings-add') ) {
+    if ( ! ($hook === 'toplevel_page_albums-settings' || $hook === 'admin_page_albums-settings-add' || $hook === 'admin_page_albums-settings-edit' ) ) {
         return;
     }
     // Loading the assets
