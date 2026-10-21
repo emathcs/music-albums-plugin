@@ -65,9 +65,12 @@ function jal_install() {
 register_activation_hook( __FILE__, 'jal_install' );
 
 // Select
-function select() {
+function select($table = null) {
+    if ( !$table ) {
+        return [];
+    }
     global $wpdb;
-    return $wpdb->get_results("SELECT * FROM {$wpdb->prefix}albums");
+    return $wpdb->get_results("SELECT * FROM {$table}");
 }
 
 // Insert
@@ -205,8 +208,31 @@ function albums_render_settings_page() {
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
     }
+    global $wpdb;
+    $records = select( $wpdb->prefix . 'robin_albums' );
+    $total = count( $records );
+
     echo panelOpen( get_admin_page_title() );
-    albums_form();
+    echo '<table class="table table-sm table-striped table-hover table-bordered">';
+    echo '<thead>';
+    echo '<tr>';
+    echo '<th scope="col">No.</th>';
+    echo '<th scope="col">Name</th>';
+    echo '<th scope="col" colspan="3" class="col-actions">Actions</th>';
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
+    for ($i = 0; $i < $total; $i++) {
+        echo '<tr>';
+        echo '<th scope="row">' . ($i + 1) . '</th>';
+        echo '<td>' . $records[$i]->name . '</td>';
+        echo '<td class="col-action"><button class="btn btn-sm btn-secondary">View</button></td>';
+        echo '<td class="col-action"><button class="btn btn-sm btn-warning">Edit</button>';
+        echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
+        echo '</tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
     echo panelClose();
 }
 

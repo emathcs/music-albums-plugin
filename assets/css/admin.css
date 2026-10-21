@@ -11,3 +11,11 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.col-actions {
+    text-align: center;
+}
+
+.col-action {
+    width: 20px;
+}
