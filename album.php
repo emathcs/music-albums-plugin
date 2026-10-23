@@ -110,8 +110,8 @@ function albums_admin_menu() {
         'Add a new album',     // Page title
         '',                    // Menu title
         'manage_options',      // Capability
-        'albums-settings-add', // Menu slug
-        'add_new_album_html'   // Callback function
+        'albums-add-settings', // Menu slug
+        'albums_add_html'   // Callback function
     );
 
     // Add
@@ -233,7 +233,7 @@ function albums_render_settings_page() {
     $total = count( $records );
 
     echo panelOpen( get_admin_page_title() );
-    echo '<a href="?page=albums-settings-add" class="btn btn-sm btn-primary">Add a new album</a>';
+    echo '<a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
 
     echo '<table class="table table-sm table-striped table-hover table-bordered">';
     echo '<thead>';
@@ -286,7 +286,7 @@ function album_form() {
 }
 
 // Add a new album
-function add_new_album_html() {
+function albums_add_html() {
     echo panelOpen( 'Add a new album' );
     album_form();
     echo panelClose();
@@ -303,8 +303,8 @@ function edit_album_html() {
  */
 function albums_admin_enqueue_scripts( $hook ) {
     $sections = [
-        'toplevel_page_albums-settings'  => true,
-        'admin_page_albums-settings-add'  => true,
+        'toplevel_page_albums-settings'   => true,
+        'admin_page_albums-add-settings'  => true,
         'admin_page_albums-settings-edit' => true,
     ];
     // Load scripts only on your specific plugin settings page
