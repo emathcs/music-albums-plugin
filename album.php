@@ -249,7 +249,7 @@ function albums_render_settings_page() {
         echo '<th scope="row">' . ($i + 1) . '</th>';
         echo '<td>' . $records[$i]->name . '</td>';
         echo '<td class="col-action"><button class="btn btn-sm btn-secondary">View</button></td>';
-        echo '<td class="col-action"><a href="?page=albums-settings-edit&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
+        echo '<td class="col-action"><a href="?page=albums-settings-edit&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
         echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
         echo '</tr>';
     }
