@@ -114,14 +114,14 @@ function albums_admin_menu() {
         'albums_add_html'   // Callback function
     );
 
-    // Add
+    // Edit
     add_submenu_page(
         '',                     // Parent menu slug
         'Edit album',           // Page title
         '',                     // Menu title
         'manage_options',       // Capability
-        'albums-settings-edit', // Menu slug
-        'edit_album_html'       // Callback function
+        'albums-edit-settings', // Menu slug
+        'albums_edit_html'       // Callback function
     );
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
@@ -249,7 +249,7 @@ function albums_render_settings_page() {
         echo '<th scope="row">' . ($i + 1) . '</th>';
         echo '<td>' . $records[$i]->name . '</td>';
         echo '<td class="col-action"><button class="btn btn-sm btn-secondary">View</button></td>';
-        echo '<td class="col-action"><a href="?page=albums-settings-edit&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
+        echo '<td class="col-action"><a href="?page=albums-edit-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
         echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
         echo '</tr>';
     }
@@ -293,7 +293,7 @@ function albums_add_html() {
 }
 
 // Edit album
-function edit_album_html() {
+function albums_edit_html() {
     echo panelOpen( 'Edit album' );
     echo panelClose();
 }
@@ -305,7 +305,7 @@ function albums_admin_enqueue_scripts( $hook ) {
     $sections = [
         'toplevel_page_albums-settings'   => true,
         'admin_page_albums-add-settings'  => true,
-        'admin_page_albums-settings-edit' => true,
+        'admin_page_albums-edit-settings' => true,
     ];
     // Load scripts only on your specific plugin settings page
     if ( ! ( isset( $sections[$hook] ) && $sections[$hook] ) ) {
