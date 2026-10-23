@@ -111,7 +111,7 @@ function albums_admin_menu() {
         '',                    // Menu title
         'manage_options',      // Capability
         'albums-add-settings', // Menu slug
-        'albums_add_html'   // Callback function
+        'albums_add_html'      // Callback function
     );
 
     // Edit
@@ -121,7 +121,17 @@ function albums_admin_menu() {
         '',                     // Menu title
         'manage_options',       // Capability
         'albums-edit-settings', // Menu slug
-        'albums_edit_html'       // Callback function
+        'albums_edit_html'      // Callback function
+    );
+
+    // View
+    add_submenu_page(
+        '',                     // Parent menu slug
+        'View album',           // Page title
+        '',                     // Menu title
+        'manage_options',       // Capability
+        'albums-view-settings', // Menu slug
+        'albums_view_html'      // Callback function
     );
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
@@ -248,7 +258,7 @@ function albums_render_settings_page() {
         echo '<tr>';
         echo '<th scope="row">' . ($i + 1) . '</th>';
         echo '<td>' . $records[$i]->name . '</td>';
-        echo '<td class="col-action"><button class="btn btn-sm btn-secondary">View</button></td>';
+        echo '<td class="col-action"><a href="?page=albums-view-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
         echo '<td class="col-action"><a href="?page=albums-edit-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
         echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
         echo '</tr>';
@@ -298,6 +308,44 @@ function albums_edit_html() {
     echo panelClose();
 }
 
+// View album
+function albums_view_html() {
+    $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
+    if ( ! $album_id ) {
+        return;
+    }
+
+    global $wpdb;
+    $records = select( $wpdb->prefix . 'robin_songs where album_id=' . $album_id );
+    $total = count( $records );
+
+    echo panelOpen( 'View album' );
+    if ($total) {
+        echo '<br>';
+        echo '<table class="table table-sm table-striped table-hover table-bordered">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th scope="col">No.</th>';
+        echo '<th scope="col">Name</th>';
+        echo '<th scope="col" colspan="3" class="col-actions">Actions</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+        for ($i = 0; $i < $total; $i++) {
+            echo '<tr>';
+            echo '<th scope="row">' . ($i + 1) . '</th>';
+            echo '<td>' . $records[$i]->name . '</td>';
+            echo '<td class="col-action"><button class="btn btn-sm btn-secondary">View</button></td>';
+            echo '<td class="col-action"><a href="?page=albums-settings-edit&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
+            echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+    }
+    echo panelClose();
+}
+
 /**
  * Enqueue admin scripts and styles
  */
@@ -306,6 +354,7 @@ function albums_admin_enqueue_scripts( $hook ) {
         'toplevel_page_albums-settings'   => true,
         'admin_page_albums-add-settings'  => true,
         'admin_page_albums-edit-settings' => true,
+        'admin_page_albums-view-settings' => true,
     ];
     // Load scripts only on your specific plugin settings page
     if ( ! ( isset( $sections[$hook] ) && $sections[$hook] ) ) {
