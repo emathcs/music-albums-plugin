@@ -302,8 +302,13 @@ function edit_album_html() {
  * Enqueue admin scripts and styles
  */
 function albums_admin_enqueue_scripts( $hook ) {
+    $sections = [
+        'toplevel_page_albums-settings'  => true,
+        'admin_page_albums-settings-add'  => true,
+        'admin_page_albums-settings-edit' => true,
+    ];
     // Load scripts only on your specific plugin settings page
-    if ( ! ($hook === 'toplevel_page_albums-settings' || $hook === 'admin_page_albums-settings-add' || $hook === 'admin_page_albums-settings-edit' ) ) {
+    if ( ! ( isset( $sections[$hook] ) && $sections[$hook] ) ) {
         return;
     }
     // Loading the assets
