@@ -121,8 +121,54 @@ function albums_form($type = null) {
     echo '</form>';
 }
 
+// Open the panel
+function panelOpen($title = '') {
+    $render  = '<div class="albums-wrap">';
+    $render .= '    <div class="container albums-panel">';
+    $render .= '        <div class="row">';
+    $render .= '            <div class="col-xs">';
+    $render .= '                <h1>' . esc_html( $title ) . '</h1>';
+    $render .= '            </div>';
+    $render .= '            <div class="col-xs">';
+    return $render;
+}
+
+// Close the panel
+function panelClose() {
+    $render  = '            </div>';
+    $render .= '        </div>';
+    $render .= '    </div>';
+    $render .= '</div>';
+    return $render;
+}
+
 // Albums admin page
 function albums_render_settings_page() {
+    $i = 1;
+    echo panelOpen( get_admin_page_title() );
+    echo '<table class="table table-sm table-striped table-hover table-bordered">';
+    echo '<thead>';
+    echo '<tr>';
+    echo '<th scope="col">No.</th>';
+    echo '<th scope="col">Name</th>';
+    echo '<th scope="col" colspan="3" class="col-actions">Actions</th>';
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
+    echo '<tr>';
+    echo '<th scope="row">' . $i . '</th>';
+    echo '<td>Album name</td>';
+    echo '<td class="col-action"><a href="?page=albums-view-settings&album=' . $i . '" class="btn btn-sm btn-secondary">View</a></td>';
+    echo '<td class="col-action"><a href="?page=albums-edit-settings&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
+    echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
+    echo '</tr>';
+    echo '</tbody>';
+    echo '</table>';
+    echo panelClose();
+}
+
+// Albums admin page
+function albums_render_settings_page_previous() {
     // Verify if the user has permission to view this page
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
@@ -139,6 +185,8 @@ function albums_render_settings_page() {
     echo '        </div>';
     echo '    </div>';
     echo '</div>';
+    echo panelOpen( get_admin_page_title() );
+    echo '<a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
 }
 
 /**
@@ -150,7 +198,7 @@ function albums_admin_enqueue_scripts( $hook ) {
         return;
     }
     // Loading the assets
+    wp_enqueue_style( 'albums_bootstrap_min_css', plugins_url('/assets/css/bootstrap.css', __FILE__), array(), AP_VERSION );
     wp_enqueue_style( 'albums_admin_css', plugins_url('/assets/css/admin.css', __FILE__), array(), AP_VERSION );
-    wp_enqueue_style( 'albums_bootstrap_grid_css', plugins_url('/assets/css/bootstrap-grid.css', __FILE__), array(), AP_VERSION );
 }
 add_action('admin_enqueue_scripts', 'albums_admin_enqueue_scripts');
