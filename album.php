@@ -158,8 +158,8 @@ function albums_render_settings_page() {
     echo '<tr>';
     echo '<th scope="row">' . $i . '</th>';
     echo '<td>Album name</td>';
-    echo '<td class="col-action"><a href="?page=albums-view-settings&album=' . $i . '" class="btn btn-sm btn-secondary">View</a></td>';
-    echo '<td class="col-action"><a href="?page=albums-edit-settings&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
+    echo '<td class="col-action"><a href="?page=albums-settings&album=' . $i . '" class="btn btn-sm btn-secondary">View</a></td>';
+    echo '<td class="col-action"><a href="?page=albums-settings&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
     echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
     echo '</tr>';
     echo '</tbody>';
