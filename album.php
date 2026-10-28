@@ -43,6 +43,17 @@ function albums_admin_menu() {
         'dashicons-format-gallery',    // Left menu icon
         '81'                           // The left menu link appears after the Settings link
     );
+
+    // Add
+    add_submenu_page(
+        '',                    // Parent menu slug
+        'Add a new album',     // Page title
+        '',                    // Menu title
+        'manage_options',      // Capability
+        'albums-add-settings', // Menu slug
+        'albums_add_html'      // Callback function
+    );
+
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
 
@@ -127,6 +138,27 @@ function albums_form($type = null) {
     echo '</form>';
 }
 
+// Album form
+function album_form() {
+    $form  = new Form();
+    $input = new Input('mb-3');
+    $input->setLabelClass('form-label');
+
+    echo $form->init(['action' => "", 'method' => 'post']);
+    // Security field: Nonce to prevent CSRF attacks
+    wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+    // Cover
+    $input->setLabel('Cover');
+    echo $input->create(['type' => 'text', 'id' => 'cover', 'name' => 'cover', 'class' => 'form-control']);
+    // Name
+    $input->setLabel('Name');
+    echo $input->create(['type' => 'text', 'id' => 'name', 'name' => 'name', 'class' => 'form-control']);
+    // Submit
+    echo $input->setLabel('');
+    echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
+    echo $form->end();
+}
+
 // Open the panel
 function panelOpen($title = '') {
     $render  = '<div class="albums-wrap">';
@@ -152,6 +184,8 @@ function panelClose() {
 function albums_render_settings_page() {
     $i = 1;
     echo panelOpen( get_admin_page_title() );
+    echo '<a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
+
     echo '<table class="table table-sm table-striped table-hover table-bordered">';
     echo '<thead>';
     echo '<tr>';
@@ -195,12 +229,19 @@ function albums_render_settings_page_previous() {
     echo '<a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
 }
 
+// Add a new album
+function albums_add_html() {
+    echo panelOpen( 'Add a new album' );
+    album_form();
+    echo panelClose();
+}
+
 /**
  * Enqueue admin scripts and styles
  */
 function albums_admin_enqueue_scripts( $hook ) {
     // Load scripts only on your specific plugin settings page
-    if ($hook !== 'toplevel_page_albums-settings') {
+    if ($hook !== 'toplevel_page_albums-settings' && $hook !== 'admin_page_albums-add-settings') {
         return;
     }
     // Loading the assets
