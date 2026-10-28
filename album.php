@@ -87,6 +87,12 @@ function albums_admin_init() {
 add_action( 'admin_init', 'albums_admin_init' );
 
 /**
+ * Loading HTML elements library
+ */
+require_once plugin_dir_path( __FILE__ ) . 'html-elements/Form.php';
+require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
+
+/**
  * Callback function to render the fields
  */
 function albums_callback( $args = array() ) {
