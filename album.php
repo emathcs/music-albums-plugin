@@ -198,7 +198,7 @@ function albums_admin_enqueue_scripts( $hook ) {
         return;
     }
     // Loading the assets
-    wp_enqueue_style( 'albums_bootstrap_min_css', plugins_url('/assets/css/bootstrap.css', __FILE__), array(), AP_VERSION );
+    wp_enqueue_style( 'albums_bootstrap_min_css', plugins_url('/assets/css/bootstrap.min.css', __FILE__), array(), AP_VERSION );
     wp_enqueue_style( 'albums_admin_css', plugins_url('/assets/css/admin.css', __FILE__), array(), AP_VERSION );
 }
 add_action('admin_enqueue_scripts', 'albums_admin_enqueue_scripts');
