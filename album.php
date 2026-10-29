@@ -231,28 +231,6 @@ function albums_render_settings_page() {
     echo panelClose();
 }
 
-// Albums admin page
-function albums_render_settings_page_previous() {
-    // Verify if the user has permission to view this page
-    if ( ! current_user_can( 'manage_options' ) ) {
-        return;
-    }
-    echo '<div class="albums-wrap">';
-    echo '    <div class="albums-container albums-panel">';
-    echo '        <div class="albums-row">';
-    echo '            <div class="albums-col-xs">';
-    echo '                <h1>' . esc_html( get_admin_page_title() ) . '</h1>';
-    echo '            </div>';
-    echo '            <div class="albums-col-xs">';
-    albums_form();
-    echo '            </div>';
-    echo '        </div>';
-    echo '    </div>';
-    echo '</div>';
-    echo panelOpen( get_admin_page_title() );
-    echo '<a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
-}
-
 // Add a new album
 function albums_add_html() {
     echo panelOpen( 'Add a new album' );
