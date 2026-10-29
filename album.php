@@ -63,6 +63,16 @@ function albums_admin_menu() {
         'albums-view-settings', // Menu slug
         'albums_view_html'      // Callback function
     );
+
+    // Edit
+    add_submenu_page(
+        '',                     // Parent menu slug
+        'Edit album',           // Page title
+        '',                     // Menu title
+        'manage_options',       // Capability
+        'albums-edit-settings', // Menu slug
+        'albums_edit_html'      // Callback function
+    );
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
 
@@ -208,7 +218,7 @@ function albums_render_settings_page() {
     echo '<th scope="row">' . $i . '</th>';
     echo '<td>Album name</td>';
     echo '<td class="col-action"><a href="?page=albums-view-settings&album=' . $i . '" class="btn btn-sm btn-secondary">View</a></td>';
-    echo '<td class="col-action"><a href="?page=albums-settings&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
+    echo '<td class="col-action"><a href="?page=albums-edit-settings&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
     echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
     echo '</tr>';
     echo '</tbody>';
@@ -282,12 +292,25 @@ function albums_view_html() {
     echo panelClose();
 }
 
+// Edit album
+function albums_edit_html() {
+    echo panelOpen( 'Edit album' );
+    album_form();
+    echo panelClose();
+}
+
 /**
  * Enqueue admin scripts and styles
  */
 function albums_admin_enqueue_scripts( $hook ) {
+    $sections = [
+        'toplevel_page_albums-settings'   => true,
+        'admin_page_albums-add-settings'  => true,
+        'admin_page_albums-edit-settings' => true,
+        'admin_page_albums-view-settings' => true,
+    ];
     // Load scripts only on your specific plugin settings page
-    if ($hook !== 'toplevel_page_albums-settings' && $hook !== 'admin_page_albums-add-settings' && $hook !== 'admin_page_albums-view-settings') {
+    if ( ! ( isset( $sections[$hook] ) && $sections[$hook] ) ) {
         return;
     }
     // Loading the assets
