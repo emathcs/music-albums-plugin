@@ -123,6 +123,11 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Form.php';
 require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
 
 /**
+ * MVC
+ */
+require_once plugin_dir_path( __FILE__ ) . 'mvc.php';
+
+/**
  * Callback function to render the fields
  */
 function albums_callback( $args = array() ) {
