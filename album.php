@@ -122,20 +122,6 @@ require_once plugin_dir_path( __FILE__ ) . 'mvc.php';
  * Rendering the fields in the admin section
  */
 
-// Local form function
-function albums_form($type = null) {
-    echo '<form action="options.php" method="post" class="albums-form albums-row">';
-    // Output nonce, action, and option group hidden fields for security
-    settings_fields( 'albums_settings_group' );
-    // Output all sections registered to this page
-    albums_do_settings_sections( 'albums-settings' );
-    // Output standard submission button
-    echo '    <div class="albums-col albums-col-3 albums-submit">';
-    submit_button( 'Save Changes', 'primary', 'submit', false, '');
-    echo '    </div>';
-    echo '</form>';
-}
-
 // Album form
 function album_form() {
     // Check if our specific form was submitted
