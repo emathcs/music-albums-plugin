@@ -266,33 +266,13 @@ function albums_view_html() {
     if ( ! $album_id ) {
         return;
     }
-
+    $mvc = new MVC();
     $total = 1;
-
     echo panelOpen( 'View album' );
     echo '<h2>Children</h2>';
     if ($total) {
         echo '<br>';
-        echo '<table class="table table-sm table-striped table-hover table-bordered">';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th scope="col">No.</th>';
-        echo '<th scope="col">Name</th>';
-        echo '<th scope="col" colspan="3" class="col-actions">Actions</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo '<tbody>';
-        for ($i = 0; $i < $total; $i++) {
-            echo '<tr>';
-            echo '<th scope="row">' . ($i + 1) . '</th>';
-            echo '<td>' . $i . '</td>';
-            echo '<td class="col-action"><button class="btn btn-sm btn-secondary">View</button></td>';
-            echo '<td class="col-action"><button class="btn btn-sm btn-warning">Edit</a></td>';
-            echo '<td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
-            echo '</tr>';
-        }
-        echo '</tbody>';
-        echo '</table>';
+        $mvc->table();
     }
     echo panelClose();
 }
