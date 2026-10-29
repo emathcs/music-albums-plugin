@@ -104,15 +104,6 @@ function albums_admin_init() {
         'albums_option',         // Actual option key name
         albums_local_args()
     );
-    // Album image input field
-    add_settings_field(
-        'album',               // Field ID
-        'Album',               // Field label on the left side
-        'albums_callback',     // Callback function to output the input element
-        'albums-settings',     // Page slug
-        'albums_main_section', // Section ID
-        array()
-    );
 }
 add_action( 'admin_init', 'albums_admin_init' );
 
@@ -126,23 +117,6 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
  * MVC
  */
 require_once plugin_dir_path( __FILE__ ) . 'mvc.php';
-
-/**
- * Callback function to render the fields
- */
-function albums_callback( $args = array() ) {
-    $id = 'albums';
-    $name = 'albums';
-    $value = esc_attr( get_option(  $id . '_option', '' ) );
-    $class = 'albums-form-control';
-    $placeholder = '';
-    // Generating the inputs
-    echo '<div class="albums-col albums-col-sm-12">';
-    echo '    <label for="name" class="albums-form-label">Name</label>';
-    echo '    <input type="text" id="' . $id . '" name="' . $name . '_option" value="' . $value .  '" class="'. $class . '" placeholder="' . $placeholder . '" />';
-    echo "</div>";
-
-}
 
 /**
  * Rendering the fields in the admin section
