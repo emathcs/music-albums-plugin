@@ -117,6 +117,7 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
  * MVC
  */
 require_once plugin_dir_path( __FILE__ ) . 'mvc.php';
+require_once plugin_dir_path( __FILE__ ) . 'mvc/view.php';
 
 /**
  * Rendering the fields in the admin section
@@ -162,40 +163,21 @@ function album_form() {
     echo $form->end();
 }
 
-// Open the panel
-function panelOpen($title = '') {
-    $render  = '<div class="albums-wrap">';
-    $render .= '    <div class="container albums-panel">';
-    $render .= '        <div class="row">';
-    $render .= '            <div class="col-xs">';
-    $render .= '                <h1>' . esc_html( $title ) . '</h1>';
-    $render .= '            </div>';
-    $render .= '            <div class="col-xs">';
-    return $render;
-}
-
-// Close the panel
-function panelClose() {
-    $render  = '            </div>';
-    $render .= '        </div>';
-    $render .= '    </div>';
-    $render .= '</div>';
-    return $render;
-}
-
 // Albums admin page
 function albums_render_settings_page() {
     $mvc = new MVC();
-    echo panelOpen( get_admin_page_title() );
+    $view = new View();
+    echo $view->panelOpen( get_admin_page_title() );
     $mvc->table();
-    echo panelClose();
+    echo $view->panelClose();
 }
 
 // Add a new album
 function albums_add_html() {
-    echo panelOpen( 'Add a new album' );
+    $view = new View();
+    echo $view->panelOpen( 'Add a new album' );
     album_form();
-    echo panelClose();
+    echo $view->panelClose();
 }
 
 // View album
@@ -204,22 +186,24 @@ function albums_view_html() {
     if ( ! $album_id ) {
         return;
     }
-    $mvc = new MVC();
     $total = 1;
-    echo panelOpen( 'View album' );
+    $mvc = new MVC();
+    $view = new View();
+    echo $view->panelOpen( 'View album' );
     echo '<h2>Children</h2>';
     if ($total) {
         echo '<br>';
         $mvc->table();
     }
-    echo panelClose();
+    echo $view->panelClose();
 }
 
 // Edit album
 function albums_edit_html() {
-    echo panelOpen( 'Edit album' );
+    $view = new View();
+    echo $view->panelOpen( 'Edit album' );
     album_form();
-    echo panelClose();
+    echo $view->panelClose();
 }
 
 /**
