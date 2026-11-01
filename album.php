@@ -117,7 +117,7 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
  * MVC
  */
 require_once plugin_dir_path( __FILE__ ) . 'mvc/Controller/AlbumController.php';
-require_once plugin_dir_path( __FILE__ ) . 'mvc/Album.php';
+require_once plugin_dir_path( __FILE__ ) . 'mvc/View/Album.php';
 
 /**
  * Rendering the fields in the admin section
