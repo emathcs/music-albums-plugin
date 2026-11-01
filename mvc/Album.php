@@ -1,6 +1,6 @@
 <?php
 
-class View {
+class Album {
     /**
      * Open panel
      */

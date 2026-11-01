@@ -117,7 +117,7 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
  * MVC
  */
 require_once plugin_dir_path( __FILE__ ) . 'mvc.php';
-require_once plugin_dir_path( __FILE__ ) . 'mvc/view.php';
+require_once plugin_dir_path( __FILE__ ) . 'mvc/Album.php';
 
 /**
  * Rendering the fields in the admin section
@@ -165,7 +165,7 @@ function album_form() {
 
 // Albums admin page
 function albums_render_settings_page() {
-    $view = new View();
+    $view = new Album();
     echo $view->panelOpen( get_admin_page_title() );
     $view->list();
     echo $view->panelClose();
@@ -173,7 +173,7 @@ function albums_render_settings_page() {
 
 // Add a new album
 function albums_add_html() {
-    $view = new View();
+    $view = new Album();
     echo $view->panelOpen( 'Add a new album' );
     album_form();
     echo $view->panelClose();
@@ -187,7 +187,7 @@ function albums_view_html() {
     }
     $total = 1;
     $mvc = new MVC();
-    $view = new View();
+    $view = new Album();
     echo $view->panelOpen( 'View album' );
     echo '<h2>Children</h2>';
     if ($total) {
@@ -199,7 +199,7 @@ function albums_view_html() {
 
 // Edit album
 function albums_edit_html() {
-    $view = new View();
+    $view = new Album();
     echo $view->panelOpen( 'Edit album' );
     album_form();
     echo $view->panelClose();
