@@ -1,6 +1,6 @@
 <?php
 
-class MVC {
+class AlbumController {
     /**
      * Constructor
      */

@@ -116,7 +116,7 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
 /**
  * MVC
  */
-require_once plugin_dir_path( __FILE__ ) . 'mvc.php';
+require_once plugin_dir_path( __FILE__ ) . 'AlbumController.php';
 require_once plugin_dir_path( __FILE__ ) . 'mvc/Album.php';
 
 /**
@@ -186,7 +186,7 @@ function albums_view_html() {
         return;
     }
     $total = 1;
-    $mvc = new MVC();
+    $mvc = new AlbumController();
     $view = new Album();
     echo $view->panelOpen( 'View album' );
     echo '<h2>Children</h2>';
