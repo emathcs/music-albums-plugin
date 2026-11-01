@@ -125,26 +125,10 @@ require_once plugin_dir_path( __FILE__ ) . 'mvc/View/Album.php';
 
 // Album form
 function album_form() {
-    $album = new AlbumController();
-    $album->add();
-
-    $form  = new Form();
-    $input = new Input('mb-3');
-    $input->setLabelClass('form-label');
-
-    echo $form->init(['action' => "", 'method' => 'post']);
-    // Security field: Nonce to prevent CSRF attacks
-    wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
-    // Cover
-    $input->setLabel('Cover');
-    echo $input->create(['type' => 'text', 'id' => 'cover', 'name' => 'cover', 'class' => 'form-control']);
-    // Name
-    $input->setLabel('Name');
-    echo $input->create(['type' => 'text', 'id' => 'name', 'name' => 'name', 'class' => 'form-control']);
-    // Submit
-    echo $input->setLabel('');
-    echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
-    echo $form->end();
+    $controller = new AlbumController();
+    $view = new Album();
+    $controller->add();
+    $view->add();
 }
 
 // Albums admin page
