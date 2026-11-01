@@ -116,7 +116,7 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
 /**
  * MVC
  */
-require_once plugin_dir_path( __FILE__ ) . 'AlbumController.php';
+require_once plugin_dir_path( __FILE__ ) . 'mvc/Controller/AlbumController.php';
 require_once plugin_dir_path( __FILE__ ) . 'mvc/Album.php';
 
 /**
