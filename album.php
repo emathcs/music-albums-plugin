@@ -133,10 +133,8 @@ function album_form() {
 
 // Albums admin page
 function albums_render_settings_page() {
-    $view = new Album();
-    echo $view->panelOpen( get_admin_page_title() );
-    $view->list();
-    echo $view->panelClose();
+    $controller = new AlbumController();
+    $controller->list( get_admin_page_title() );
 }
 
 // Add a new album
