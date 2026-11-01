@@ -165,10 +165,9 @@ function album_form() {
 
 // Albums admin page
 function albums_render_settings_page() {
-    $mvc = new MVC();
     $view = new View();
     echo $view->panelOpen( get_admin_page_title() );
-    $mvc->table();
+    $view->list();
     echo $view->panelClose();
 }
 
