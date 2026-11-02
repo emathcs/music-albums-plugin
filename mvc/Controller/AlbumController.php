@@ -17,6 +17,24 @@ class AlbumController {
     private $table;
 
     /**
+     * Set database
+     *
+     * @param Object $db Database interface.
+     */
+    public function setDb($db = null) {
+        $this->db = $db;
+    }
+
+    /**
+     * Get database
+     *
+     * @return Object Database interface.
+     */
+    public function getDb() {
+        return $this->db;
+    }
+
+    /**
      * Set table
      *
      * @param string $table Table name.
@@ -35,11 +53,20 @@ class AlbumController {
     }
 
     /**
+     * Is a valid database
+     *
+     * @return Object Database interface.
+     */
+    public function isValidDb() {
+        return $this->db != null;
+    }
+
+    /**
      * Constructor
      */
     public function __construct($wpdb = null) {
-        $this->db = $wpdb;
-        if ($thi->db) {
+        $this->setDb($wpdb);
+        if ($this->isValidDb()) {
             $this->setTable($this->db->prefix . 'albums');
         }
         $this->View = new Album();
