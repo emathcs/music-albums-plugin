@@ -123,14 +123,6 @@ require_once plugin_dir_path( __FILE__ ) . 'mvc/View/Album.php';
  * Rendering the fields in the admin section
  */
 
-// Album form
-function album_form() {
-    $controller = new AlbumController();
-    $view = new Album();
-    $controller->add();
-    $view->add();
-}
-
 // Albums admin page
 function albums_render_settings_page() {
     global $wpdb;
