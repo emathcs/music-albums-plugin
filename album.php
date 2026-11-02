@@ -133,8 +133,9 @@ function album_form() {
 
 // Albums admin page
 function albums_render_settings_page() {
-    $controller = new AlbumController();
-    $controller->list( get_admin_page_title() );
+    global $wpdb;
+    $controller = new AlbumController( $wpdb );
+    $controller->list();
 }
 
 // Add a new album

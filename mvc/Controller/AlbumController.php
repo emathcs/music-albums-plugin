@@ -2,6 +2,11 @@
 
 class AlbumController {
     /**
+     * Database
+     */
+    private $db;
+
+    /**
      * View
      */
     private $View;
@@ -9,7 +14,10 @@ class AlbumController {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct($wpdb = null) {
+        if ($wpdb) {
+            $this->db = $wpdb;
+        }
         $this->View = new Album();
         return 0;
     }
@@ -18,6 +26,8 @@ class AlbumController {
      * Table
      */
     public function list($title = '') {
+        $table_name = $this->db->prefix . 'albums';
+        $records    = $this->db->get_results("SELECT * FROM {$table_name}");
         $this->View->list();
     }
 
