@@ -76,8 +76,9 @@ class AlbumController {
     /**
      * Table
      */
-    public function list($title = '') {
+    public function list() {
         $records = $this->getDb()->get_results("SELECT * FROM {$this->getTable()}");
+        // View
         $this->View->list($records);
     }
 
