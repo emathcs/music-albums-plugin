@@ -149,16 +149,8 @@ function albums_view_html() {
     if ( ! $album_id ) {
         return;
     }
-    $total = 1;
-    $mvc = new AlbumController();
-    $view = new Album();
-    echo $view->panelOpen( 'View album' );
-    echo '<h2>Children</h2>';
-    if ($total) {
-        echo '<br>';
-        $mvc->table();
-    }
-    echo $view->panelClose();
+    $controller = new AlbumController();
+    $controller->view();
 }
 
 // Edit album

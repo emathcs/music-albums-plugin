@@ -78,4 +78,12 @@ class Album {
         echo $form->end();
         echo $this->panelClose();
     }
+
+    /**
+     * View function
+     */
+    public function view() {
+        echo $this->panelOpen( 'View album' );
+        echo $this->panelClose();
+    }
 }

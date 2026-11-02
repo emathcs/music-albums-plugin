@@ -47,4 +47,12 @@ class AlbumController {
         // View
         $this->view->add();
     }
+
+    /**
+     * View function
+     */
+    public function view() {
+        // View
+        $this->view->view();
+    }
 }
