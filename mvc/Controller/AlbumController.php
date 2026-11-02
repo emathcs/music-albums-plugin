@@ -2,9 +2,15 @@
 
 class AlbumController {
     /**
+     * View
+     */
+    private $view;
+
+    /**
      * Constructor
      */
     public function __construct() {
+        $this->view = new Album();
         return 0;
     }
 
@@ -12,8 +18,7 @@ class AlbumController {
      * Table
      */
     public function list($title = '') {
-        $view = new Album();
-        $view->list($title);
+        $this->view->list($title);
     }
 
     /**
