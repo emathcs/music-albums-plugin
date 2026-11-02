@@ -18,7 +18,7 @@ class AlbumController {
      * Table
      */
     public function list($title = '') {
-        $this->View->list($title);
+        $this->View->list();
     }
 
     /**

@@ -29,8 +29,8 @@ class Album {
     /**
      * List
      */
-    public function list($title = '') {
-        echo $this->panelOpen($title);
+    public function list() {
+        echo $this->panelOpen('Albums');
         $i = 1;
         echo '<a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
         echo '<table class="table table-sm table-striped table-hover table-bordered">';
