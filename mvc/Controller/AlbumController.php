@@ -38,8 +38,8 @@ class AlbumController {
      * Constructor
      */
     public function __construct($wpdb = null) {
-        if ($wpdb) {
-            $this->db = $wpdb;
+        $this->db = $wpdb;
+        if ($thi->db) {
             $this->setTable($this->db->prefix . 'albums');
         }
         $this->View = new Album();
