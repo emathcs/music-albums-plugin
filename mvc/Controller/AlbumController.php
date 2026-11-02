@@ -4,13 +4,13 @@ class AlbumController {
     /**
      * View
      */
-    private $view;
+    private $View;
 
     /**
      * Constructor
      */
     public function __construct() {
-        $this->view = new Album();
+        $this->View = new Album();
         return 0;
     }
 
@@ -18,7 +18,7 @@ class AlbumController {
      * Table
      */
     public function list($title = '') {
-        $this->view->list($title);
+        $this->View->list($title);
     }
 
     /**
@@ -45,7 +45,7 @@ class AlbumController {
         }
 
         // View
-        $this->view->add();
+        $this->View->add();
     }
 
     /**
@@ -53,7 +53,7 @@ class AlbumController {
      */
     public function view() {
         // View
-        $this->view->view();
+        $this->View->view();
     }
 
     /**
@@ -61,6 +61,6 @@ class AlbumController {
      */
     public function edit() {
         // View
-        $this->view->edit();
+        $this->View->edit();
     }
 }
