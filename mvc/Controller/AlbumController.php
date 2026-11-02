@@ -12,11 +12,35 @@ class AlbumController {
     private $View;
 
     /**
+     * Table
+     */
+    private $table;
+
+    /**
+     * Set table
+     *
+     * @param string $table Table name.
+     */
+    public function setTable($table = '') {
+        $this->table = $table;
+    }
+
+    /**
+     * Get table
+     *
+     * @return string Table name
+     */
+    public function getTable() {
+        return $this->table;
+    }
+
+    /**
      * Constructor
      */
     public function __construct($wpdb = null) {
         if ($wpdb) {
             $this->db = $wpdb;
+            $this->setTable($this->db->prefix . 'albums');
         }
         $this->View = new Album();
         return 0;
@@ -26,8 +50,7 @@ class AlbumController {
      * Table
      */
     public function list($title = '') {
-        $table_name = $this->db->prefix . 'albums';
-        $records    = $this->db->get_results("SELECT * FROM {$table_name}");
+        $records = $this->db->get_results("SELECT * FROM {$this->getTable()}");
         $this->View->list($records);
     }
 
