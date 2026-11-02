@@ -155,10 +155,8 @@ function albums_view_html() {
 
 // Edit album
 function albums_edit_html() {
-    $view = new Album();
-    echo $view->panelOpen( 'Edit album' );
-    album_form();
-    echo $view->panelClose();
+    $controller = new AlbumController();
+    $controller->edit();
 }
 
 /**

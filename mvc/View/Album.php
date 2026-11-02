@@ -86,4 +86,29 @@ class Album {
         echo $this->panelOpen( 'View album' );
         echo $this->panelClose();
     }
+
+    /**
+     * Edit function
+     */
+    public function edit() {
+        echo $this->panelOpen('Edit album');
+        $form  = new Form();
+        $input = new Input('mb-3');
+        $input->setLabelClass('form-label');
+
+        echo $form->init(['action' => "", 'method' => 'post']);
+        // Security field: Nonce to prevent CSRF attacks
+        wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+        // Cover
+        $input->setLabel('Cover');
+        echo $input->create(['type' => 'text', 'id' => 'cover', 'name' => 'cover', 'class' => 'form-control']);
+        // Name
+        $input->setLabel('Name');
+        echo $input->create(['type' => 'text', 'id' => 'name', 'name' => 'name', 'class' => 'form-control']);
+        // Submit
+        echo $input->setLabel('');
+        echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
+        echo $form->end();
+        echo $this->panelClose();
+    }
 }

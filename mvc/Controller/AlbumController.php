@@ -55,4 +55,12 @@ class AlbumController {
         // View
         $this->view->view();
     }
+
+    /**
+     * Edit function
+     */
+    public function edit() {
+        // View
+        $this->view->edit();
+    }
 }
