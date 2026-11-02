@@ -67,7 +67,7 @@ class AlbumController {
     public function __construct($wpdb = null) {
         $this->setDb($wpdb);
         if ($this->isValidDb()) {
-            $this->setTable($this->db->prefix . 'albums');
+            $this->setTable($this->getDb()->prefix . 'albums');
         }
         $this->View = new Album();
         return 0;
@@ -77,7 +77,7 @@ class AlbumController {
      * Table
      */
     public function list($title = '') {
-        $records = $this->db->get_results("SELECT * FROM {$this->getTable()}");
+        $records = $this->getDb()->get_results("SELECT * FROM {$this->getTable()}");
         $this->View->list($records);
     }
 
