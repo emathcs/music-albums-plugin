@@ -29,9 +29,9 @@ class Album {
     /**
      * List
      */
-    public function list() {
+    public function list($records = []) {
+        $total = count($records);
         echo $this->panelOpen('Albums');
-        $i = 1;
         echo '<a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
         echo '<table class="table table-sm table-striped table-hover table-bordered">';
         echo '    <thead>';
@@ -42,13 +42,15 @@ class Album {
         echo '        </tr>';
         echo '    </thead>';
         echo '    <tbody>';
-        echo '        <tr>';
-        echo '            <th scope="row">' . $i . '</th>';
-        echo '            <td>Album name</td>';
-        echo '            <td class="col-action"><a href="?page=albums-view-settings&album=' . $i . '" class="btn btn-sm btn-secondary">View</a></td>';
-        echo '            <td class="col-action"><a href="?page=albums-edit-settings&album=' . $i . '" class="btn btn-sm btn-warning">Edit</a></td>';
-        echo '            <td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
-        echo '        </tr>';
+        for ($i = 0; $i < $total; $i++) {
+            echo '    <tr>';
+            echo '        <th scope="row">' . $i . '</th>';
+            echo '        <td>' . $records[$i]->name . '</td>';
+            echo '        <td class="col-action"><a href="?page=albums-view-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
+            echo '        <td class="col-action"><a href="?page=albums-edit-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
+            echo '        <td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
+            echo '    </tr>';
+        }
         echo '    </tbody>';
         echo '</table>';
         echo $this->panelClose();

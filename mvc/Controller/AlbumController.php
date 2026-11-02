@@ -28,7 +28,7 @@ class AlbumController {
     public function list($title = '') {
         $table_name = $this->db->prefix . 'albums';
         $records    = $this->db->get_results("SELECT * FROM {$table_name}");
-        $this->View->list();
+        $this->View->list($records);
     }
 
     /**
