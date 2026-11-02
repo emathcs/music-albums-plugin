@@ -43,5 +43,8 @@ class AlbumController {
                 echo $name;
             }
         }
+
+        // View
+        $this->view->add();
     }
 }

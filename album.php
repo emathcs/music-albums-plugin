@@ -139,10 +139,8 @@ function albums_render_settings_page() {
 
 // Add a new album
 function albums_add_html() {
-    $view = new Album();
-    echo $view->panelOpen( 'Add a new album' );
-    album_form();
-    echo $view->panelClose();
+    $controller = new AlbumController();
+    $controller->add();
 }
 
 // View album

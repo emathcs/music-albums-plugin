@@ -58,6 +58,7 @@ class Album {
      * Add
      */
     public function add() {
+        echo $this->panelOpen('Add a new album');
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
@@ -75,5 +76,6 @@ class Album {
         echo $input->setLabel('');
         echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
         echo $form->end();
+        echo $this->panelClose();
     }
 }
