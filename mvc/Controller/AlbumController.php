@@ -126,25 +126,16 @@ class AlbumController {
                 'cover' => $cover,
                 'name'  => $name
             ];
-            $where = [
-                'id' => $id
-            ];
             $format_data = [
                 '%s',
                 '%s'
             ];
-            $format_where = [
-                '%d'
-            ];
             // Database insertion
-            $updated = $this->getDb()->update(
-                $this->getTable(),
+            $id = $this->Model->updateById(
+                $id,
                 $data,
-                $where,
-                $format_data,
-                $format_where
+                $format_data
             );
-            $id = $updated ? $id : 0;
         }
         return $id;
     }
