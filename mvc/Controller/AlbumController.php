@@ -111,10 +111,13 @@ class AlbumController {
 
     /**
      * View function
+     *
+     * @param Int $id Album id.
      */
-    public function view() {
+    public function view($id = 0) {
+        $record = $this->getDb()->get_results("SELECT * FROM {$this->getTable()} WHERE id={$id}");
         // View
-        $this->View->view();
+        $this->View->view($record);
     }
 
     /**

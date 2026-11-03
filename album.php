@@ -142,8 +142,9 @@ function albums_view_html() {
     if ( ! $album_id ) {
         return;
     }
-    $controller = new AlbumController();
-    $controller->view();
+    global $wpdb;
+    $controller = new AlbumController( $wpdb );
+    $controller->view( $album_id );
 }
 
 // Edit album

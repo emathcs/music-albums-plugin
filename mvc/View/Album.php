@@ -83,9 +83,24 @@ class Album {
 
     /**
      * View function
+     *
+     * @param Array $record Album information.
      */
-    public function view() {
+    public function view($record = []) {
         echo $this->panelOpen( 'View album' );
+        echo '<table class="table table-sm table-striped table-hover table-bordered">';
+        echo '    <tbody>';
+        echo '        <tr>';
+        echo '            <td>Cover</td>';
+        echo '            <td>' . $record[0]->cover . '</td>';
+        echo '        </tr>';
+        echo '        <tr>';
+        echo '            <td>Name</td>';
+        echo '            <td>' . $record[0]->name . '</td>';
+        echo '        </tr>';
+        echo '    </tbody>';
+        echo '</table>';
+        echo '<a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
         echo $this->panelClose();
     }
 
