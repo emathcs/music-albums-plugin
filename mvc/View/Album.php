@@ -148,7 +148,10 @@ class Album {
      *
      * @param Array $record Album information.
      */
-    public function edit($record = []) {
+    public function edit($record = null) {
+        if (!$record) {
+            return;
+        }
         echo $this->panelOpen('Edit album');
         $form  = new Form();
         $input = new Input('mb-3');
@@ -163,7 +166,7 @@ class Album {
             'id'    => 'id',
             'name'  => 'id',
             'class' => 'form-control',
-            'value' => $record[0]->id
+            'value' => $record->id
         ]);
         // Cover
         $input->setLabel('Cover');
@@ -172,7 +175,7 @@ class Album {
             'id'    => 'cover',
             'name'  => 'cover',
             'class' => 'form-control',
-            'value' => $record[0]->cover
+            'value' => $record->cover
         ]);
         // Name
         $input->setLabel('Name');
@@ -181,7 +184,7 @@ class Album {
             'id'    => 'name',
             'name'  => 'name',
             'class' => 'form-control',
-            'value' => $record[0]->name
+            'value' => $record->name
         ]);
         // Submit
         echo $input->setLabel('');
