@@ -55,7 +55,9 @@ class Album {
     public function list($records = []) {
         $total = count($records);
         echo $this->panelOpen('Albums');
-        echo '<a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
+        echo '<div class="mb-3">';
+        echo '    <a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
+        echo '</div>';
         echo '<table class="table table-sm table-striped table-hover table-bordered">';
         echo '    <thead>';
         echo '        <tr>';
@@ -109,7 +111,7 @@ class Album {
         ]);
         // Submit
         echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
+        echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Save', 'class' => 'btn btn-sm btn-primary']);
         echo $form->end();
         echo $this->panelClose();
     }
@@ -133,7 +135,9 @@ class Album {
         echo '        </tr>';
         echo '    </tbody>';
         echo '</table>';
-        echo '<a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
+        echo '<div class="mb-3">';
+        echo '    <a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
+        echo '</div>';
         echo $this->panelClose();
     }
 
@@ -179,7 +183,7 @@ class Album {
         ]);
         // Submit
         echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
+        echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
         echo $form->end();
         echo $this->panelClose();
     }
