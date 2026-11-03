@@ -103,4 +103,20 @@ class Model {
         );
         return $updated ? $id : 0;
     }
+
+    /**
+     * Delete by id function
+     *
+     * @param Integer $id Element id to delete.
+     * @return Integer The status of the operation.
+     */
+    public function deleteById($id = 0) {
+        $where = array(
+            'id' => $id
+        );
+        $where_format = [
+            '%d'
+        ] ;
+        return $this->getDb()->delete( $this->getTable(), $where, $where_format );
+    }
 }
