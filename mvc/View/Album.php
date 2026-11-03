@@ -151,6 +151,14 @@ class Album {
         echo $form->init(['action' => "", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+        // Id
+        echo $input->create([
+            'type'  => 'hidden',
+            'id'    => 'id',
+            'name'  => 'id',
+            'class' => 'form-control',
+            'value' => $record[0]->id
+        ]);
         // Cover
         $input->setLabel('Cover');
         echo $input->create([
@@ -171,7 +179,7 @@ class Album {
         ]);
         // Submit
         echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
+        echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
         echo $form->end();
         echo $this->panelClose();
     }

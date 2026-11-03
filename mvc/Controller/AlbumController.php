@@ -106,6 +106,42 @@ class AlbumController {
     }
 
     /**
+     * Update information
+     */
+    public function update($id = 0, $data = []) {
+        // Data Sanitization
+        $cover = sanitize_text_field($data['cover']);
+        $name  = sanitize_text_field($data['name']);
+        // Validate required fields are not empty after sanitization
+        if ( ! ( empty( $name ) || empty( $cover ) ) ) {
+            $data = [
+                'cover' => $cover,
+                'name'  => $name
+            ];
+            $where = [
+                'id' => $id
+            ];
+            $format_data = [
+                '%s',
+                '%s'
+            ];
+            $format_where = [
+                '%d'
+            ];
+            // Database insertion
+            $updated = $this->getDb()->update(
+                $this->getTable(),
+                $data,
+                $where,
+                $format_data,
+                $format_where
+            );
+            $id = $updated ? $id : 0;
+        }
+        return $id;
+    }
+
+    /**
      * Delete information
      */
     public function delete($id = 0) {

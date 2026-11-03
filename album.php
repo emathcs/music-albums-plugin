@@ -169,6 +169,26 @@ function albums_view_html() {
 }
 
 // Edit album
+function redirect_after_edit() {
+    if ( isset( $_POST['submit-edit'] ) ) {
+        if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
+            wp_die( 'Security check failed. Please try again.' );
+        }
+        global $wpdb;
+        $controller = new AlbumController( $wpdb );
+        $data = [
+            'cover' => $_POST['cover'],
+            'name'  => $_POST['name']
+        ];
+        $id = sanitize_text_field($_POST['id']);
+        $id = $controller->update( $id, $data );
+        if ( $id ) {
+            wp_safe_redirect(admin_url('admin.php?page=albums-view-settings&album=' . $id));
+            exit;
+        }
+    }
+}
+add_action( 'admin_init', 'redirect_after_edit' );
 function albums_edit_html() {
     $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
     if ( ! $album_id ) {
