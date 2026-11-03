@@ -70,10 +70,20 @@ class Album {
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Cover
         $input->setLabel('Cover');
-        echo $input->create(['type' => 'text', 'id' => 'cover', 'name' => 'cover', 'class' => 'form-control']);
+        echo $input->create([
+            'type'  => 'text',
+            'id'    => 'cover',
+            'name'  => 'cover',
+            'class' => 'form-control'
+        ]);
         // Name
         $input->setLabel('Name');
-        echo $input->create(['type' => 'text', 'id' => 'name', 'name' => 'name', 'class' => 'form-control']);
+        echo $input->create([
+            'type'  => 'text',
+            'id'    => 'name',
+            'name'  => 'name',
+            'class' => 'form-control'
+        ]);
         // Submit
         echo $input->setLabel('');
         echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary']);
