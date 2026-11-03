@@ -106,6 +106,17 @@ class AlbumController {
     }
 
     /**
+     * Delete information
+     */
+    public function delete($id = 0) {
+        $where = array(
+            'id' => $id
+        );
+        $where_format = array( '%d' );
+        return $this->getDb()->delete( $this->getTable(), $where, $where_format );
+    }
+
+    /**
      * Add
      */
     public function add() {

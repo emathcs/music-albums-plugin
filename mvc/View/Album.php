@@ -27,6 +27,29 @@ class Album {
     }
 
     /**
+     *
+     */
+    public function deleteForm($id = 0) {
+        $form  = new Form();
+        $input = new Input();
+
+        $html  = $form->init(['action' => "", 'method' => 'post']);
+        $html .= wp_nonce_field( 'delete_custom_form_action', 'custom_form_nonce', true, false );
+        $html .= $input->setLabel('');
+        $html .= $input->create([
+            'type'  => 'hidden',
+            'id'    => 'id-' . $id,
+            'name'  => 'id',
+            'class' => 'form-control',
+            'value' => $id
+        ]);
+        $html .= $input->setLabel('');
+        $html .= $input->create(['type' => 'submit', 'name' => 'submit-delete', 'value' =>'Delete', 'class' => 'btn btn-sm btn-danger']);
+        $html .= $form->end();
+        return $html;
+    }
+
+    /**
      * List
      */
     public function list($records = []) {
@@ -36,7 +59,7 @@ class Album {
         echo '<table class="table table-sm table-striped table-hover table-bordered">';
         echo '    <thead>';
         echo '        <tr>';
-        echo '            <th scope="col">No.</th>';
+        echo '            <th scope="col">Id</th>';
         echo '            <th scope="col">Name</th>';
         echo '            <th scope="col" colspan="3" class="col-actions">Actions</th>';
         echo '        </tr>';
@@ -44,11 +67,11 @@ class Album {
         echo '    <tbody>';
         for ($i = 0; $i < $total; $i++) {
             echo '    <tr>';
-            echo '        <th scope="row">' . $i . '</th>';
+            echo '        <th scope="row">' . $records[$i]->id . '</th>';
             echo '        <td>' . $records[$i]->name . '</td>';
             echo '        <td class="col-action"><a href="?page=albums-view-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
             echo '        <td class="col-action"><a href="?page=albums-edit-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
-            echo '        <td class="col-action"><button class="btn btn-sm btn-danger">Delete</button></td>';
+            echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
             echo '    </tr>';
         }
         echo '    </tbody>';

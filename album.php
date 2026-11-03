@@ -179,6 +179,20 @@ function albums_edit_html() {
     $controller->edit( $album_id );
 }
 
+// Delete album
+function redirect_after_delete() {
+    // Check if our specific form was submitted
+    if ( isset( $_POST['submit-delete'] ) ) {
+        if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
+            wp_die( 'Security check failed. Please try again.' );
+        }
+        global $wpdb;
+        $controller = new AlbumController( $wpdb );
+        $controller->delete( $_POST['id'] );
+    }
+}
+add_action( 'admin_init', 'redirect_after_delete' );
+
 /**
  * Enqueue admin scripts and styles
  */
