@@ -174,7 +174,7 @@ class AlbumController {
      * @param Int $id Album id.
      */
     public function view($id = 0) {
-        $record = $this->getDb()->get_results("SELECT * FROM {$this->getTable()} WHERE id={$id}");
+        $record = $this->Model->selectById($id);
         // View
         $this->View->view($record);
     }
