@@ -106,8 +106,10 @@ class Album {
 
     /**
      * Edit function
+     *
+     * @param Array $record Album information.
      */
-    public function edit() {
+    public function edit($record = []) {
         echo $this->panelOpen('Edit album');
         $form  = new Form();
         $input = new Input('mb-3');
@@ -118,10 +120,22 @@ class Album {
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Cover
         $input->setLabel('Cover');
-        echo $input->create(['type' => 'text', 'id' => 'cover', 'name' => 'cover', 'class' => 'form-control']);
+        echo $input->create([
+            'type'  => 'text',
+            'id'    => 'cover',
+            'name'  => 'cover',
+            'class' => 'form-control',
+            'value' => $record[0]->cover
+        ]);
         // Name
         $input->setLabel('Name');
-        echo $input->create(['type' => 'text', 'id' => 'name', 'name' => 'name', 'class' => 'form-control']);
+        echo $input->create([
+            'type'  => 'text',
+            'id'    => 'name',
+            'name'  => 'name',
+            'class' => 'form-control',
+            'value' => $record[0]->name
+        ]);
         // Submit
         echo $input->setLabel('');
         echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Submit', 'class' => 'btn btn-primary']);

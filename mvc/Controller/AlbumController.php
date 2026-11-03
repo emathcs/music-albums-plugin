@@ -122,9 +122,12 @@ class AlbumController {
 
     /**
      * Edit function
+     *
+     * @param Int $id Album id.
      */
-    public function edit() {
+    public function edit($id = 0) {
+        $record = $this->getDb()->get_results("SELECT * FROM {$this->getTable()} WHERE id={$id}");
         // View
-        $this->View->edit();
+        $this->View->edit($record);
     }
 }
