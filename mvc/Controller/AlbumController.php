@@ -1,5 +1,7 @@
 <?php
 
+require_once plugin_dir_path( __FILE__ ) . '../Model/Album.php';
+
 class AlbumController {
     /**
      * Database
@@ -77,7 +79,8 @@ class AlbumController {
      * Table
      */
     public function list() {
-        $records = $this->getDb()->get_results("SELECT * FROM {$this->getTable()}");
+        $Model = new AlbumModel('albums');
+        $records = $Model->select();
         // View
         $this->View->list($records);
     }
