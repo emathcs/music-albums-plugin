@@ -9,6 +9,11 @@ class AlbumController {
     private $db;
 
     /**
+     * Model
+     */
+    private $Model;
+
+    /**
      * View
      */
     private $View;
@@ -71,7 +76,8 @@ class AlbumController {
         if ($this->isValidDb()) {
             $this->setTable($this->getDb()->prefix . 'albums');
         }
-        $this->View = new Album();
+        $this->Model = new AlbumModel('albums');
+        $this->View  = new Album();
         return 0;
     }
 
@@ -79,8 +85,7 @@ class AlbumController {
      * Table
      */
     public function list() {
-        $Model = new AlbumModel('albums');
-        $records = $Model->select();
+        $records = $this->Model->select();
         // View
         $this->View->list($records);
     }
