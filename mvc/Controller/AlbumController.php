@@ -149,13 +149,6 @@ class AlbumController {
     }
 
     /**
-     * Delete information
-     */
-    public function delete($id = 0) {
-        return $this->Model->deleteById($id);
-    }
-
-    /**
      * Add
      */
     public function add() {
