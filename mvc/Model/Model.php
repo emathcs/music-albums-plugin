@@ -69,7 +69,11 @@ class Model {
      *
      */
     public function selectById($id = 0) {
-        return $this->getDb()->get_results("SELECT * FROM {$this->getTable()} WHERE id={$id}")[0];
+        $record = $this->getDb()->get_results("SELECT * FROM {$this->getTable()} WHERE id={$id}");
+        if ($record) {
+            return $record[0];
+        }
+        return [];
     }
 
     /**
@@ -98,7 +102,7 @@ class Model {
             $this->getTable(),
             $data,
             $where,
-            $format,
+            $format_data,
             $format_where
         );
         return $updated ? $id : 0;

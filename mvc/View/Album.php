@@ -157,7 +157,7 @@ class Album {
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
 
-        echo $form->init(['action' => "", 'method' => 'post']);
+        echo $form->init(['action' => "admin.php?page=albums-view-settings&album=" . $record->id, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Id
