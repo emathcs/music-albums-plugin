@@ -99,29 +99,6 @@ class AlbumController {
     }
 
     /**
-     * Save information
-     */
-    public function save($data = []) {
-        $id = 0;
-        // Data Sanitization
-        $cover = sanitize_text_field($data['cover']);
-        $name  = sanitize_text_field($data['name']);
-        // Validate required fields are not empty after sanitization
-        if ( ! ( empty( $name ) || empty( $cover ) ) ) {
-            // Database insertion
-            $inserted = $this->getDb()->insert(
-                $this->getTable(),
-                array(
-                    'cover' => $cover,
-                    'name'  => $name,
-                )
-            );
-            $id = $inserted ? $this->getDb()->insert_id : 0;
-        }
-        return $id;
-    }
-
-    /**
      * Add
      */
     public function add() {
