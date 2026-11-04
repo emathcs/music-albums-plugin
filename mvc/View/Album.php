@@ -138,6 +138,7 @@ class Album {
             echo '</table>';
             echo '<div class="mb-3">';
             echo '    <a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
+            echo '    <a href="?page=albums-edit-settings&album=' . $record->id .'" class="btn btn-sm btn-primary">Edit album</a>';
             echo '</div>';
             echo $this->panelClose();
         }
