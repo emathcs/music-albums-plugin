@@ -85,6 +85,14 @@ class AlbumController {
      * Table
      */
     public function list() {
+        // This process has been added here to avoid to redirect to this page from view page
+        if ( isset( $_POST['submit-delete'] ) ) {
+            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
+                wp_die( 'Security check failed. Please try again.' );
+            }
+            $id = sanitize_text_field($_POST['id']);
+            $this->Model->deleteById($id);
+        }
         $records = $this->Model->select();
         // View
         $this->View->list($records);
