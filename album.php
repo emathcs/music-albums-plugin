@@ -125,23 +125,20 @@ require_once plugin_dir_path( __FILE__ ) . 'mvc/View/Album.php';
 
 // Albums admin page
 function albums_render_settings_page() {
-    global $wpdb;
-    $controller = new AlbumController( $wpdb );
+    $controller = new AlbumController();
     $controller->list();
 }
 
 // Add a new album
 function albums_add_html() {
-    global $wpdb;
-    $controller = new AlbumController( $wpdb );
+    $controller = new AlbumController();
     $controller->add();
 }
 
 // View album
 function albums_view_html() {
     $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
-    global $wpdb;
-    $controller = new AlbumController( $wpdb );
+    $controller = new AlbumController();
     $controller->view( $album_id );
 }
 
@@ -151,8 +148,7 @@ function albums_edit_html() {
     if ( ! $album_id ) {
         return;
     }
-    global $wpdb;
-    $controller = new AlbumController( $wpdb );
+    $controller = new AlbumController();
     $controller->edit( $album_id );
 }
 

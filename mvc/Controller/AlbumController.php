@@ -16,7 +16,7 @@ class AlbumController {
     /**
      * Constructor
      */
-    public function __construct($wpdb = null) {
+    public function __construct() {
         $this->Model = new AlbumModel('albums');
         $this->View  = new Album();
         return 0;
