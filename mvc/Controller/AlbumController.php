@@ -122,33 +122,6 @@ class AlbumController {
     }
 
     /**
-     * Update information
-     */
-    public function update($id = 0, $data = []) {
-        // Data Sanitization
-        $cover = sanitize_text_field($data['cover']);
-        $name  = sanitize_text_field($data['name']);
-        // Validate required fields are not empty after sanitization
-        if ( ! ( empty( $name ) || empty( $cover ) ) ) {
-            $data = [
-                'cover' => $cover,
-                'name'  => $name
-            ];
-            $format_data = [
-                '%s',
-                '%s'
-            ];
-            // Database insertion
-            $id = $this->Model->updateById(
-                $id,
-                $data,
-                $format_data
-            );
-        }
-        return $id;
-    }
-
-    /**
      * Add
      */
     public function add() {
