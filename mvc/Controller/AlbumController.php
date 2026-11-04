@@ -4,11 +4,6 @@ require_once plugin_dir_path( __FILE__ ) . '../Model/Album.php';
 
 class AlbumController {
     /**
-     * Database
-     */
-    private $db;
-
-    /**
      * Model
      */
     private $Model;
@@ -19,37 +14,9 @@ class AlbumController {
     private $View;
 
     /**
-     * Set database
-     *
-     * @param Object $db Database interface.
-     */
-    public function setDb($db = null) {
-        $this->db = $db;
-    }
-
-    /**
-     * Get database
-     *
-     * @return Object Database interface.
-     */
-    public function getDb() {
-        return $this->db;
-    }
-
-    /**
-     * Is a valid database
-     *
-     * @return Object Database interface.
-     */
-    public function isValidDb() {
-        return $this->db != null;
-    }
-
-    /**
      * Constructor
      */
     public function __construct($wpdb = null) {
-        $this->setDb($wpdb);
         $this->Model = new AlbumModel('albums');
         $this->View  = new Album();
         return 0;
