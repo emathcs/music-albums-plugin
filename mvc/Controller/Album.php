@@ -1,7 +1,5 @@
 <?php
 
-require_once plugin_dir_path( __FILE__ ) . '../Model/Album.php';
-
 class AlbumController {
     /**
      * Model
@@ -18,7 +16,7 @@ class AlbumController {
      */
     public function __construct() {
         $this->Model = new AlbumModel('albums');
-        $this->View  = new Album();
+        $this->View  = new AlbumView();
         return 0;
     }
 
