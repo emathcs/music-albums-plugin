@@ -17,7 +17,6 @@ class AlbumController {
     public function __construct() {
         $this->Model = new AlbumModel('albums');
         $this->View  = new AlbumView();
-        return 0;
     }
 
     /**
