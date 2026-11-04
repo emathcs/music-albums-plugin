@@ -50,18 +50,20 @@ class AlbumView extends View {
         // Cover
         $input->setLabel('Cover');
         echo $input->create([
-            'type'  => 'text',
-            'id'    => 'cover',
-            'name'  => 'cover',
-            'class' => 'form-control'
+            'type'     => 'text',
+            'id'       => 'cover',
+            'name'     => 'cover',
+            'class'    => 'form-control',
+            'required' => ''
         ]);
         // Name
         $input->setLabel('Name');
         echo $input->create([
-            'type'  => 'text',
-            'id'    => 'name',
-            'name'  => 'name',
-            'class' => 'form-control'
+            'type'     => 'text',
+            'id'       => 'name',
+            'name'     => 'name',
+            'class'    => 'form-control',
+            'required' => ''
         ]);
         // Submit
         echo $input->setLabel('');
@@ -117,29 +119,31 @@ class AlbumView extends View {
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Id
         echo $input->create([
-            'type'  => 'hidden',
-            'id'    => 'id',
-            'name'  => 'id',
-            'class' => 'form-control',
-            'value' => $record->id
+            'type'     => 'text',
+            'id'       => 'id',
+            'name'     => 'id',
+            'class'    => 'form-control',
+            'value'    => $record->id
         ]);
         // Cover
         $input->setLabel('Cover');
         echo $input->create([
-            'type'  => 'text',
-            'id'    => 'cover',
-            'name'  => 'cover',
-            'class' => 'form-control',
-            'value' => $record->cover
+            'type'     => 'text',
+            'id'       => 'cover',
+            'name'     => 'cover',
+            'class'    => 'form-control',
+            'required' => '',
+            'value'    => $record->cover
         ]);
         // Name
         $input->setLabel('Name');
         echo $input->create([
-            'type'  => 'text',
-            'id'    => 'name',
-            'name'  => 'name',
-            'class' => 'form-control',
-            'value' => $record->name
+            'type'     => 'text',
+            'id'       => 'name',
+            'name'     => 'name',
+            'class'    => 'form-control',
+            'required' => '',
+            'value'    => $record->name
         ]);
         // Submit
         echo $input->setLabel('');
