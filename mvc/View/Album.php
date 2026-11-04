@@ -119,7 +119,7 @@ class AlbumView extends View {
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Id
         echo $input->create([
-            'type'     => 'text',
+            'type'     => 'hidden',
             'id'       => 'id',
             'name'     => 'id',
             'class'    => 'form-control',
