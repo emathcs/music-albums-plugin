@@ -73,6 +73,19 @@ function albums_admin_menu() {
         'albums-edit-settings', // Menu slug
         'albums_edit_html'      // Callback function
     );
+
+    /**
+     * Songs
+     */
+    // List
+    add_submenu_page(
+        '',               // Parent menu slug
+        'Songs',          // Page title
+        '',               // Menu title
+        'manage_options', // Capability
+        'songs-settings', // Menu slug
+        'songs_html'      // Callback function
+    );
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
 
@@ -150,6 +163,9 @@ function albums_edit_html() {
     $controller = new AlbumController();
     $controller->edit( $album_id );
 }
+
+// Songs functions
+require_once plugin_dir_path( __FILE__ ) . 'song.php';
 
 /**
  * Enqueue admin scripts and styles
