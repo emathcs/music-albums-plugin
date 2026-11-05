@@ -26,6 +26,14 @@ if ( ! defined( 'AP_VERSION' ) ) {
 }
 
 /**
+ * Create the tables into the database
+ */
+global $jal_db_version;
+$jal_db_version = '1.0';
+require_once plugin_dir_path( __FILE__ ) . 'jal-install.php';
+register_activation_hook( __FILE__, 'jal_install' );
+
+/**
  * Loading custom template
  */
 require_once plugin_dir_path( __FILE__ ) . 'wp-admin/includes/template.php';
