@@ -9,3 +9,8 @@ require_once 'Controller/Album.php';
 require_once 'Model/Song.php';
 require_once 'View/Song.php';
 require_once 'Controller/Song.php';
+
+// Platform
+require_once 'Model/Platform.php';
+require_once 'View/Platform.php';
+require_once 'Controller/Platform.php';
