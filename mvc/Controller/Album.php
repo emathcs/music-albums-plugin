@@ -1,0 +1,107 @@
+<?php
+
+class AlbumController {
+    /**
+     * Model
+     */
+    private $Model;
+
+    /**
+     * View
+     */
+    private $View;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->Model = new AlbumModel('albums');
+        $this->View  = new AlbumView();
+    }
+
+    /**
+     * Table
+     */
+    public function list() {
+        // This process has been added here to avoid to redirect to this page from view page
+        if ( isset( $_POST['submit-delete'] ) ) {
+            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
+                wp_die( 'Security check failed. Please try again.' );
+            }
+            $id = sanitize_text_field($_POST['id']);
+            $this->Model->deleteById($id);
+        }
+        $records = $this->Model->select();
+        // View
+        $this->View->list($records);
+    }
+
+    /**
+     * Add
+     */
+    public function add() {
+        // View
+        $this->View->add();
+    }
+
+    /**
+     * View function
+     *
+     * @param Int $id Album id.
+     */
+    public function view($id = 0) {
+        // This process has been added here to avoid to redirect to this page from edit page
+        if ( isset( $_POST['submit-edit'] ) ) {
+            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
+                wp_die( 'Security check failed. Please try again.' );
+            }
+            $id    = sanitize_text_field($_POST['id']);
+            $cover = sanitize_text_field($_POST['cover']);
+            $name  = sanitize_text_field($_POST['name']);
+            if (!(empty($name) || empty($cover))) {
+                $data = [
+                    'cover' => $cover,
+                    'name'  => $name
+                ];
+                $format_data = [
+                    '%s',
+                    '%s'
+                ];
+                $this->Model->updateById(
+                    $id,
+                    $data,
+                    $format_data
+                );
+            }
+        }
+        // This process has been added here to avoid to redirect to this page from save page
+        if ( isset( $_POST['submit'] ) ) {
+            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
+                wp_die( 'Security check failed. Please try again.' );
+            }
+            $cover = sanitize_text_field($_POST['cover']);
+            $name  = sanitize_text_field($_POST['name']);
+            if (!(empty($name) || empty($cover))) {
+                $data = [
+                    'cover' => $cover,
+                    'name'  => $name
+                ];
+                $id = $this->Model->insert($data);
+            }
+        }
+        $record = $this->Model->selectById($id);
+        // View
+        $this->View->view($record);
+    }
+
+    /**
+     * Edit function
+     *
+     * @param Int $id Album id.
+     */
+    public function edit($id = 0) {
+        $record = $this->Model->selectById($id);
+        // View
+        $this->View->edit($record);
+    }
+}
