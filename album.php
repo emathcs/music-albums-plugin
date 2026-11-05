@@ -26,50 +26,11 @@ if ( ! defined( 'AP_VERSION' ) ) {
 }
 
 /**
- * Database tables
+ * Create the tables into the database
  */
 global $jal_db_version;
 $jal_db_version = '1.0';
-
-function jal_install() {
-    global $wpdb;
-    global $jal_db_version;
-
-    $charset_collate = $wpdb->get_charset_collate();
-    require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-
-    // Albums
-    $table_1 = $wpdb->prefix . 'albums';
-    $sql  = "CREATE TABLE ". $table_1 . " (";
-    $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    cover varchar(255) NOT NULL,";
-    $sql .= "    name varchar(255) NOT NULL";
-    $sql .= ") " . $charset_collate . ";";
-    dbDelta( $sql );
-    // Songs
-    $table_2 = $wpdb->prefix . 'songs';
-    $sql  = "CREATE TABLE ". $table_2 . " (";
-    $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    name varchar(255) NOT NULL,";
-    $sql .= "    album_id int(11),";
-    $sql .= "    FOREIGN KEY (album_id) REFERENCES " . $table_1 . "(id) ON DELETE CASCADE";
-    $sql .= ") " . $charset_collate . ";";
-    dbDelta( $sql );
-    // Platforms
-    $table_3 = $wpdb->prefix . 'platforms';
-    $sql  = "CREATE TABLE ". $table_3 . " (";
-    $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    name varchar(255) NOT NULL,";
-    $sql .= "    link varchar(255) NOT NULL,";
-    $sql .= "    album_id int(11),";
-    $sql .= "    song_id int(11),";
-    $sql .= "    FOREIGN KEY (album_id) REFERENCES " . $table_1 . "(id) ON DELETE CASCADE,";
-    $sql .= "    FOREIGN KEY (song_id) REFERENCES " . $table_2 . "(id) ON DELETE CASCADE";
-    $sql .= ") " . $charset_collate . ";";
-    dbDelta( $sql );
-
-    add_option( 'jal_db_version', $jal_db_version );
-}
+require_once plugin_dir_path( __FILE__ ) . 'jal-install.php';
 register_activation_hook( __FILE__, 'jal_install' );
 
 /**
