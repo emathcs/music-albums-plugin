@@ -176,6 +176,8 @@ function albums_admin_enqueue_scripts( $hook ) {
         'admin_page_albums-add-settings'  => true,
         'admin_page_albums-edit-settings' => true,
         'admin_page_albums-view-settings' => true,
+        // Song
+        'admin_page_songs-settings'  => true,
     ];
     // Load scripts only on your specific plugin settings page
     if ( ! ( isset( $sections[$hook] ) && $sections[$hook] ) ) {
