@@ -93,7 +93,7 @@ class AlbumController {
         $album = $this->Model->selectById($id);
         // Get the related songs
         $songModel = new SongModel('songs');
-        $songs = $songModel->select();
+        $songs = $songModel->selectByAlbumId($id);
         // Record array
         $record = [
             'album' => $album,
