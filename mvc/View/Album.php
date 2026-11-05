@@ -102,8 +102,8 @@ class AlbumView extends View {
             echo '    <a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
             echo '    <a href="?page=albums-edit-settings&album=' . $album->id .'" class="btn btn-sm btn-primary">Edit album</a>';
             echo '</div>';
-            echo '<br><hr><br>';
             if ($songsTable) {
+                echo '<br><hr><br>';
                 echo '<h2>Songs</h2>';
                 echo $songView->table($record['songs']);
             }
