@@ -89,7 +89,16 @@ class AlbumController {
                 $id = $this->Model->insert($data);
             }
         }
-        $record = $this->Model->selectById($id);
+        // Get the album
+        $album = $this->Model->selectById($id);
+        // Get the related songs
+        $songModel = new SongModel('songs');
+        $songs = $songModel->select();
+        // Record array
+        $record = [
+            'album' => $album,
+            'songs' => $songs
+        ];
         // View
         $this->View->view($record);
     }
