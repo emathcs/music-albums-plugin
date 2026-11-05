@@ -73,9 +73,9 @@ class PlatformController {
                 wp_die( 'Security check failed. Please try again.' );
             }
             $id       = sanitize_text_field($_POST['id']);
-            $link     = sanitize_text_field($_POST['link']);
             $name     = sanitize_text_field($_POST['name']);
-            if (!(empty($name) || empty($album_id))) {
+            $link     = sanitize_text_field($_POST['link']);
+            if (!(empty($name) || empty($link))) {
                 $data = [
                     'name' => $name,
                     'link' => $link
