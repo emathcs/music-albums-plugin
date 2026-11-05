@@ -77,7 +77,7 @@ class PlatformController {
             $name     = sanitize_text_field($_POST['name']);
             if (!(empty($name) || empty($album_id))) {
                 $data = [
-                    'name' => $name
+                    'name' => $name,
                     'link' => $link
                 ];
                 $format_data = [
