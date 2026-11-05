@@ -18,6 +18,7 @@ class PlatformView extends View {
             echo '        <tr>';
             echo '            <th scope="col">Id</th>';
             echo '            <th scope="col">Name</th>';
+            echo '            <th scope="col">Link</th>';
             echo '            <th scope="col" colspan="3" class="col-actions">Actions</th>';
             echo '        </tr>';
             echo '    </thead>';
@@ -26,6 +27,7 @@ class PlatformView extends View {
                 echo '    <tr>';
                 echo '        <th scope="row">' . $records[$i]->id . '</th>';
                 echo '        <td>' . $records[$i]->name . '</td>';
+                echo '        <td>' . $records[$i]->link . '</td>';
                 echo '        <td class="col-action"><a href="?page=platforms-view-settings&platform=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
                 echo '        <td class="col-action"><a href="?page=platforms-edit-settings&platform=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
                 echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
@@ -67,7 +69,7 @@ class PlatformView extends View {
             'required' => ''
         ]);
         // Link
-        $input->setLabel('Name');
+        $input->setLabel('Link');
         echo $input->create([
             'type'     => 'text',
             'id'       => 'link',
@@ -95,6 +97,10 @@ class PlatformView extends View {
             echo '        <tr>';
             echo '            <td>Name</td>';
             echo '            <td>' . $record->name . '</td>';
+            echo '        </tr>';
+            echo '        <tr>';
+            echo '            <td>Link</td>';
+            echo '            <td>' . $record->link . '</td>';
             echo '        </tr>';
             echo '    </tbody>';
             echo '</table>';
@@ -150,7 +156,7 @@ class PlatformView extends View {
             'value'    => $record->name
         ]);
         // Link
-        $input->setLabel('Name');
+        $input->setLabel('Link');
         echo $input->create([
             'type'     => 'text',
             'id'       => 'link',
