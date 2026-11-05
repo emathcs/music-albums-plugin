@@ -121,6 +121,46 @@ function albums_admin_menu() {
         'songs-edit-settings', // Menu slug
         'songs_edit_html'      // Callback function
     );
+
+    /**
+     * Platforms
+     */
+    // List
+    add_submenu_page(
+        '',               // Parent menu slug
+        'Platforms',          // Page title
+        '',               // Menu title
+        'manage_options', // Capability
+        'platforms-settings', // Menu slug
+        'platforms_html'      // Callback function
+    );
+    // Add
+    add_submenu_page(
+        '',                   // Parent menu slug
+        'Platforms',              // Page title
+        '',                   // Menu title
+        'manage_options',     // Capability
+        'platforms-add-settings', // Menu slug
+        'platforms_add_html'      // Callback function
+    );
+    // View
+    add_submenu_page(
+        '',                    // Parent menu slug
+        'Platforms',               // Page title
+        '',                    // Menu title
+        'manage_options',      // Capability
+        'platforms-view-settings', // Menu slug
+        'platforms_view_html'      // Callback function
+    );
+    // Edit
+    add_submenu_page(
+        '',                    // Parent menu slug
+        'Platforms',               // Page title
+        '',                    // Menu title
+        'manage_options',      // Capability
+        'platforms-edit-settings', // Menu slug
+        'platforms_edit_html'      // Callback function
+    );
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
 
@@ -202,6 +242,9 @@ function albums_edit_html() {
 // Songs functions
 require_once plugin_dir_path( __FILE__ ) . 'song.php';
 
+// Platforms functions
+require_once plugin_dir_path( __FILE__ ) . 'platform.php';
+
 /**
  * Enqueue admin scripts and styles
  */
@@ -216,6 +259,11 @@ function albums_admin_enqueue_scripts( $hook ) {
         'admin_page_songs-add-settings'  => true,
         'admin_page_songs-view-settings' => true,
         'admin_page_songs-edit-settings' => true,
+        // Platform
+        'admin_page_platforms-settings'      => true,
+        'admin_page_platforms-add-settings'  => true,
+        'admin_page_platforms-view-settings' => true,
+        'admin_page_platforms-edit-settings' => true,
     ];
     // Load scripts only on your specific plugin settings page
     if ( ! ( isset( $sections[$hook] ) && $sections[$hook] ) ) {
