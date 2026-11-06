@@ -117,10 +117,10 @@ class SongView extends View {
     /**
      * Edit function
      *
-     * @param Array $record Song information.
+     * @param Array $data Data to render in the HTML
      */
-    public function edit($record = null) {
-        if (!$record) {
+    public function edit($data = []) {
+        if (!count($data)) {
             return;
         }
         echo $this->panelOpen('Edit song');
@@ -138,14 +138,6 @@ class SongView extends View {
             'name'     => 'id',
             'class'    => 'form-control',
             'value'    => $record->id
-        ]);
-        // Album id
-        echo $input->create([
-            'type'     => 'hidden',
-            'id'       => 'album-id',
-            'name'     => 'album-id',
-            'class'    => 'form-control',
-            'value'    => $record->album_id
         ]);
         // Name
         $input->setLabel('Name');
