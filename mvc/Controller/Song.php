@@ -37,11 +37,13 @@ class SongController {
     }
 
     /**
-     * Add
+     * Add function
+     *
+     * @param Integer $album_id Album id.
      */
-    public function add() {
+    public function add($album_id = 0) {
         // View
-        $this->View->add();
+        $this->View->add(['album_id' => $album_id]);
     }
 
     /**

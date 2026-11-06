@@ -50,14 +50,18 @@ class SongView extends View {
     }
 
     /**
-     * Add
+     * Add function
+     *
+     * @param Array $data Data to render in the HTML
      */
-    public function add() {
-        echo $this->panelOpen('Add a new song');
+    public function add($data = []) {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
 
+        $album_id = isset($data['album_id']) ? $data['album_id'] : 0;
+
+        echo $this->panelOpen('Add a new song');
         echo $form->init(['action' => "admin.php?page=songs-view-settings", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
@@ -67,7 +71,7 @@ class SongView extends View {
             'id'       => 'album-id',
             'name'     => 'album-id',
             'class'    => 'form-control',
-            'value'    => 1
+            'value'    => $album_id
         ]);
         // Name
         $input->setLabel('Name');
@@ -104,6 +108,7 @@ class SongView extends View {
             echo '<div class="mb-3">';
             echo '    <a href="?page=songs-settings" class="btn btn-sm btn-secondary">Go to Songs</a>';
             echo '    <a href="?page=songs-edit-settings&song=' . $record->id .'" class="btn btn-sm btn-primary">Edit song</a>';
+            echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-success">Go to the album</a>';
             echo '</div>';
             echo $this->panelClose();
         }
