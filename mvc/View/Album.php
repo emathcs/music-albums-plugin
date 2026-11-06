@@ -79,23 +79,35 @@ class AlbumView extends View {
      */
     public function view($record = null) {
         if ($record) {
+            $songsTable = false;
+            if (isset($record['songs']) && count($record['songs'])) {
+                $songsTable = true;
+                $songView = new SongView();
+            }
+            $album = $record['album'];
             echo $this->panelOpen( 'View album' );
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
-            echo '            <td>Cover</td>';
-            echo '            <td>' . $record->cover . '</td>';
+            echo '            <td><b>Cover</b></td>';
+            echo '            <td>' . $album->cover . '</td>';
             echo '        </tr>';
             echo '        <tr>';
-            echo '            <td>Name</td>';
-            echo '            <td>' . $record->name . '</td>';
+            echo '            <td><b>Name</b></td>';
+            echo '            <td>' . $album->name . '</td>';
             echo '        </tr>';
             echo '    </tbody>';
             echo '</table>';
             echo '<div class="mb-3">';
             echo '    <a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
-            echo '    <a href="?page=albums-edit-settings&album=' . $record->id .'" class="btn btn-sm btn-primary">Edit album</a>';
+            echo '    <a href="?page=albums-edit-settings&album=' . $album->id .'" class="btn btn-sm btn-primary">Edit album</a>';
+            echo '    <a href="?page=songs-add-settings" class="btn btn-sm btn-success">Add a new song</a>';
             echo '</div>';
+            if ($songsTable) {
+                echo '<br><hr><br>';
+                echo '<h2>Songs</h2>';
+                echo $songView->table($record['songs']);
+            }
             echo $this->panelClose();
         }
     }

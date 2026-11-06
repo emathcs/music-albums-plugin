@@ -4,6 +4,39 @@ require_once 'View.php';
 
 class SongView extends View {
     /**
+     * Table
+     *
+     * @param Array $records Song records.
+     * @return String $html An HTML table.
+     */
+    public function table($records = []) {
+        $html = '';
+        $total = count($records);
+        if ($total) {
+            $html .= '<table class="table table-sm table-striped table-hover table-bordered">';
+            $html .= '    <thead>';
+            $html .= '        <tr>';
+            $html .= '            <th scope="col">Id</th>';
+            $html .= '            <th scope="col">Name</th>';
+            $html .= '            <th scope="col" colspan="3" class="col-actions">Actions</th>';
+            $html .= '        </tr>';
+            $html .= '    </thead>';
+            $html .= '    <tbody>';
+            for ($i = 0; $i < $total; $i++) {
+                $html .= '    <tr>';
+                $html .= '        <th scope="row">' . $records[$i]->id . '</th>';
+                $html .= '        <td>' . $records[$i]->name . '</td>';
+                $html .= '        <td class="col-action"><a href="?page=songs-view-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
+                $html .= '        <td class="col-action"><a href="?page=songs-edit-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
+                $html .= '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
+                $html .= '    </tr>';
+            }
+            $html .= '    </tbody>';
+            $html .= '</table>';
+        }
+        return $html;
+    }
+    /**
      * List
      */
     public function list($records = []) {
@@ -12,28 +45,7 @@ class SongView extends View {
         echo '<div class="mb-3">';
         echo '    <a href="?page=songs-add-settings" class="btn btn-sm btn-primary">Add a new song</a>';
         echo '</div>';
-        if (count($records)) {
-            echo '<table class="table table-sm table-striped table-hover table-bordered">';
-            echo '    <thead>';
-            echo '        <tr>';
-            echo '            <th scope="col">Id</th>';
-            echo '            <th scope="col">Name</th>';
-            echo '            <th scope="col" colspan="3" class="col-actions">Actions</th>';
-            echo '        </tr>';
-            echo '    </thead>';
-            echo '    <tbody>';
-            for ($i = 0; $i < $total; $i++) {
-                echo '    <tr>';
-                echo '        <th scope="row">' . $records[$i]->id . '</th>';
-                echo '        <td>' . $records[$i]->name . '</td>';
-                echo '        <td class="col-action"><a href="?page=songs-view-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
-                echo '        <td class="col-action"><a href="?page=songs-edit-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
-                echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
-                echo '    </tr>';
-            }
-            echo '    </tbody>';
-            echo '</table>';
-        }
+        echo $this->table($records);
         echo $this->panelClose();
     }
 
