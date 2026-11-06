@@ -1,39 +1,31 @@
 <?php
 
-class AlbumController {
-    /**
-     * Model
-     */
-    private $Model;
+require_once 'Controller.php';
 
-    /**
-     * View
-     */
-    private $View;
-
+class AlbumController extends Controller {
     /**
      * Constructor
      */
     public function __construct() {
-        $this->Model = new AlbumModel('albums');
-        $this->View  = new AlbumView();
+        $Model = new AlbumModel('albums');
+        $View  = new AlbumView();
+        // Alternative
+        $ModelChild = new SongModel('songs');
+        // Parent constructor
+        parent::__construct($Model, $View, $ModelChild);
     }
 
     /**
      * Table
      */
     public function list() {
-        // This process has been added here to avoid to redirect to this page from view page
-        if ( isset( $_POST['submit-delete'] ) ) {
-            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
-                wp_die( 'Security check failed. Please try again.' );
-            }
-            $id = sanitize_text_field($_POST['id']);
-            $this->Model->deleteById($id);
+        // Delete process
+        if (isset($_POST['id'])) {
+            $this->delete($_POST['id']);
         }
-        $records = $this->Model->select();
+        $records = $this->getModel()->select();
         // View
-        $this->View->list($records);
+        $this->getView()->list($records);
     }
 
     /**
@@ -41,7 +33,7 @@ class AlbumController {
      */
     public function add() {
         // View
-        $this->View->add();
+        $this->getView()->add();
     }
 
     /**
@@ -67,7 +59,7 @@ class AlbumController {
                     '%s',
                     '%s'
                 ];
-                $this->Model->updateById(
+                $this->getModel()->updateById(
                     $id,
                     $data,
                     $format_data
@@ -86,7 +78,7 @@ class AlbumController {
                     'cover' => $cover,
                     'name'  => $name
                 ];
-                $id = $this->Model->insert($data);
+                $id = $this->getModel()->insert($data);
             }
         }
         // Delete a song
@@ -100,7 +92,7 @@ class AlbumController {
         }
 
         // Get the album
-        $album = $this->Model->selectById($id);
+        $album = $this->getModel()->selectById($id);
         // Get the related songs
         $songModel = new SongModel('songs');
         $songs = $songModel->selectByAlbumId($id);
@@ -110,7 +102,7 @@ class AlbumController {
             'songs' => $songs
         ];
         // View
-        $this->View->view($record);
+        $this->getView()->view($record);
     }
 
     /**
@@ -119,8 +111,8 @@ class AlbumController {
      * @param Int $id Album id.
      */
     public function edit($id = 0) {
-        $record = $this->Model->selectById($id);
+        $record = $this->getModel()->selectById($id);
         // View
-        $this->View->edit($record);
+        $this->getView()->edit($record);
     }
 }
