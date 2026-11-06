@@ -8,8 +8,10 @@ function songs_html() {
 
 // Add
 function songs_add_html() {
+    // Get the album id
+    $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
     $controller = new SongController();
-    $controller->add();
+    $controller->add($album_id);
 }
 
 // View
