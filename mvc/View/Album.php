@@ -42,11 +42,11 @@ class AlbumView extends View {
      * Add render function
      */
     public function add() {
-        echo $this->panelOpen('Add a new album');
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
 
+        echo $this->panelOpen('Add a new album');
         echo $form->init(['action' => "admin.php?page=albums-view-settings", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
