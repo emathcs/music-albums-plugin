@@ -4,21 +4,13 @@ require_once 'Controller.php';
 
 class PlatformController extends Controller {
     /**
-     * Model
-     */
-    private $Model;
-
-    /**
-     * View
-     */
-    private $View;
-
-    /**
      * Constructor
      */
     public function __construct() {
-        $this->Model = new PlatformModel('platforms');
-        $this->View  = new PlatformView();
+        $Model = new PlatformModel('platforms');
+        $View  = new PlatformView();
+        // Parent constructor
+        parent::__construct($Model, $View);
     }
 
     /**
@@ -31,11 +23,11 @@ class PlatformController extends Controller {
                 wp_die( 'Security check failed. Please try again.' );
             }
             $id = sanitize_text_field($_POST['id']);
-            $this->Model->deleteById($id);
+            $this->getModel()->deleteById($id);
         }
-        $records = $this->Model->select();
+        $records = $this->getModel()->select();
         // View
-        $this->View->list($records);
+        $this->getView()->list($records);
     }
 
     /**
@@ -43,7 +35,7 @@ class PlatformController extends Controller {
      */
     public function add() {
         // View
-        $this->View->add();
+        $this->getView()->add();
     }
 
     /**
@@ -66,7 +58,7 @@ class PlatformController extends Controller {
                     'link'     => $link,
                     'album_id' => $album_id
                 ];
-                $id = $this->Model->insert($data);
+                $id = $this->getModel()->insert($data);
             }
         }
         // This process has been added here to avoid to redirect to this page from edit page
@@ -86,7 +78,7 @@ class PlatformController extends Controller {
                     '%s',
                     '%s'
                 ];
-                $this->Model->updateById(
+                $this->getModel()->updateById(
                     $id,
                     $data,
                     $format_data
@@ -94,9 +86,9 @@ class PlatformController extends Controller {
             }
         }
 
-        $record = $this->Model->selectById($id);
+        $record = $this->getModel()->selectById($id);
         // View
-        $this->View->view($record);
+        $this->getView()->view($record);
     }
 
     /**
@@ -105,8 +97,8 @@ class PlatformController extends Controller {
      * @param Int $id Platform id.
      */
     public function edit($id = 0) {
-        $record = $this->Model->selectById($id);
+        $record = $this->getModel()->selectById($id);
         // View
-        $this->View->edit($record);
+        $this->getView()->edit($record);
     }
 }
