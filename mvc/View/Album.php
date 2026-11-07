@@ -4,9 +4,12 @@ require_once 'View.php';
 
 class AlbumView extends View {
     /**
-     * List
+     * List render function
+     *
+     * @param Array $data Data to render
      */
-    public function list($records = []) {
+    public function list($data = []) {
+        $records = isset($data['records']) ? $data['records'] : [];
         $total = count($records);
         echo $this->panelOpen('Albums');
         echo '<div class="mb-3">';
@@ -36,7 +39,7 @@ class AlbumView extends View {
     }
 
     /**
-     * Add
+     * Add render function
      */
     public function add() {
         echo $this->panelOpen('Add a new album');
@@ -73,18 +76,19 @@ class AlbumView extends View {
     }
 
     /**
-     * View function
+     * View render function
      *
-     * @param Array $record Album information.
+     * @param Array $data Data to render
      */
-    public function view($record = null) {
+    public function view($data = []) {
+        $record = isset($data['record']) ? $data['record'] : [];
         if ($record) {
             $songsTable = false;
-            if (isset($record['songs']) && count($record['songs'])) {
+            if (isset($data['songs']) && count($data['songs'])) {
                 $songsTable = true;
                 $songView = new SongView();
             }
-            $album = $record['album'];
+            $album = $data['record'];
             echo $this->panelOpen( 'View album' );
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
@@ -106,26 +110,24 @@ class AlbumView extends View {
             if ($songsTable) {
                 echo '<br><hr><br>';
                 echo '<h2>Songs</h2>';
-                echo $songView->table($record['songs']);
+                echo $songView->table($data['songs']);
             }
             echo $this->panelClose();
         }
     }
 
     /**
-     * Edit function
+     * Edit render function
      *
-     * @param Array $record Album information.
+     * @param Array $data Data to render
      */
-    public function edit($record = null) {
-        if (!$record) {
-            return;
-        }
-        echo $this->panelOpen('Edit album');
+    public function edit($data = []) {
+        $record = isset($data['record']) ? $data['record'] : [];
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
 
+        echo $this->panelOpen('Edit album');
         echo $form->init(['action' => "admin.php?page=albums-view-settings&album=" . $record->id, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );

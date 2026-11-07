@@ -16,7 +16,7 @@ class AlbumController extends Controller {
     }
 
     /**
-     * Table
+     * List function
      */
     public function list() {
         // Delete process
@@ -25,11 +25,11 @@ class AlbumController extends Controller {
         }
         $records = $this->getModel()->select();
         // View
-        $this->getView()->list($records);
+        $this->getView()->list(['records' => $records]);
     }
 
     /**
-     * Add
+     * Add function
      */
     public function add() {
         // View
@@ -39,7 +39,7 @@ class AlbumController extends Controller {
     /**
      * View function
      *
-     * @param Int $id Album id.
+     * @param Integer $id Album id
      */
     public function view($id = 0) {
         // This process has been added here to avoid to redirect to this page from edit page
@@ -92,27 +92,22 @@ class AlbumController extends Controller {
         }
 
         // Get the album
-        $album = $this->getModel()->selectById($id);
+        $record = $this->getModel()->selectById($id);
         // Get the related songs
         $songModel = new SongModel('songs');
         $songs = $songModel->selectByAlbumId($id);
-        // Record array
-        $record = [
-            'album' => $album,
-            'songs' => $songs
-        ];
         // View
-        $this->getView()->view($record);
+        $this->getView()->view(['record' => $record, 'songs' => $songs]);
     }
 
     /**
      * Edit function
      *
-     * @param Int $id Album id.
+     * @param Integer $id Album id
      */
     public function edit($id = 0) {
         $record = $this->getModel()->selectById($id);
         // View
-        $this->getView()->edit($record);
+        $this->getView()->edit(['record' => $record]);
     }
 }
