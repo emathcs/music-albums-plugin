@@ -1,16 +1,8 @@
 <?php
 
-class SongController {
-    /**
-     * Model
-     */
-    private $Model;
+require_once 'Controller.php';
 
-    /**
-     * View
-     */
-    private $View;
-
+class SongController extends Controller {
     /**
      * Constructor
      */
