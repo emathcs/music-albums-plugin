@@ -100,8 +100,10 @@ class SongController {
      * @param Int $id Song id.
      */
     public function edit($id = 0) {
-        $record = $this->Model->selectById($id);
+        $data = [
+            'record' => $this->Model->selectById($id)
+        ];
         // View
-        $this->View->edit($record);
+        $this->View->edit($data);
     }
 }

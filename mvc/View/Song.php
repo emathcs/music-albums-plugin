@@ -123,6 +123,7 @@ class SongView extends View {
         if (!count($data)) {
             return;
         }
+        $record = $data['record'];
         echo $this->panelOpen('Edit song');
         $form  = new Form();
         $input = new Input('mb-3');
