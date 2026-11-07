@@ -122,10 +122,10 @@ class AlbumView extends View {
      * @param Array $data Data to render
      */
     public function edit($data = []) {
-        $record = isset($data['record']) ? $data['record'] : [];
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $record = isset($data['record']) ? $data['record'] : [];
 
         echo $this->panelOpen('Edit album');
         echo $form->init(['action' => "admin.php?page=albums-view-settings&album=" . $record->id, 'method' => 'post']);
