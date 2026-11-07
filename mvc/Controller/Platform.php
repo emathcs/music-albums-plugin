@@ -14,20 +14,21 @@ class PlatformController extends Controller {
     }
 
     /**
-     * Table
+     * List function
      */
     public function list() {
         // Delete process
         if (isset($_POST['id'])) {
             $this->delete($_POST['id']);
         }
+        // Get the Platforms
         $records = $this->getModel()->select();
         // View
-        $this->getView()->list($records);
+        $this->getView()->list(['records' => $records]);
     }
 
     /**
-     * Add
+     * Add function
      */
     public function add() {
         // View
@@ -37,7 +38,7 @@ class PlatformController extends Controller {
     /**
      * View function
      *
-     * @param Int $id Platform id.
+     * @param Integer $id Platform id
      */
     public function view($id = 0) {
         // This process has been added here to avoid to redirect to this page from add page
@@ -82,19 +83,21 @@ class PlatformController extends Controller {
             }
         }
 
+        // Get the Platform
         $record = $this->getModel()->selectById($id);
         // View
-        $this->getView()->view($record);
+        $this->getView()->view(['record' => $record]);
     }
 
     /**
      * Edit function
      *
-     * @param Int $id Platform id.
+     * @param Integer $id Platform id
      */
     public function edit($id = 0) {
+        // Get the Platform
         $record = $this->getModel()->selectById($id);
         // View
-        $this->getView()->edit($record);
+        $this->getView()->edit(['record' => $record]);
     }
 }

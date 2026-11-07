@@ -4,9 +4,12 @@ require_once 'View.php';
 
 class PlatformView extends View {
     /**
-     * List
+     * List render function
+     *
+     * @param Array $data Data to render
      */
-    public function list($records = []) {
+    public function list($data = []) {
+        $records = isset($data['records']) ? $data['records'] : [];
         $total = count($records);
         echo $this->panelOpen('Platforms');
         echo '<div class="mb-3">';
@@ -40,7 +43,7 @@ class PlatformView extends View {
     }
 
     /**
-     * Add
+     * Add render function
      */
     public function add() {
         echo $this->panelOpen('Add a new platform');
@@ -85,11 +88,12 @@ class PlatformView extends View {
     }
 
     /**
-     * View function
+     * View render function
      *
-     * @param Array $record Platform information.
+     * @param Array $data Data to render
      */
-    public function view($record = null) {
+    public function view($data = []) {
+        $record = isset($data['record']) ? $data['record'] : [];
         if ($record) {
             echo $this->panelOpen( 'View platform' );
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
@@ -113,19 +117,17 @@ class PlatformView extends View {
     }
 
     /**
-     * Edit function
+     * Edit render function
      *
-     * @param Array $record Platform information.
+     * @param Array $data Data to render
      */
-    public function edit($record = null) {
-        if (!$record) {
-            return;
-        }
-        echo $this->panelOpen('Edit platform');
+    public function edit($data = []) {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $record = isset($data['record']) ? $data['record'] : [];
 
+        echo $this->panelOpen('Edit platform');
         echo $form->init(['action' => "admin.php?page=platforms-view-settings&platform=" . $record->id, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
