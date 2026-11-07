@@ -23,6 +23,7 @@ class SongController extends Controller {
         if (isset($_POST['id'])) {
             $this->delete($_POST['id']);
         }
+        // Get the records
         $records = $this->getModel()->select();
         // View
         $this->getView()->list(['records' => $records]);
@@ -80,7 +81,7 @@ class SongController extends Controller {
                 );
             }
         }
-
+        // Get the record
         $record = $this->getModel()->selectById($id);
         // View
         $this->getView()->view(['record' => $record]);
@@ -92,6 +93,7 @@ class SongController extends Controller {
      * @param Integer $id Song id
      */
     public function edit($id = 0) {
+        // Get the record
         $record = $this->getModel()->selectById($id);
         // View
         $this->getView()->edit(['record' => $record]);

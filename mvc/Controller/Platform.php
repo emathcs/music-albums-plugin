@@ -21,7 +21,7 @@ class PlatformController extends Controller {
         if (isset($_POST['id'])) {
             $this->delete($_POST['id']);
         }
-        // Get the Platforms
+        // Get the records
         $records = $this->getModel()->select();
         // View
         $this->getView()->list(['records' => $records]);
@@ -82,8 +82,7 @@ class PlatformController extends Controller {
                 );
             }
         }
-
-        // Get the Platform
+        // Get the record
         $record = $this->getModel()->selectById($id);
         // View
         $this->getView()->view(['record' => $record]);
@@ -95,7 +94,7 @@ class PlatformController extends Controller {
      * @param Integer $id Platform id
      */
     public function edit($id = 0) {
-        // Get the Platform
+        // Get the record
         $record = $this->getModel()->selectById($id);
         // View
         $this->getView()->edit(['record' => $record]);

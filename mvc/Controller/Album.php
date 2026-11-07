@@ -23,6 +23,7 @@ class AlbumController extends Controller {
         if (isset($_POST['id'])) {
             $this->delete($_POST['id']);
         }
+        // Get the records
         $records = $this->getModel()->select();
         // View
         $this->getView()->list(['records' => $records]);
@@ -90,8 +91,7 @@ class AlbumController extends Controller {
             $song_id = sanitize_text_field($_POST['id']);
             $songModel->deleteById($song_id);
         }
-
-        // Get the album
+        // Get the record
         $record = $this->getModel()->selectById($id);
         // Get the related songs
         $songModel = new SongModel('songs');
@@ -106,6 +106,7 @@ class AlbumController extends Controller {
      * @param Integer $id Album id
      */
     public function edit($id = 0) {
+        // Get the record
         $record = $this->getModel()->selectById($id);
         // View
         $this->getView()->edit(['record' => $record]);
