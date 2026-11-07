@@ -7,8 +7,12 @@ class SongController extends Controller {
      * Constructor
      */
     public function __construct() {
-        $this->Model = new SongModel('songs');
-        $this->View  = new SongView();
+        $Model = new SongModel('songs');
+        $View  = new SongView();
+        // Alternative
+        $ModelChild = new PlatformModel('platforms');
+        // Parent constructor
+        parent::__construct($Model, $View, $ModelChild);
     }
 
     /**
@@ -21,11 +25,11 @@ class SongController extends Controller {
                 wp_die( 'Security check failed. Please try again.' );
             }
             $id = sanitize_text_field($_POST['id']);
-            $this->Model->deleteById($id);
+            $this->getModel()->deleteById($id);
         }
-        $records = $this->Model->select();
+        $records = $this->getModel()->select();
         // View
-        $this->View->list($records);
+        $this->getView()->list($records);
     }
 
     /**
@@ -35,7 +39,7 @@ class SongController extends Controller {
      */
     public function add($album_id = 0) {
         // View
-        $this->View->add(['album_id' => $album_id]);
+        $this->getView()->add(['album_id' => $album_id]);
     }
 
     /**
@@ -56,7 +60,7 @@ class SongController extends Controller {
                     'name'     => $name,
                     'album_id' => $album_id
                 ];
-                $id = $this->Model->insert($data);
+                $id = $this->getModel()->insert($data);
             }
         }
         // This process has been added here to avoid to redirect to this page from edit page
@@ -73,7 +77,7 @@ class SongController extends Controller {
                 $format_data = [
                     '%s'
                 ];
-                $this->Model->updateById(
+                $this->getModel()->updateById(
                     $id,
                     $data,
                     $format_data
@@ -81,9 +85,9 @@ class SongController extends Controller {
             }
         }
 
-        $record = $this->Model->selectById($id);
+        $record = $this->getModel()->selectById($id);
         // View
-        $this->View->view($record);
+        $this->getView()->view($record);
     }
 
     /**
@@ -93,9 +97,9 @@ class SongController extends Controller {
      */
     public function edit($id = 0) {
         $data = [
-            'record' => $this->Model->selectById($id)
+            'record' => $this->getModel()->selectById($id)
         ];
         // View
-        $this->View->edit($data);
+        $this->getView()->edit($data);
     }
 }
