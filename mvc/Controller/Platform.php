@@ -1,6 +1,8 @@
 <?php
 
-class PlatformController {
+require_once 'Controller.php';
+
+class PlatformController extends Controller {
     /**
      * Model
      */
