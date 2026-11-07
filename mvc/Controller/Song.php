@@ -16,22 +16,23 @@ class SongController extends Controller {
     }
 
     /**
-     * Table
+     * List function
      */
     public function list() {
         // Delete process
         if (isset($_POST['id'])) {
             $this->delete($_POST['id']);
         }
+        // Get the records
         $records = $this->getModel()->select();
         // View
-        $this->getView()->list($records);
+        $this->getView()->list(['records' => $records]);
     }
 
     /**
      * Add function
      *
-     * @param Integer $album_id Album id.
+     * @param Integer $album_id Album id
      */
     public function add($album_id = 0) {
         // View
@@ -41,7 +42,7 @@ class SongController extends Controller {
     /**
      * View function
      *
-     * @param Int $id Song id.
+     * @param Integer $id Song id
      */
     public function view($id = 0) {
         // This process has been added here to avoid to redirect to this page from add page
@@ -80,22 +81,21 @@ class SongController extends Controller {
                 );
             }
         }
-
+        // Get the record
         $record = $this->getModel()->selectById($id);
         // View
-        $this->getView()->view($record);
+        $this->getView()->view(['record' => $record]);
     }
 
     /**
      * Edit function
      *
-     * @param Int $id Song id.
+     * @param Integer $id Song id
      */
     public function edit($id = 0) {
-        $data = [
-            'record' => $this->getModel()->selectById($id)
-        ];
+        // Get the record
+        $record = $this->getModel()->selectById($id);
         // View
-        $this->getView()->edit($data);
+        $this->getView()->edit(['record' => $record]);
     }
 }

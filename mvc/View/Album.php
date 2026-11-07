@@ -4,46 +4,52 @@ require_once 'View.php';
 
 class AlbumView extends View {
     /**
-     * List
+     * List render function
+     *
+     * @param Array $data Data to render
      */
-    public function list($records = []) {
+    public function list($data = []) {
+        $records = isset($data['records']) ? $data['records'] : [];
         $total = count($records);
+        // Panel
         echo $this->panelOpen('Albums');
         echo '<div class="mb-3">';
         echo '    <a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
         echo '</div>';
-        echo '<table class="table table-sm table-striped table-hover table-bordered">';
-        echo '    <thead>';
-        echo '        <tr>';
-        echo '            <th scope="col">Id</th>';
-        echo '            <th scope="col">Name</th>';
-        echo '            <th scope="col" colspan="3" class="col-actions">Actions</th>';
-        echo '        </tr>';
-        echo '    </thead>';
-        echo '    <tbody>';
-        for ($i = 0; $i < $total; $i++) {
-            echo '    <tr>';
-            echo '        <th scope="row">' . $records[$i]->id . '</th>';
-            echo '        <td>' . $records[$i]->name . '</td>';
-            echo '        <td class="col-action"><a href="?page=albums-view-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
-            echo '        <td class="col-action"><a href="?page=albums-edit-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
-            echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
-            echo '    </tr>';
+        if ($total) {
+            echo '<table class="table table-sm table-striped table-hover table-bordered">';
+            echo '    <thead>';
+            echo '        <tr>';
+            echo '            <th scope="col">Id</th>';
+            echo '            <th scope="col">Name</th>';
+            echo '            <th scope="col" colspan="3" class="col-actions">Actions</th>';
+            echo '        </tr>';
+            echo '    </thead>';
+            echo '    <tbody>';
+            for ($i = 0; $i < $total; $i++) {
+                echo '    <tr>';
+                echo '        <th scope="row">' . $records[$i]->id . '</th>';
+                echo '        <td>' . $records[$i]->name . '</td>';
+                echo '        <td class="col-action"><a href="?page=albums-view-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
+                echo '        <td class="col-action"><a href="?page=albums-edit-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
+                echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
+                echo '    </tr>';
+            }
+            echo '    </tbody>';
+            echo '</table>';
         }
-        echo '    </tbody>';
-        echo '</table>';
         echo $this->panelClose();
     }
 
     /**
-     * Add
+     * Add render function
      */
     public function add() {
-        echo $this->panelOpen('Add a new album');
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
-
+        // Panel
+        echo $this->panelOpen('Add a new album');
         echo $form->init(['action' => "admin.php?page=albums-view-settings", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
@@ -73,59 +79,58 @@ class AlbumView extends View {
     }
 
     /**
-     * View function
+     * View render function
      *
-     * @param Array $record Album information.
+     * @param Array $data Data to render
      */
-    public function view($record = null) {
+    public function view($data = []) {
+        $record = isset($data['record']) ? $data['record'] : [];
+        // Panel
+        echo $this->panelOpen( 'View album' );
         if ($record) {
             $songsTable = false;
-            if (isset($record['songs']) && count($record['songs'])) {
+            if (isset($data['songs']) && count($data['songs'])) {
                 $songsTable = true;
                 $songView = new SongView();
             }
-            $album = $record['album'];
-            echo $this->panelOpen( 'View album' );
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
             echo '            <td><b>Cover</b></td>';
-            echo '            <td>' . $album->cover . '</td>';
+            echo '            <td>' . $record->cover . '</td>';
             echo '        </tr>';
             echo '        <tr>';
             echo '            <td><b>Name</b></td>';
-            echo '            <td>' . $album->name . '</td>';
+            echo '            <td>' . $record->name . '</td>';
             echo '        </tr>';
             echo '    </tbody>';
             echo '</table>';
             echo '<div class="mb-3">';
             echo '    <a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
-            echo '    <a href="?page=albums-edit-settings&album=' . $album->id .'" class="btn btn-sm btn-primary">Edit album</a>';
-            echo '    <a href="?page=songs-add-settings&album=' . $album->id . '" class="btn btn-sm btn-success">Add a new song</a>';
+            echo '    <a href="?page=albums-edit-settings&album=' . $record->id .'" class="btn btn-sm btn-primary">Edit album</a>';
+            echo '    <a href="?page=songs-add-settings&album=' . $record->id . '" class="btn btn-sm btn-success">Add a new song</a>';
             echo '</div>';
             if ($songsTable) {
                 echo '<br><hr><br>';
                 echo '<h2>Songs</h2>';
-                echo $songView->table($record['songs']);
+                echo $songView->table($data['songs']);
             }
-            echo $this->panelClose();
         }
+        echo $this->panelClose();
     }
 
     /**
-     * Edit function
+     * Edit render function
      *
-     * @param Array $record Album information.
+     * @param Array $data Data to render
      */
-    public function edit($record = null) {
-        if (!$record) {
-            return;
-        }
-        echo $this->panelOpen('Edit album');
+    public function edit($data = []) {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
-
+        $record = isset($data['record']) ? $data['record'] : [];
+        // Panel
+        echo $this->panelOpen('Edit album');
         echo $form->init(['action' => "admin.php?page=albums-view-settings&album=" . $record->id, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
