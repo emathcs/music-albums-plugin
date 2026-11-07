@@ -4,10 +4,10 @@ require_once 'View.php';
 
 class SongView extends View {
     /**
-     * Table
+     * Table function
      *
-     * @param Array $records Song records.
-     * @return String $html An HTML table.
+     * @param Array $records Song records
+     * @return String $html An HTML table
      */
     public function table($records = []) {
         $html = '';
@@ -36,11 +36,14 @@ class SongView extends View {
         }
         return $html;
     }
+
     /**
-     * List
+     * List render function
+     *
+     * @param Array $data Data to render
      */
     public function list($records = []) {
-        $total = count($records);
+        $records = isset($data['records']) ? $data['records'] : [];
         echo $this->panelOpen('Songs');
         echo '<div class="mb-3">';
         echo '    <a href="?page=songs-add-settings" class="btn btn-sm btn-primary">Add a new song</a>';
@@ -50,15 +53,14 @@ class SongView extends View {
     }
 
     /**
-     * Add function
+     * Add render function
      *
-     * @param Array $data Data to render in the HTML
+     * @param Array $data Data to render
      */
     public function add($data = []) {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
-
         $album_id = isset($data['album_id']) ? $data['album_id'] : 0;
 
         echo $this->panelOpen('Add a new song');
@@ -90,11 +92,12 @@ class SongView extends View {
     }
 
     /**
-     * View function
+     * View render function
      *
-     * @param Array $record Song information.
+     * @param Array $data Data to render
      */
-    public function view($record = null) {
+    public function view($data = []) {
+        $record = isset($data['record']) ? $data['record'] : [];
         if ($record) {
             echo $this->panelOpen( 'View song' );
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
@@ -117,18 +120,15 @@ class SongView extends View {
     /**
      * Edit function
      *
-     * @param Array $data Data to render in the HTML
+     * @param Array $data Data to render
      */
     public function edit($data = []) {
-        if (!count($data)) {
-            return;
-        }
-        $record = $data['record'];
-        echo $this->panelOpen('Edit song');
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $record = isset($data['record']) ? $data['record'] : [];
 
+        echo $this->panelOpen('Edit song');
         echo $form->init(['action' => "admin.php?page=songs-view-settings&song=" . $record->id, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
