@@ -1,39 +1,31 @@
 <?php
 
-class SongController {
-    /**
-     * Model
-     */
-    private $Model;
+require_once 'Controller.php';
 
-    /**
-     * View
-     */
-    private $View;
-
+class SongController extends Controller {
     /**
      * Constructor
      */
     public function __construct() {
-        $this->Model = new SongModel('songs');
-        $this->View  = new SongView();
+        $Model = new SongModel('songs');
+        $View  = new SongView();
+        // Alternative
+        $ModelChild = new PlatformModel('platforms');
+        // Parent constructor
+        parent::__construct($Model, $View, $ModelChild);
     }
 
     /**
      * Table
      */
     public function list() {
-        // This process has been added here to avoid to redirect to this page from view page
-        if ( isset( $_POST['submit-delete'] ) ) {
-            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
-                wp_die( 'Security check failed. Please try again.' );
-            }
-            $id = sanitize_text_field($_POST['id']);
-            $this->Model->deleteById($id);
+        // Delete process
+        if (isset($_POST['id'])) {
+            $this->delete($_POST['id']);
         }
-        $records = $this->Model->select();
+        $records = $this->getModel()->select();
         // View
-        $this->View->list($records);
+        $this->getView()->list($records);
     }
 
     /**
@@ -43,7 +35,7 @@ class SongController {
      */
     public function add($album_id = 0) {
         // View
-        $this->View->add(['album_id' => $album_id]);
+        $this->getView()->add(['album_id' => $album_id]);
     }
 
     /**
@@ -64,7 +56,7 @@ class SongController {
                     'name'     => $name,
                     'album_id' => $album_id
                 ];
-                $id = $this->Model->insert($data);
+                $id = $this->getModel()->insert($data);
             }
         }
         // This process has been added here to avoid to redirect to this page from edit page
@@ -81,7 +73,7 @@ class SongController {
                 $format_data = [
                     '%s'
                 ];
-                $this->Model->updateById(
+                $this->getModel()->updateById(
                     $id,
                     $data,
                     $format_data
@@ -89,9 +81,9 @@ class SongController {
             }
         }
 
-        $record = $this->Model->selectById($id);
+        $record = $this->getModel()->selectById($id);
         // View
-        $this->View->view($record);
+        $this->getView()->view($record);
     }
 
     /**
@@ -100,8 +92,10 @@ class SongController {
      * @param Int $id Song id.
      */
     public function edit($id = 0) {
-        $record = $this->Model->selectById($id);
+        $data = [
+            'record' => $this->getModel()->selectById($id)
+        ];
         // View
-        $this->View->edit($record);
+        $this->getView()->edit($data);
     }
 }
