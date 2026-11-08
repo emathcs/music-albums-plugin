@@ -9,6 +9,11 @@ class ButtonView extends View {
      * @param Array $data Data to render
      */
     public function list($data = []) {
+        $platforms = [
+            '1' => 'Apple Music',
+            '2' => 'Spotify',
+            '3' => 'Amazon Music'
+        ];
         $records = isset($data['records']) ? $data['records'] : [];
         $total = count($records);
         // Panel
@@ -30,7 +35,7 @@ class ButtonView extends View {
             for ($i = 0; $i < $total; $i++) {
                 echo '    <tr>';
                 echo '        <th scope="row">' . $records[$i]->id . '</th>';
-                echo '        <td>' . $records[$i]->platform_id . '</td>';
+                echo '        <td>' . $platforms[$records[$i]->platform_id] . '</td>';
                 echo '        <td>' . $records[$i]->link . '</td>';
                 echo '        <td class="col-action"><a href="?page=buttons-view-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
                 echo '        <td class="col-action"><a href="?page=buttons-edit-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
@@ -114,6 +119,11 @@ class ButtonView extends View {
      * @param Array $data Data to render
      */
     public function view($data = []) {
+        $platforms = [
+            '1' => 'Apple Music',
+            '2' => 'Spotify',
+            '3' => 'Amazon Music'
+        ];
         $record = isset($data['record']) ? $data['record'] : [];
         // Panel
         echo $this->panelOpen( 'View button' );
@@ -122,7 +132,7 @@ class ButtonView extends View {
             echo '    <tbody>';
             echo '        <tr>';
             echo '            <td>Platform</td>';
-            echo '            <td>' . $record->platform_id . '</td>';
+            echo '            <td>' . $platforms[$record->platform_id] . '</td>';
             echo '        </tr>';
             echo '        <tr>';
             echo '            <td>Link</td>';
