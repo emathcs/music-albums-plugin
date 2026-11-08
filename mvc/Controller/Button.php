@@ -9,8 +9,10 @@ class ButtonController extends Controller {
     public function __construct() {
         $Model = new ButtonModel('buttons');
         $View  = new ButtonView();
+        // ModelChild
+        $ChildModel = new PlatformModel();
         // Parent constructor
-        parent::__construct($Model, $View);
+        parent::__construct($Model, $View, $ChildModel);
     }
 
     /**
@@ -22,38 +24,24 @@ class ButtonController extends Controller {
             $this->delete($_POST['id']);
         }
         // Platforms
-        $platforms = [
-            '1' => 'Apple Music',
-            '2' => 'Spotify',
-            '3' => 'Amazon Music'
-        ];
+        $platforms = $this->getChildModel()->getList();
+        $list = [];
+        $total = count($platforms);
+        for ($i = 0; $i < $total; $i++) {
+            $list[$i] = $platforms[$i]['label'];
+        }
         // Get the records
         $records = $this->getModel()->select();
         // View
-        $this->getView()->list(['records' => $records, 'platforms' => $platforms]);
+        $this->getView()->list(['records' => $records, 'platforms' => $list]);
     }
 
     /**
      * Add function
      */
     public function add() {
-        // Platforms
-        $platforms = [
-            [
-                'value' => 1,
-                'label' => 'Apple Music'
-            ],
-            [
-                'value' => 2,
-                'label' => 'Spotify'
-            ],
-            [
-                'value' => 3,
-                'label' => 'Amazon Music'
-            ],
-        ];
         // View
-        $this->getView()->add(['platforms' => $platforms]);
+        $this->getView()->add(['platforms' => $this->getChildModel()->getList()]);
     }
 
     /**
