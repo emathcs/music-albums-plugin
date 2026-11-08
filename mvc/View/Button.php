@@ -9,11 +9,6 @@ class ButtonView extends View {
      * @param Array $data Data to render
      */
     public function list($data = []) {
-        $platforms = [
-            '1' => 'Apple Music',
-            '2' => 'Spotify',
-            '3' => 'Amazon Music'
-        ];
         $records = isset($data['records']) ? $data['records'] : [];
         $total = count($records);
         // Panel
@@ -35,7 +30,7 @@ class ButtonView extends View {
             for ($i = 0; $i < $total; $i++) {
                 echo '    <tr>';
                 echo '        <th scope="row">' . $records[$i]->id . '</th>';
-                echo '        <td>' . $platforms[$records[$i]->platform_id] . '</td>';
+                echo '        <td>' . $data['platforms'][$records[$i]->platform_id] . '</td>';
                 echo '        <td>' . $records[$i]->link . '</td>';
                 echo '        <td class="col-action"><a href="?page=buttons-view-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
                 echo '        <td class="col-action"><a href="?page=buttons-edit-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
@@ -50,15 +45,16 @@ class ButtonView extends View {
 
     /**
      * Add render function
+     *
+     * @param Array $data Data to render
      */
-    public function add() {
+    public function add($data = []) {
         echo $this->panelOpen('Add a new button');
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
         $select = new Select('mb-3');
         $select->setLabelClass('form-label');
-
         // Panel
         echo $form->init(['action' => "admin.php?page=buttons-view-settings", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
@@ -82,20 +78,7 @@ class ButtonView extends View {
                 'required' => '',
                 'value'    => ''
             ],
-            [
-                [
-                    'value' => 1,
-                    'label' => 'Apple Music'
-                ],
-                [
-                    'value' => 2,
-                    'label' => 'Spotify'
-                ],
-                [
-                    'value' => 3,
-                    'label' => 'Amazon Music'
-                ],
-            ]
+            $data['platforms']
         );
         // Link
         $input->setLabel('Link');
@@ -119,11 +102,6 @@ class ButtonView extends View {
      * @param Array $data Data to render
      */
     public function view($data = []) {
-        $platforms = [
-            '1' => 'Apple Music',
-            '2' => 'Spotify',
-            '3' => 'Amazon Music'
-        ];
         $record = isset($data['record']) ? $data['record'] : [];
         // Panel
         echo $this->panelOpen( 'View button' );
@@ -131,11 +109,11 @@ class ButtonView extends View {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
-            echo '            <td>Platform</td>';
-            echo '            <td>' . $platforms[$record->platform_id] . '</td>';
+            echo '            <th>Platform</th>';
+            echo '            <td>' . $data['platforms'][$record->platform_id] . '</td>';
             echo '        </tr>';
             echo '        <tr>';
-            echo '            <td>Link</td>';
+            echo '            <th>Link</th>';
             echo '            <td>' . $record->link . '</td>';
             echo '        </tr>';
             echo '    </tbody>';
@@ -192,20 +170,7 @@ class ButtonView extends View {
                 'required' => '',
                 'value'    => $record->platform_id
             ],
-            [
-                [
-                    'value' => 1,
-                    'label' => 'Apple Music'
-                ],
-                [
-                    'value' => 2,
-                    'label' => 'Spotify'
-                ],
-                [
-                    'value' => 3,
-                    'label' => 'Amazon Music'
-                ],
-            ]
+            $data['platforms']
         );
         // Link
         $input->setLabel('Link');

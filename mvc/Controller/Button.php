@@ -21,18 +21,39 @@ class ButtonController extends Controller {
         if (isset($_POST['id'])) {
             $this->delete($_POST['id']);
         }
+        // Platforms
+        $platforms = [
+            '1' => 'Apple Music',
+            '2' => 'Spotify',
+            '3' => 'Amazon Music'
+        ];
         // Get the records
         $records = $this->getModel()->select();
         // View
-        $this->getView()->list(['records' => $records]);
+        $this->getView()->list(['records' => $records, 'platforms' => $platforms]);
     }
 
     /**
      * Add function
      */
     public function add() {
+        // Platforms
+        $platforms = [
+            [
+                'value' => 1,
+                'label' => 'Apple Music'
+            ],
+            [
+                'value' => 2,
+                'label' => 'Spotify'
+            ],
+            [
+                'value' => 3,
+                'label' => 'Amazon Music'
+            ],
+        ];
         // View
-        $this->getView()->add();
+        $this->getView()->add(['platforms' => $platforms]);
     }
 
     /**
@@ -84,10 +105,16 @@ class ButtonController extends Controller {
                 );
             }
         }
+        // Platforms
+        $platforms = [
+            '1' => 'Apple Music',
+            '2' => 'Spotify',
+            '3' => 'Amazon Music'
+        ];
         // Get the record
         $record = $this->getModel()->selectById($id);
         // View
-        $this->getView()->view(['record' => $record]);
+        $this->getView()->view(['record' => $record, 'platforms' => $platforms]);
     }
 
     /**
@@ -96,9 +123,24 @@ class ButtonController extends Controller {
      * @param Integer $id Button id
      */
     public function edit($id = 0) {
+        // Platforms
+        $platforms = [
+            [
+                'value' => 1,
+                'label' => 'Apple Music'
+            ],
+            [
+                'value' => 2,
+                'label' => 'Spotify'
+            ],
+            [
+                'value' => 3,
+                'label' => 'Amazon Music'
+            ],
+        ];
         // Get the record
         $record = $this->getModel()->selectById($id);
         // View
-        $this->getView()->edit(['record' => $record]);
+        $this->getView()->edit(['record' => $record, 'platforms' => $platforms]);
     }
 }
