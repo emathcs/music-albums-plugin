@@ -51,6 +51,9 @@ class ButtonView extends View {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $select = new Select('mb-3');
+        $select->setLabelClass('form-label');
+
         // Panel
         echo $form->init(['action' => "admin.php?page=buttons-view-settings", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
@@ -64,14 +67,31 @@ class ButtonView extends View {
             'value'    => 1
         ]);
         // Platform
-        $input->setLabel('Platform');
-        echo $input->create([
-            'type'     => 'text',
-            'id'       => 'platform-id',
-            'name'     => 'platform-id',
-            'class'    => 'form-control',
-            'required' => ''
-        ]);
+        $select->setLabel('Platform');
+        echo $select->create(
+            [
+                'type'     => 'text',
+                'id'       => 'platform-id',
+                'name'     => 'platform-id',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => ''
+            ],
+            [
+                [
+                    'value' => 1,
+                    'label' => 'Apple Music'
+                ],
+                [
+                    'value' => 2,
+                    'label' => 'Spotify'
+                ],
+                [
+                    'value' => 3,
+                    'label' => 'Amazon Music'
+                ],
+            ]
+        );
         // Link
         $input->setLabel('Link');
         echo $input->create([
@@ -127,6 +147,8 @@ class ButtonView extends View {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $select = new Select('mb-3');
+        $select->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
         // Panel
         echo $this->panelOpen('Edit button');
@@ -149,16 +171,32 @@ class ButtonView extends View {
             'class'    => 'form-control',
             'value'    => $record->album_id
         ]);
-        // Name
-        $input->setLabel('Platform');
-        echo $input->create([
-            'type'     => 'text',
-            'id'       => 'platform-id',
-            'name'     => 'platform-id',
-            'class'    => 'form-control',
-            'required' => '',
-            'value'    => $record->platform_id
-        ]);
+        // Platform
+        $select->setLabel('Platform');
+        echo $select->create(
+            [
+                'type'     => 'text',
+                'id'       => 'platform-id',
+                'name'     => 'platform-id',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => $record->platform_id
+            ],
+            [
+                [
+                    'value' => 1,
+                    'label' => 'Apple Music'
+                ],
+                [
+                    'value' => 2,
+                    'label' => 'Spotify'
+                ],
+                [
+                    'value' => 3,
+                    'label' => 'Amazon Music'
+                ],
+            ]
+        );
         // Link
         $input->setLabel('Link');
         echo $input->create([
