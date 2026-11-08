@@ -2,30 +2,31 @@
 
 class PlatformModel {
     /**
-     * List
+     * Records
      */
-    private $list = [
+    private $records = [
         [
-            'value' => 1,
-            'label' => 'Apple Music'
+            'id'   => 1,
+            'name' => 'Apple Music'
         ],
         [
-            'value' => 2,
-            'label' => 'Spotify'
+            'id'   => 2,
+            'name' => 'Spotify'
         ],
         [
-            'value' => 3,
-            'label' => 'Amazon Music'
+            'id'   => 3,
+            'name' => 'Amazon Music'
         ],
     ];
 
     /**
-     * Get list
+     * Select function
      *
-     * @return Array Platform list
+     * SELECT * FROM Platforms;
+     *
+     * @return Array Platforms
      */
-    public function getList() {
-        return $this->list;
+    public function select() {
+        return $this->records;
     }
-
 }

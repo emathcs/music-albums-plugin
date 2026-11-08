@@ -16,6 +16,35 @@ class ButtonController extends Controller {
     }
 
     /**
+     * Platform list function
+     */
+    public function getPlatformList() {
+        $list = [];
+        $platforms = $this->getChildModel()->select();
+        $total = count($platforms);
+        for ($i = 0; $i < $total; $i++) {
+            $list[$platforms[$i]['id']] = $platforms[$i]['name'];
+        }
+        return $list;
+    }
+
+    /**
+     * Platform options function
+     */
+    public function getPlatformOptions() {
+        $options = [];
+        $platforms = $this->getChildModel()->select();
+        $total = count($platforms);
+        for ($i = 0; $i < $total; $i++) {
+            $options[$i] = [
+                'value' => $platforms[$i]['id'],
+                'label' => $platforms[$i]['name']
+            ];
+        }
+        return $options;
+    }
+
+    /**
      * List function
      */
     public function list() {
@@ -24,24 +53,21 @@ class ButtonController extends Controller {
             $this->delete($_POST['id']);
         }
         // Platforms
-        $platforms = $this->getChildModel()->getList();
-        $list = [];
-        $total = count($platforms);
-        for ($i = 0; $i < $total; $i++) {
-            $list[$i] = $platforms[$i]['label'];
-        }
+        $platforms = $this->getPlatformList();
         // Get the records
         $records = $this->getModel()->select();
         // View
-        $this->getView()->list(['records' => $records, 'platforms' => $list]);
+        $this->getView()->list(['records' => $records, 'platforms' => $platforms]);
     }
 
     /**
      * Add function
      */
     public function add() {
+        // Platforms
+        $platforms = $this->getPlatformOptions();
         // View
-        $this->getView()->add(['platforms' => $this->getChildModel()->getList()]);
+        $this->getView()->add(['platforms' => $platforms]);
     }
 
     /**
@@ -94,11 +120,7 @@ class ButtonController extends Controller {
             }
         }
         // Platforms
-        $platforms = [
-            '1' => 'Apple Music',
-            '2' => 'Spotify',
-            '3' => 'Amazon Music'
-        ];
+        $platforms = $this->getPlatformList();
         // Get the record
         $record = $this->getModel()->selectById($id);
         // View
@@ -112,20 +134,7 @@ class ButtonController extends Controller {
      */
     public function edit($id = 0) {
         // Platforms
-        $platforms = [
-            [
-                'value' => 1,
-                'label' => 'Apple Music'
-            ],
-            [
-                'value' => 2,
-                'label' => 'Spotify'
-            ],
-            [
-                'value' => 3,
-                'label' => 'Amazon Music'
-            ],
-        ];
+        $platforms = $this->getPlatformOptions();
         // Get the record
         $record = $this->getModel()->selectById($id);
         // View
