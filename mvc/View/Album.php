@@ -93,6 +93,12 @@ class AlbumView extends View {
                 $songsTable = true;
                 $songView = new SongView();
             }
+            $buttonsTable = false;
+            if (isset($data['buttons']) && count($data['buttons'])) {
+                $buttonsTable = true;
+                $buttonView = new ButtonView();
+            }
+
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
@@ -110,6 +116,11 @@ class AlbumView extends View {
             echo '    <a href="?page=albums-edit-settings&album=' . $record->id .'" class="btn btn-sm btn-primary">Edit album</a>';
             echo '    <a href="?page=songs-add-settings&album=' . $record->id . '" class="btn btn-sm btn-success">Add a new song</a>';
             echo '</div>';
+            if ($buttonsTable) {
+                echo '<br><hr><br>';
+                echo '<h2>Songs</h2>';
+                echo $buttonView->table($data['buttons'], $data['platforms']);
+            }
             if ($songsTable) {
                 echo '<br><hr><br>';
                 echo '<h2>Songs</h2>';

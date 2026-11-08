@@ -96,8 +96,13 @@ class AlbumController extends Controller {
         // Get the related songs
         $songModel = new SongModel('songs');
         $songs = $songModel->selectByAlbumId($id);
+        // Get the related buttons
+        $buttonModel = new ButtonModel('buttons');
+        $buttons = $buttonModel->selectByAlbumId($id);
+        // Temp platforms
+        $platforms = [1 => 'Apple Music', 2 => 'Spotify', 3 => 'Amazon Music'];
         // View
-        $this->getView()->view(['record' => $record, 'songs' => $songs]);
+        $this->getView()->view(['record' => $record, 'songs' => $songs, 'buttons' => $buttons, 'platforms' => $platforms]);
     }
 
     /**
