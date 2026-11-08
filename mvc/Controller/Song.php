@@ -10,7 +10,7 @@ class SongController extends Controller {
         $Model = new SongModel('songs');
         $View  = new SongView();
         // Alternative
-        $ModelChild = new PlatformModel('platforms');
+        $ModelChild = new ButtonModel('buttons');
         // Parent constructor
         parent::__construct($Model, $View, $ModelChild);
     }

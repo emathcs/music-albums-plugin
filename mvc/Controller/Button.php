@@ -2,13 +2,13 @@
 
 require_once 'Controller.php';
 
-class PlatformController extends Controller {
+class ButtonController extends Controller {
     /**
      * Constructor
      */
     public function __construct() {
-        $Model = new PlatformModel('platforms');
-        $View  = new PlatformView();
+        $Model = new ButtonModel('buttons');
+        $View  = new ButtonView();
         // Parent constructor
         parent::__construct($Model, $View);
     }
@@ -38,22 +38,24 @@ class PlatformController extends Controller {
     /**
      * View function
      *
-     * @param Integer $id Platform id
+     * @param Integer $id Button id
      */
     public function view($id = 0) {
         // This process has been added here to avoid to redirect to this page from add page
         if ( isset( $_POST['submit'] ) ) {
+            echo 0;
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
-            $name     = sanitize_text_field($_POST['name']);
-            $link     = sanitize_text_field($_POST['link']);
-            $album_id = sanitize_text_field($_POST['album-id']);
-            if (!(empty($name) || empty($album_id) || empty($album_id))) {
+            echo 1;
+            $link        = sanitize_text_field($_POST['link']);
+            $album_id    = sanitize_text_field($_POST['album-id']);
+            $platform_id = sanitize_text_field($_POST['platform-id']);
+            if (!(empty($link) || empty($platform_id) || empty($platform_id))) {
                 $data = [
-                    'name'     => $name,
-                    'link'     => $link,
-                    'album_id' => $album_id
+                    'link'        => $link,
+                    'album_id'    => $album_id,
+                    'platform_id' => $platform_id
                 ];
                 $id = $this->getModel()->insert($data);
             }
@@ -63,17 +65,17 @@ class PlatformController extends Controller {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
-            $id       = sanitize_text_field($_POST['id']);
-            $name     = sanitize_text_field($_POST['name']);
-            $link     = sanitize_text_field($_POST['link']);
-            if (!(empty($name) || empty($link))) {
+            $id          = sanitize_text_field($_POST['id']);
+            $link        = sanitize_text_field($_POST['link']);
+            $platform_id = sanitize_text_field($_POST['platform-id']);
+            if (!(empty($platform_id) || empty($link))) {
                 $data = [
-                    'name' => $name,
-                    'link' => $link
+                    'link'        => $link,
+                    'platform_id' => $platform_id
                 ];
                 $format_data = [
                     '%s',
-                    '%s'
+                    '%d'
                 ];
                 $this->getModel()->updateById(
                     $id,
@@ -91,7 +93,7 @@ class PlatformController extends Controller {
     /**
      * Edit function
      *
-     * @param Integer $id Platform id
+     * @param Integer $id Button id
      */
     public function edit($id = 0) {
         // Get the record

@@ -2,5 +2,5 @@
 
 require_once 'Model.php';
 
-class PlatformModel extends Model {
+class ButtonModel extends Model {
 }
