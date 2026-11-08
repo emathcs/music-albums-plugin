@@ -6,7 +6,7 @@
  *
  * - Albums
  * - Songs
- * - Platforms
+ * - Buttons
  */
 function jal_install() {
     global $wpdb;
@@ -32,12 +32,12 @@ function jal_install() {
     $sql .= "    FOREIGN KEY (album_id) REFERENCES " . $table_1 . "(id) ON DELETE CASCADE";
     $sql .= ") " . $charset_collate . ";";
     dbDelta( $sql );
-    // Platforms
-    $table_3 = $wpdb->prefix . 'platforms';
+    // Buttons
+    $table_3 = $wpdb->prefix . 'buttons';
     $sql  = "CREATE TABLE ". $table_3 . " (";
     $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    name varchar(255) NOT NULL,";
     $sql .= "    link varchar(255) NOT NULL,";
+    $sql .= "    platform_id int(11) NOT NULL,";
     $sql .= "    album_id int(11),";
     $sql .= "    song_id int(11),";
     $sql .= "    FOREIGN KEY (album_id) REFERENCES " . $table_1 . "(id) ON DELETE CASCADE,";

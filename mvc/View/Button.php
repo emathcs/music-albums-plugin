@@ -2,7 +2,7 @@
 
 require_once 'View.php';
 
-class PlatformView extends View {
+class ButtonView extends View {
     /**
      * List render function
      *
@@ -12,16 +12,16 @@ class PlatformView extends View {
         $records = isset($data['records']) ? $data['records'] : [];
         $total = count($records);
         // Panel
-        echo $this->panelOpen('Platforms');
+        echo $this->panelOpen('Buttons');
         echo '<div class="mb-3">';
-        echo '    <a href="?page=platforms-add-settings" class="btn btn-sm btn-primary">Add a new platform</a>';
+        echo '    <a href="?page=buttons-add-settings" class="btn btn-sm btn-primary">Add a new button</a>';
         echo '</div>';
         if ($total) {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <thead>';
             echo '        <tr>';
             echo '            <th scope="col">Id</th>';
-            echo '            <th scope="col">Name</th>';
+            echo '            <th scope="col">Platform</th>';
             echo '            <th scope="col">Link</th>';
             echo '            <th scope="col" colspan="3" class="col-actions">Actions</th>';
             echo '        </tr>';
@@ -30,10 +30,10 @@ class PlatformView extends View {
             for ($i = 0; $i < $total; $i++) {
                 echo '    <tr>';
                 echo '        <th scope="row">' . $records[$i]->id . '</th>';
-                echo '        <td>' . $records[$i]->name . '</td>';
+                echo '        <td>' . $data['platforms'][$records[$i]->platform_id] . '</td>';
                 echo '        <td>' . $records[$i]->link . '</td>';
-                echo '        <td class="col-action"><a href="?page=platforms-view-settings&platform=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
-                echo '        <td class="col-action"><a href="?page=platforms-edit-settings&platform=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
+                echo '        <td class="col-action"><a href="?page=buttons-view-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
+                echo '        <td class="col-action"><a href="?page=buttons-edit-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
                 echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
                 echo '    </tr>';
             }
@@ -45,14 +45,18 @@ class PlatformView extends View {
 
     /**
      * Add render function
+     *
+     * @param Array $data Data to render
      */
-    public function add() {
-        echo $this->panelOpen('Add a new platform');
+    public function add($data = []) {
+        echo $this->panelOpen('Add a new button');
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $select = new Select('mb-3');
+        $select->setLabelClass('form-label');
         // Panel
-        echo $form->init(['action' => "admin.php?page=platforms-view-settings", 'method' => 'post']);
+        echo $form->init(['action' => "admin.php?page=buttons-view-settings", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Album id
@@ -63,15 +67,19 @@ class PlatformView extends View {
             'class'    => 'form-control',
             'value'    => 1
         ]);
-        // Name
-        $input->setLabel('Name');
-        echo $input->create([
-            'type'     => 'text',
-            'id'       => 'name',
-            'name'     => 'name',
-            'class'    => 'form-control',
-            'required' => ''
-        ]);
+        // Platform
+        $select->setLabel('Platform');
+        echo $select->create(
+            [
+                'type'     => 'text',
+                'id'       => 'platform-id',
+                'name'     => 'platform-id',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => ''
+            ],
+            $data['platforms']
+        );
         // Link
         $input->setLabel('Link');
         echo $input->create([
@@ -96,23 +104,23 @@ class PlatformView extends View {
     public function view($data = []) {
         $record = isset($data['record']) ? $data['record'] : [];
         // Panel
-        echo $this->panelOpen( 'View platform' );
+        echo $this->panelOpen( 'View button' );
         if ($record) {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
-            echo '            <td>Name</td>';
-            echo '            <td>' . $record->name . '</td>';
+            echo '            <th>Platform</th>';
+            echo '            <td>' . $data['platforms'][$record->platform_id] . '</td>';
             echo '        </tr>';
             echo '        <tr>';
-            echo '            <td>Link</td>';
+            echo '            <th>Link</th>';
             echo '            <td>' . $record->link . '</td>';
             echo '        </tr>';
             echo '    </tbody>';
             echo '</table>';
             echo '<div class="mb-3">';
-            echo '    <a href="?page=platforms-settings" class="btn btn-sm btn-secondary">Go to Platforms</a>';
-            echo '    <a href="?page=platforms-edit-settings&platform=' . $record->id .'" class="btn btn-sm btn-primary">Edit platform</a>';
+            echo '    <a href="?page=buttons-settings" class="btn btn-sm btn-secondary">Go to Buttons</a>';
+            echo '    <a href="?page=buttons-edit-settings&button=' . $record->id .'" class="btn btn-sm btn-primary">Edit button</a>';
             echo '</div>';
         }
         echo $this->panelClose();
@@ -127,10 +135,12 @@ class PlatformView extends View {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $select = new Select('mb-3');
+        $select->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
         // Panel
-        echo $this->panelOpen('Edit platform');
-        echo $form->init(['action' => "admin.php?page=platforms-view-settings&platform=" . $record->id, 'method' => 'post']);
+        echo $this->panelOpen('Edit button');
+        echo $form->init(['action' => "admin.php?page=buttons-view-settings&button=" . $record->id, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Id
@@ -149,16 +159,19 @@ class PlatformView extends View {
             'class'    => 'form-control',
             'value'    => $record->album_id
         ]);
-        // Name
-        $input->setLabel('Name');
-        echo $input->create([
-            'type'     => 'text',
-            'id'       => 'name',
-            'name'     => 'name',
-            'class'    => 'form-control',
-            'required' => '',
-            'value'    => $record->name
-        ]);
+        // Platform
+        $select->setLabel('Platform');
+        echo $select->create(
+            [
+                'type'     => 'text',
+                'id'       => 'platform-id',
+                'name'     => 'platform-id',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => $record->platform_id
+            ],
+            $data['platforms']
+        );
         // Link
         $input->setLabel('Link');
         echo $input->create([

@@ -23,3 +23,7 @@
 body {
     background: #f0f0f0;
 }
+
+.wp-core-ui select {
+    max-width: 100%;
+}

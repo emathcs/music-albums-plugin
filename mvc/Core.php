@@ -10,7 +10,10 @@ require_once 'Model/Song.php';
 require_once 'View/Song.php';
 require_once 'Controller/Song.php';
 
+// Button
+require_once 'Model/Button.php';
+require_once 'View/Button.php';
+require_once 'Controller/Button.php';
+
 // Platform
 require_once 'Model/Platform.php';
-require_once 'View/Platform.php';
-require_once 'Controller/Platform.php';

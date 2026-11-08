@@ -123,43 +123,43 @@ function albums_admin_menu() {
     );
 
     /**
-     * Platforms
+     * Buttons
      */
     // List
     add_submenu_page(
         '',               // Parent menu slug
-        'Platforms',          // Page title
+        'Buttons',          // Page title
         '',               // Menu title
         'manage_options', // Capability
-        'platforms-settings', // Menu slug
-        'platforms_html'      // Callback function
+        'buttons-settings', // Menu slug
+        'buttons_html'      // Callback function
     );
     // Add
     add_submenu_page(
         '',                   // Parent menu slug
-        'Platforms',              // Page title
+        'Buttons',              // Page title
         '',                   // Menu title
         'manage_options',     // Capability
-        'platforms-add-settings', // Menu slug
-        'platforms_add_html'      // Callback function
+        'buttons-add-settings', // Menu slug
+        'buttons_add_html'      // Callback function
     );
     // View
     add_submenu_page(
         '',                    // Parent menu slug
-        'Platforms',               // Page title
+        'Buttons',               // Page title
         '',                    // Menu title
         'manage_options',      // Capability
-        'platforms-view-settings', // Menu slug
-        'platforms_view_html'      // Callback function
+        'buttons-view-settings', // Menu slug
+        'buttons_view_html'      // Callback function
     );
     // Edit
     add_submenu_page(
         '',                    // Parent menu slug
-        'Platforms',               // Page title
+        'Buttons',               // Page title
         '',                    // Menu title
         'manage_options',      // Capability
-        'platforms-edit-settings', // Menu slug
-        'platforms_edit_html'      // Callback function
+        'buttons-edit-settings', // Menu slug
+        'buttons_edit_html'      // Callback function
     );
 }
 add_action( 'admin_menu', 'albums_admin_menu' );
@@ -200,6 +200,7 @@ add_action( 'admin_init', 'albums_admin_init' );
  */
 require_once plugin_dir_path( __FILE__ ) . 'html-elements/Form.php';
 require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
+require_once plugin_dir_path( __FILE__ ) . 'html-elements/Select.php';
 
 /**
  * MVC
@@ -242,8 +243,8 @@ function albums_edit_html() {
 // Songs functions
 require_once plugin_dir_path( __FILE__ ) . 'song.php';
 
-// Platforms functions
-require_once plugin_dir_path( __FILE__ ) . 'platform.php';
+// Buttons functions
+require_once plugin_dir_path( __FILE__ ) . 'button.php';
 
 /**
  * Enqueue admin scripts and styles
@@ -259,11 +260,11 @@ function albums_admin_enqueue_scripts( $hook ) {
         'admin_page_songs-add-settings'  => true,
         'admin_page_songs-view-settings' => true,
         'admin_page_songs-edit-settings' => true,
-        // Platform
-        'admin_page_platforms-settings'      => true,
-        'admin_page_platforms-add-settings'  => true,
-        'admin_page_platforms-view-settings' => true,
-        'admin_page_platforms-edit-settings' => true,
+        // Button
+        'admin_page_buttons-settings'      => true,
+        'admin_page_buttons-add-settings'  => true,
+        'admin_page_buttons-view-settings' => true,
+        'admin_page_buttons-edit-settings' => true,
     ];
     // Load scripts only on your specific plugin settings page
     if ( ! ( isset( $sections[$hook] ) && $sections[$hook] ) ) {
