@@ -118,7 +118,7 @@ class AlbumView extends View {
             echo '</div>';
             if ($buttonsTable) {
                 echo '<br><hr><br>';
-                echo '<h2>Songs</h2>';
+                echo '<h2>Buttons</h2>';
                 echo $buttonView->table($data['buttons'], $data['platforms']);
             }
             if ($songsTable) {
