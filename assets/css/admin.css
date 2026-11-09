@@ -35,3 +35,7 @@ body {
 .album-admin-hide {
     display: none;
 }
+
+.album-upload-btn {
+    cursor: pointer;
+}
