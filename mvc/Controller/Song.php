@@ -83,8 +83,14 @@ class SongController extends Controller {
         }
         // Get the record
         $record = $this->getModel()->selectById($id);
+        // Get the related buttons
+        $buttonModel = new ButtonModel('buttons');
+        $buttons = $buttonModel->selectBySongId($id);
+        // Platforms
+        $platformModel = new PlatformModel();
+        $platforms = $platformModel->getListFormat();
         // View
-        $this->getView()->view(['record' => $record]);
+        $this->getView()->view(['record' => $record, 'buttons' => $buttons, 'platforms' => $platforms]);
     }
 
     /**
