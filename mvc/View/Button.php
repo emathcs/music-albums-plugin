@@ -78,7 +78,15 @@ class ButtonView extends View {
             'id'       => 'album-id',
             'name'     => 'album-id',
             'class'    => 'form-control',
-            'value'    => 1
+            'value'    => $data['album_id']
+        ]);
+        // Song id
+        echo $input->create([
+            'type'     => 'hidden',
+            'id'       => 'song-id',
+            'name'     => 'song-id',
+            'class'    => 'form-control',
+            'value'    => $data['song_id']
         ]);
         // Platform
         $select->setLabel('Platform');
@@ -134,7 +142,12 @@ class ButtonView extends View {
             echo '<div class="mb-3">';
             echo '    <a href="?page=buttons-settings" class="btn btn-sm btn-secondary">Go to Buttons</a>';
             echo '    <a href="?page=buttons-edit-settings&button=' . $record->id .'" class="btn btn-sm btn-primary">Edit button</a>';
-            echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-success">Go to the album</a>';
+            if ($record->album_id) {
+                echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-success">Go to the album</a>';
+            }
+            if ($record->song_id) {
+                echo '    <a href="?page=songs-view-settings&song=' . $record->song_id .'" class="btn btn-sm btn-success">Go to the song</a>';
+            }
             echo '</div>';
         }
         echo $this->panelClose();

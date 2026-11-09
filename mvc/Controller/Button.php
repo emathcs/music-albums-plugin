@@ -35,10 +35,14 @@ class ButtonController extends Controller {
      * Add function
      */
     public function add() {
+        // Album id
+        $album_id = isset($_GET['album']) ? $_GET['album'] : 0;
+        // Song id
+        $song_id = isset($_GET['song']) ? $_GET['song'] : 0;
         // Platforms
         $platforms = $this->getChildModel()->getOptionsFormat();
         // View
-        $this->getView()->add(['platforms' => $platforms]);
+        $this->getView()->add(['platforms' => $platforms, 'album_id' => $album_id, 'song_id' => $song_id]);
     }
 
     /**
@@ -49,17 +53,20 @@ class ButtonController extends Controller {
     public function view($id = 0) {
         // This process has been added here to avoid to redirect to this page from add page
         if ( isset( $_POST['submit'] ) ) {
-            echo 0;
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
-            echo 1;
             $link        = sanitize_text_field($_POST['link']);
+            $song_id     = sanitize_text_field($_POST['song-id']);
             $album_id    = sanitize_text_field($_POST['album-id']);
             $platform_id = sanitize_text_field($_POST['platform-id']);
-            if (!(empty($link) || empty($platform_id) || empty($platform_id))) {
+            // Update the values if they are 0
+            $song_id  = $song_id ? $song_id : null;
+            $album_id = $album_id ? $album_id : null;
+            if (!(empty($link) || empty($platform_id))) {
                 $data = [
                     'link'        => $link,
+                    'song_id'     => $song_id,
                     'album_id'    => $album_id,
                     'platform_id' => $platform_id
                 ];

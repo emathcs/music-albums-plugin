@@ -102,6 +102,11 @@ class SongView extends View {
         // Panel
         echo $this->panelOpen( 'View song' );
         if ($record) {
+            $buttonsTable = false;
+            if (isset($data['buttons']) && count($data['buttons'])) {
+                $buttonsTable = true;
+                $buttonView = new ButtonView();
+            }
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
@@ -114,7 +119,13 @@ class SongView extends View {
             echo '    <a href="?page=songs-settings" class="btn btn-sm btn-secondary">Go to Songs</a>';
             echo '    <a href="?page=songs-edit-settings&song=' . $record->id .'" class="btn btn-sm btn-primary">Edit song</a>';
             echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-success">Go to the album</a>';
+            echo '    <a href="?page=buttons-add-settings&song=' . $record->id . '" class="btn btn-sm btn-warning">Add a new button</a>';
             echo '</div>';
+            if ($buttonsTable) {
+                echo '<br><hr><br>';
+                echo '<h2>Buttons</h2>';
+                echo $buttonView->table($data['buttons'], $data['platforms']);
+            }
         }
         echo $this->panelClose();
     }
