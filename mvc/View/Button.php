@@ -78,7 +78,15 @@ class ButtonView extends View {
             'id'       => 'album-id',
             'name'     => 'album-id',
             'class'    => 'form-control',
-            'value'    => 1
+            'value'    => $data['album_id']
+        ]);
+        // Song id
+        echo $input->create([
+            'type'     => 'hidden',
+            'id'       => 'song-id',
+            'name'     => 'song-id',
+            'class'    => 'form-control',
+            'value'    => $data['song_id']
         ]);
         // Platform
         $select->setLabel('Platform');
