@@ -91,6 +91,15 @@ class AlbumController extends Controller {
             $song_id = sanitize_text_field($_POST['id']);
             $songModel->deleteById($song_id);
         }
+        // Delete a button
+        if ( isset( $_POST['submit-delete'] ) ) {
+            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
+                wp_die( 'Security check failed. Please try again.' );
+            }
+            $buttonModel = new ButtonModel('buttons');
+            $button_id = sanitize_text_field($_POST['id']);
+            $buttonModel->deleteById($button_id);
+        }
         // Get the record
         $record = $this->getModel()->selectById($id);
         // Get the related songs
