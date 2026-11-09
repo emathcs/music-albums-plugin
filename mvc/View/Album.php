@@ -55,16 +55,18 @@ class AlbumView extends View {
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Cover image
         $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
-        echo '<div id="robin-image-gallery-item-preview" class="mb-3 col-12 col-sm-6 robin-upload-btn robin-image-gallery-item-preview">';
+        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-6 album-upload-btn album-image-gallery-item-preview">';
         echo '    <img src="" id="album-cover-img">';
         echo '</div>';
-        echo '<div id="robin-image-gallery-item-upload" class="mb-3 col-12 col-sm-6 robin-upload-btn robin-image-gallery-item-preview">';
-        echo '    <img src="' . $src_default . '" id="robin-admin">';
+        echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-6 album-upload-btn album-image-gallery-item-preview">';
+        echo '    <img src="' . $src_default . '" id="album-admin">';
         echo '</div>';
+        echo '<div class="mb-3">';
         // Select
-        echo '<button type="button" id="upload-btn" class="button robin-btn robin-upload-btn">Select an image</button>';
+        echo '<button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary">Select an image</button> ';
         // Remove
-        echo '<button type="button" id="remove-btn" class="button robin-btn robin-remove-btn">Remove image</button>';
+        echo '<button type="button" id="remove-btn" class="album-remove-btn btn btn-warning album-admin-hide">Remove image</button>';
+        echo '</div>';
         // Cover
         $input->setLabel('');
         echo $input->create([

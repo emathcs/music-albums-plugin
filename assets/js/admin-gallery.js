@@ -4,7 +4,7 @@ jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
     var number;
 
     // Setting an image
-    $('.robin-upload-btn').on('click', function(e) {
+    $('.album-upload-btn').on('click', function(e) {
         console.log(1);
         // Updating the preview and the buttons
         // type   = $(this).data('type');
@@ -46,9 +46,9 @@ jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
             // Updating the preview and the buttons
             $('#upload-btn').addClass('album-admin-hide');
             $('#remove-btn').removeClass('album-admin-hide');
-            $('#robin-image-gallery-item-preview').html(previewHtml);
-            $('#robin-image-gallery-item-upload').addClass('album-admin-hide');
-            $('#robin-image-gallery-item-preview').removeClass('album-admin-hide');
+            $('#album-image-gallery-item-preview').html(previewHtml);
+            $('#album-image-gallery-item-upload').addClass('album-admin-hide');
+            $('#album-image-gallery-item-preview').removeClass('album-admin-hide');
         });
 
         // Finally, open the modal
@@ -56,17 +56,14 @@ jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
     });
 
     // Removing the image
-    $('.robin-remove-btn').on('click', function(e) {
-        // Getting the parameters
-        type   = $(this).data('type');
-        number = $(this).data('album');
+    $('.album-remove-btn').on('click', function(e) {
         // Removing the image from the hidden imput
-        $('#' + type + '_img_' +  number).val('');
+        $('#cover').val('');
         // Updating the preview and the buttons
-        $('#robin-image-gallery-item-preview-' + type + '_img_' + number).html('');
-        $('#' + type + '_img_' + number + '-remove-btn').addClass('robin-hide');
-        $('#' + type + '_img_' + number + '-upload-btn').removeClass('robin-hide');
-        $('#robin-image-gallery-item-preview-' + type + '_img_' + number).addClass('robin-hide');
-        $('#robin-image-gallery-item-upload-' + type + '_img_' + number).removeClass('robin-hide');
+        $('#album-image-gallery-item-preview').html('');
+        $('#remove-btn').addClass('album-admin-hide');
+        $('#upload-btn').removeClass('album-admin-hide');
+        $('#album-image-gallery-item-preview').addClass('album-admin-hide');
+        $('#album-image-gallery-item-upload').removeClass('album-admin-hide');
     });
 });
