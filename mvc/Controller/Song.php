@@ -81,7 +81,7 @@ class SongController extends Controller {
                 );
             }
         }
-        // Delete a song
+        // Delete a button
         if ( isset( $_POST['submit-delete'] ) ) {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
