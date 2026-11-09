@@ -4,18 +4,14 @@ require_once 'View.php';
 
 class ButtonView extends View {
     /**
-     * List render function
+     * Table function
      *
-     * @param Array $data Data to render
+     * @param Array $records Button records
+     * @return String $html An HTML table
      */
-    public function list($data = []) {
-        $records = isset($data['records']) ? $data['records'] : [];
+    public function table($records = [], $platforms = []) {
+        $html = '';
         $total = count($records);
-        // Panel
-        echo $this->panelOpen('Buttons');
-        echo '<div class="mb-3">';
-        echo '    <a href="?page=buttons-add-settings" class="btn btn-sm btn-primary">Add a new button</a>';
-        echo '</div>';
         if ($total) {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <thead>';
@@ -30,7 +26,7 @@ class ButtonView extends View {
             for ($i = 0; $i < $total; $i++) {
                 echo '    <tr>';
                 echo '        <th scope="row">' . $records[$i]->id . '</th>';
-                echo '        <td>' . $data['platforms'][$records[$i]->platform_id] . '</td>';
+                echo '        <td>' . $platforms[$records[$i]->platform_id] . '</td>';
                 echo '        <td>' . $records[$i]->link . '</td>';
                 echo '        <td class="col-action"><a href="?page=buttons-view-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
                 echo '        <td class="col-action"><a href="?page=buttons-edit-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
@@ -40,6 +36,23 @@ class ButtonView extends View {
             echo '    </tbody>';
             echo '</table>';
         }
+        return $html;
+    }
+
+    /**
+     * List render function
+     *
+     * @param Array $data Data to render
+     */
+    public function list($data = []) {
+        $records = isset($data['records']) ? $data['records'] : [];
+        $total = count($records);
+        // Panel
+        echo $this->panelOpen('Buttons');
+        echo '<div class="mb-3">';
+        echo '    <a href="?page=buttons-add-settings" class="btn btn-sm btn-primary">Add a new button</a>';
+        echo '</div>';
+        echo $this->table($records, $data['platforms']);
         echo $this->panelClose();
     }
 
@@ -121,6 +134,7 @@ class ButtonView extends View {
             echo '<div class="mb-3">';
             echo '    <a href="?page=buttons-settings" class="btn btn-sm btn-secondary">Go to Buttons</a>';
             echo '    <a href="?page=buttons-edit-settings&button=' . $record->id .'" class="btn btn-sm btn-primary">Edit button</a>';
+            echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-success">Go to the album</a>';
             echo '</div>';
         }
         echo $this->panelClose();
