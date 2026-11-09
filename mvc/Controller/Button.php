@@ -53,7 +53,6 @@ class ButtonController extends Controller {
     public function view($id = 0) {
         // This process has been added here to avoid to redirect to this page from add page
         if ( isset( $_POST['submit'] ) ) {
-            echo 0;
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
