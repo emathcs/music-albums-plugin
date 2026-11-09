@@ -55,7 +55,7 @@ class AlbumView extends View {
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Cover image
         $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
-        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-6 album-upload-btn album-image-gallery-item-preview">';
+        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-6 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
         echo '    <img src="" id="album-cover-img">';
         echo '</div>';
         echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-6 album-upload-btn album-image-gallery-item-preview">';
