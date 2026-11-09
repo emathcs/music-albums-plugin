@@ -44,11 +44,11 @@ jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
             // Populate the input field with a comma-separated list of IDs
             $('#cover').val(imageIds);
             // Updating the preview and the buttons
-            $('#upload-btn').addClass('robin-hide');
-            $('#remove-btn').removeClass('robin-hide');
+            $('#upload-btn').addClass('album-admin-hide');
+            $('#remove-btn').removeClass('album-admin-hide');
             $('#robin-image-gallery-item-preview').html(previewHtml);
-            $('#robin-image-gallery-item-upload').addClass('robin-hide');
-            $('#robin-image-gallery-item-preview').removeClass('robin-hide');
+            $('#robin-image-gallery-item-upload').addClass('album-admin-hide');
+            $('#robin-image-gallery-item-preview').removeClass('album-admin-hide');
         });
 
         // Finally, open the modal
