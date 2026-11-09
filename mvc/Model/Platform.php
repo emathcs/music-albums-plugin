@@ -29,4 +29,33 @@ class PlatformModel {
     public function select() {
         return $this->records;
     }
+
+    /**
+     * Platform list function
+     */
+    public function getPlatformList() {
+        $list = [];
+        $platforms = $this->select();
+        $total = count($platforms);
+        for ($i = 0; $i < $total; $i++) {
+            $list[$platforms[$i]['id']] = $platforms[$i]['name'];
+        }
+        return $list;
+    }
+
+    /**
+     * Platform options function
+     */
+    public function getPlatformOptions() {
+        $options = [];
+        $platforms = $this->select();
+        $total = count($platforms);
+        for ($i = 0; $i < $total; $i++) {
+            $options[$i] = [
+                'value' => $platforms[$i]['id'],
+                'label' => $platforms[$i]['name']
+            ];
+        }
+        return $options;
+    }
 }
