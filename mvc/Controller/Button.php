@@ -16,35 +16,6 @@ class ButtonController extends Controller {
     }
 
     /**
-     * Platform list function
-     */
-    public function getPlatformList() {
-        $list = [];
-        $platforms = $this->getChildModel()->select();
-        $total = count($platforms);
-        for ($i = 0; $i < $total; $i++) {
-            $list[$platforms[$i]['id']] = $platforms[$i]['name'];
-        }
-        return $list;
-    }
-
-    /**
-     * Platform options function
-     */
-    public function getPlatformOptions() {
-        $options = [];
-        $platforms = $this->getChildModel()->select();
-        $total = count($platforms);
-        for ($i = 0; $i < $total; $i++) {
-            $options[$i] = [
-                'value' => $platforms[$i]['id'],
-                'label' => $platforms[$i]['name']
-            ];
-        }
-        return $options;
-    }
-
-    /**
      * List function
      */
     public function list() {
@@ -53,7 +24,7 @@ class ButtonController extends Controller {
             $this->delete($_POST['id']);
         }
         // Platforms
-        $platforms = $this->getPlatformList();
+        $platforms = $this->getChildModel()->getPlatformList();
         // Get the records
         $records = $this->getModel()->select();
         // View
@@ -120,7 +91,7 @@ class ButtonController extends Controller {
             }
         }
         // Platforms
-        $platforms = $this->getPlatformList();
+        $platforms = $this->getChildModel()->getPlatformList();
         // Get the record
         $record = $this->getModel()->selectById($id);
         // View
