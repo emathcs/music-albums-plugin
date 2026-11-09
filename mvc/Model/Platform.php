@@ -33,7 +33,7 @@ class PlatformModel {
     /**
      * Platform list function
      */
-    public function getPlatformList() {
+    public function getListFormat() {
         $list = [];
         $platforms = $this->select();
         $total = count($platforms);
@@ -46,7 +46,7 @@ class PlatformModel {
     /**
      * Platform options function
      */
-    public function getPlatformOptions() {
+    public function getOptionsFormat() {
         $options = [];
         $platforms = $this->select();
         $total = count($platforms);

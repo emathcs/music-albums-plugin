@@ -101,7 +101,7 @@ class AlbumController extends Controller {
         $buttons = $buttonModel->selectByAlbumId($id);
         // Platforms
         $platformModel = new PlatformModel();
-        $platforms = $platformModel->getPlatformList();
+        $platforms = $platformModel->getListFormat();
         // View
         $this->getView()->view(['record' => $record, 'songs' => $songs, 'buttons' => $buttons, 'platforms' => $platforms]);
     }

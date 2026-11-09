@@ -24,7 +24,7 @@ class ButtonController extends Controller {
             $this->delete($_POST['id']);
         }
         // Platforms
-        $platforms = $this->getChildModel()->getPlatformList();
+        $platforms = $this->getChildModel()->getListFormat();
         // Get the records
         $records = $this->getModel()->select();
         // View
@@ -36,7 +36,7 @@ class ButtonController extends Controller {
      */
     public function add() {
         // Platforms
-        $platforms = $this->getPlatformOptions();
+        $platforms = $this->getChildModel()->getOptionsFormat();
         // View
         $this->getView()->add(['platforms' => $platforms]);
     }
@@ -91,7 +91,7 @@ class ButtonController extends Controller {
             }
         }
         // Platforms
-        $platforms = $this->getChildModel()->getPlatformList();
+        $platforms = $this->getChildModel()->getListFormat();
         // Get the record
         $record = $this->getModel()->selectById($id);
         // View
@@ -105,7 +105,7 @@ class ButtonController extends Controller {
      */
     public function edit($id = 0) {
         // Platforms
-        $platforms = $this->getPlatformOptions();
+        $platforms = $this->getChildModel()->getOptionsFormat();
         // Get the record
         $record = $this->getModel()->selectById($id);
         // View
