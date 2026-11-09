@@ -53,6 +53,17 @@ class AlbumView extends View {
         echo $form->init(['action' => "admin.php?page=albums-view-settings", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+        // Cover image
+        echo '<div id="robin-image-gallery-item-preview" class="mb-3 robin-upload-btn robin-image-gallery-item-preview">';
+        echo '    <img src="" id="album-cover-img">';
+        echo '</div>';
+        echo '<div id="robin-image-gallery-item-upload" class="mb-3 robin-upload-btn robin-image-gallery-item-preview">';
+        echo '    <img src="" id="robin-admin">';
+        echo '</div>';
+        // Select
+        echo '<button type="button" id="upload-btn" class="button robin-btn robin-upload-btn">Select a image</button>';
+        // Remove
+        echo '<button type="button" id="remove-btn" class="button robin-btn robin-remove-btn">Remove image</button>';
         // Cover
         $input->setLabel('Cover');
         echo $input->create([

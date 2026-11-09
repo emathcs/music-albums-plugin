@@ -27,3 +27,7 @@ body {
 .wp-core-ui select {
     max-width: 100%;
 }
+
+.mb-3 img {
+    width: 100%;
+}
