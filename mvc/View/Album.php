@@ -113,10 +113,13 @@ class AlbumView extends View {
                 $buttonView = new ButtonView();
             }
 
+            echo '<div class="mb-3 col-12 col-sm-6">';
+            echo '<img src="' . wp_get_attachment_image_url($record->cover, 'medium') . '">';
+            echo '</div>';
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
-            echo '            <td><b>Cover</b></td>';
+            echo '            <td><b>Media id</b></td>';
             echo '            <td>' . $record->cover . '</td>';
             echo '        </tr>';
             echo '        <tr>';
