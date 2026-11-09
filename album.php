@@ -25,6 +25,9 @@ if ( ! defined( 'AP_VERSION' ) ) {
     define( 'AP_VERSION', '1.0.0' );
 }
 
+// Plugin URL
+define( 'ALBUM_URL', plugin_dir_url( __FILE__ ) );
+
 /**
  * Create the tables into the database
  */
