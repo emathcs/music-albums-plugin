@@ -88,7 +88,7 @@ class SongController extends Controller {
         // Delete Button
         if (isset($_POST['delete']) && isset($_POST['model'])) {
             // Song model
-            if ('song' === $_POST['model']) {
+            if ('button' === $_POST['model']) {
                 $this->setDeleteModel($buttonModel);
             }
             $this->delete();
