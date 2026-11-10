@@ -43,8 +43,10 @@ class AlbumView extends View {
 
     /**
      * Add render function
+     *
+     * @param Array $data Data to render
      */
-    public function add() {
+    public function add($data = []) {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
