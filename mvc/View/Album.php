@@ -30,7 +30,7 @@ class AlbumView extends View {
                 echo '    <tr>';
                 echo '        <th scope="row">' . $records[$i]->id . '</th>';
                 echo '        <td>' . $records[$i]->name . '</td>';
-                echo '        <td class="col-action"><a href="?page=albums-view-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
+                echo '        <td class="col-action"><a href="?page=albums-view-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-success">View</a></td>';
                 echo '        <td class="col-action"><a href="?page=albums-edit-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
                 echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id, 'album') . '</td>';
                 echo '    </tr>';
@@ -132,8 +132,8 @@ class AlbumView extends View {
             echo '<div class="mb-3">';
             echo '    <a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
             echo '    <a href="?page=albums-edit-settings&album=' . $record->id .'" class="btn btn-sm btn-primary">Edit album</a>';
-            echo '    <a href="?page=buttons-add-settings&album=' . $record->id . '" class="btn btn-sm btn-success">Add a new button</a>';
-            echo '    <a href="?page=songs-add-settings&album=' . $record->id . '" class="btn btn-sm btn-warning">Add a new song</a>';
+            echo '    <a href="?page=buttons-add-settings&album=' . $record->id . '" class="btn btn-sm btn-warning">Add a new button</a>';
+            echo '    <a href="?page=songs-add-settings&album=' . $record->id . '" class="btn btn-sm btn-info">Add a new song</a>';
             echo '</div>';
             if ($buttonsTable) {
                 echo '<br><hr><br>';
