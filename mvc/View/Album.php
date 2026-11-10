@@ -56,18 +56,17 @@ class AlbumView extends View {
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Cover image
-        $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
         echo '    <img src="" id="album-cover-img">';
         echo '</div>';
         echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview">';
-        echo '    <img src="' . $src_default . '" id="album-admin">';
+        echo '    <img src="' . $data['default_src'] . '" id="album-admin">';
         echo '</div>';
         echo '<div class="mb-3">';
         // Select
-        echo '<button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary">Select an image</button> ';
+        echo '    <button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary">Select an image</button> ';
         // Remove
-        echo '<button type="button" id="remove-btn" class="album-remove-btn btn btn-warning album-admin-hide">Remove image</button>';
+        echo '    <button type="button" id="remove-btn" class="album-remove-btn btn btn-warning album-admin-hide">Remove image</button>';
         echo '</div>';
         // Cover
         $input->setLabel('');
@@ -114,9 +113,9 @@ class AlbumView extends View {
                 $buttonsTable = true;
                 $buttonView = new ButtonView();
             }
-
+            // Cover image
             echo '<div class="mb-3 col-12 col-sm-4">';
-            echo '<img src="' . wp_get_attachment_image_url($record->cover, 'medium') . '">';
+            echo '    <img src="' . $data['src'] . '">';
             echo '</div>';
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
@@ -166,19 +165,17 @@ class AlbumView extends View {
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Cover image
-        $src = wp_get_attachment_image_url($record->cover, 'medium');
-        $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview">';
-        echo '    <img src="' . $src . '" id="album-cover-img">';
+        echo '    <img src="' . $data['src'] . '" id="album-cover-img">';
         echo '</div>';
         echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
-        echo '    <img src="' . $src_default . '" id="album-admin">';
+        echo '    <img src="' . $data['default_src'] . '" id="album-admin">';
         echo '</div>';
         echo '<div class="mb-3">';
         // Select
-        echo '<button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary album-admin-hide">Select an image</button> ';
+        echo '    <button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary album-admin-hide">Select an image</button> ';
         // Remove
-        echo '<button type="button" id="remove-btn" class="album-remove-btn btn btn-warning">Remove image</button>';
+        echo '    <button type="button" id="remove-btn" class="album-remove-btn btn btn-warning">Remove image</button>';
         echo '</div>';
         // Id
         echo $input->create([
