@@ -26,7 +26,7 @@ class SongView extends View {
                 $html .= '    <tr>';
                 $html .= '        <th scope="row">' . $records[$i]->id . '</th>';
                 $html .= '        <td>' . $records[$i]->name . '</td>';
-                $html .= '        <td class="col-action"><a href="?page=songs-view-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
+                $html .= '        <td class="col-action"><a href="?page=songs-view-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-success">View</a></td>';
                 $html .= '        <td class="col-action"><a href="?page=songs-edit-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
                 $html .= '        <td class="col-action">' . $this->deleteForm($records[$i]->id, 'song') . '</td>';
                 $html .= '    </tr>';
@@ -116,9 +116,8 @@ class SongView extends View {
             echo '    </tbody>';
             echo '</table>';
             echo '<div class="mb-3">';
-            echo '    <a href="?page=songs-settings" class="btn btn-sm btn-secondary">Go to Songs</a>';
+            echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-secondary">Go to the album</a>';
             echo '    <a href="?page=songs-edit-settings&song=' . $record->id .'" class="btn btn-sm btn-primary">Edit song</a>';
-            echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-success">Go to the album</a>';
             echo '    <a href="?page=buttons-add-settings&song=' . $record->id . '" class="btn btn-sm btn-warning">Add a new button</a>';
             echo '</div>';
             if ($buttonsTable) {
