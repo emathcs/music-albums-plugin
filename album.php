@@ -281,3 +281,8 @@ function albums_admin_enqueue_scripts( $hook ) {
     wp_enqueue_style( 'albums_admin_css', plugins_url('/assets/css/admin.css', __FILE__), array(), AP_VERSION );
 }
 add_action('admin_enqueue_scripts', 'albums_admin_enqueue_scripts');
+
+/**
+ * Shortcut section.
+ */
+require_once plugin_dir_path( __FILE__ ) . 'shortcut.php';
