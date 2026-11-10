@@ -9,10 +9,8 @@ class AlbumController extends Controller {
     public function __construct() {
         $Model = new AlbumModel('albums');
         $View  = new AlbumView();
-        // Alternative
-        $ModelChild = new SongModel('songs');
         // Parent constructor
-        parent::__construct($Model, $View, $ModelChild);
+        parent::__construct($Model, $View);
     }
 
     /**
@@ -45,6 +43,8 @@ class AlbumController extends Controller {
      * @param Integer $id Album id
      */
     public function view($id = 0) {
+        // Song model
+        $songModel = new SongModel('songs');
         // This process has been added here to avoid to redirect to this page from edit page
         if ( isset( $_POST['submit-edit'] ) ) {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
@@ -89,7 +89,6 @@ class AlbumController extends Controller {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
-            $songModel = new SongModel('songs');
             $song_id = sanitize_text_field($_POST['id']);
             $songModel->deleteById($song_id);
         }
@@ -105,7 +104,6 @@ class AlbumController extends Controller {
         // Get the record
         $record = $this->getModel()->selectById($id);
         // Get the related songs
-        $songModel = new SongModel('songs');
         $songs = $songModel->selectByAlbumId($id);
         // Get the related buttons
         $buttonModel = new ButtonModel('buttons');
