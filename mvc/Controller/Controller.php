@@ -119,7 +119,7 @@ class Controller {
                 wp_die( 'Security check failed. Please try again.' );
             }
             $id = sanitize_text_field($_POST['id']);
-            return $this->DeleteModel()->deleteById($bid);
+            return $this->DeleteModel()->deleteById($id);
         }
     }
 }
