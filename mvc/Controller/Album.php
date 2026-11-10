@@ -33,8 +33,10 @@ class AlbumController extends Controller {
      * Add function
      */
     public function add() {
+        // Default image
+        $default_src = $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         // View
-        $this->getView()->add();
+        $this->getView()->add(['default_src' => $default_src]);
     }
 
     /**
