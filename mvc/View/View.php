@@ -29,7 +29,7 @@ class View {
     /**
      * Delete form
      */
-    public function deleteForm($id = 0) {
+    public function deleteForm($id = 0, $model = '') {
         $form  = new Form();
         $input = new Input();
 
@@ -44,7 +44,15 @@ class View {
             'value' => $id
         ]);
         $html .= $input->setLabel('');
-        $html .= $input->create(['type' => 'submit', 'name' => 'submit-delete', 'value' =>'Delete', 'class' => 'btn btn-sm btn-danger']);
+        $html .= $input->create([
+            'type'  => 'hidden',
+            'id'    => $model . '-' . $id,
+            'name'  => 'model',
+            'class' => 'form-control',
+            'value' => $model
+        ]);
+        $html .= $input->setLabel('');
+        $html .= $input->create(['type' => 'submit', 'name' => 'delete', 'value' => 'Delete', 'class' => 'btn btn-sm btn-danger']);
         $html .= $form->end();
         return $html;
     }

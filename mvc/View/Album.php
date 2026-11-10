@@ -32,7 +32,7 @@ class AlbumView extends View {
                 echo '        <td>' . $records[$i]->name . '</td>';
                 echo '        <td class="col-action"><a href="?page=albums-view-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
                 echo '        <td class="col-action"><a href="?page=albums-edit-settings&album=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
-                echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
+                echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id, 'album') . '</td>';
                 echo '    </tr>';
             }
             echo '    </tbody>';
