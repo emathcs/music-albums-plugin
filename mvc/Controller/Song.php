@@ -9,10 +9,8 @@ class SongController extends Controller {
     public function __construct() {
         $Model = new SongModel('songs');
         $View  = new SongView();
-        // Alternative
-        $ModelChild = new ButtonModel('buttons');
         // Parent constructor
-        parent::__construct($Model, $View, $ModelChild);
+        parent::__construct($Model, $View);
     }
 
     /**
@@ -45,6 +43,8 @@ class SongController extends Controller {
      * @param Integer $id Song id
      */
     public function view($id = 0) {
+        // Button Model
+        $buttonModel = new ButtonModel('buttons');
         // This process has been added here to avoid to redirect to this page from add page
         if ( isset( $_POST['submit'] ) ) {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
@@ -86,7 +86,6 @@ class SongController extends Controller {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
-            $buttonModel = new ButtonModel('buttons');
             $button_id = sanitize_text_field($_POST['id']);
             $buttonModel->deleteById($button_id);
         }
