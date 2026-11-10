@@ -64,7 +64,7 @@ function albums_image_galery( $atts = [], $content = null , $tag = '' ) {
     $local_content = '<div class="albums-row">';
     for ($i = 0; $i < $total; $i++) {
         // Image id
-        $id = $records[$i]->cover;
+        $id = $i + 1 == $skip ? null : $records[$i]->cover;
         // Generating an item
         $local_content .= albums_col( $id , $type, $i, $class);
     }
