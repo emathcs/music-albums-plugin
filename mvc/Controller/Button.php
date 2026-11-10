@@ -19,9 +19,13 @@ class ButtonController extends Controller {
      * List function
      */
     public function list() {
-        // Delete process
-        if (isset($_POST['id'])) {
-            $this->delete($_POST['id']);
+        // Delete
+        if (isset($_POST['delete']) && isset($_POST['model'])) {
+            // Button model
+            if ('button' === $_POST['model']) {
+                $this->setDeleteModel($this->getModel());
+            }
+            $this->delete();
         }
         // Platforms
         $platforms = $this->getChildModel()->getListFormat();

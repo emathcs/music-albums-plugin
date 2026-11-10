@@ -28,7 +28,7 @@ class SongView extends View {
                 $html .= '        <td>' . $records[$i]->name . '</td>';
                 $html .= '        <td class="col-action"><a href="?page=songs-view-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
                 $html .= '        <td class="col-action"><a href="?page=songs-edit-settings&song=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
-                $html .= '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
+                $html .= '        <td class="col-action">' . $this->deleteForm($records[$i]->id, 'song') . '</td>';
                 $html .= '    </tr>';
             }
             $html .= '    </tbody>';

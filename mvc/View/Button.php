@@ -30,7 +30,7 @@ class ButtonView extends View {
                 echo '        <td>' . $records[$i]->link . '</td>';
                 echo '        <td class="col-action"><a href="?page=buttons-view-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-secondary">View</a></td>';
                 echo '        <td class="col-action"><a href="?page=buttons-edit-settings&button=' . $records[$i]->id . '" class="btn btn-sm btn-warning">Edit</a></td>';
-                echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id) . '</td>';
+                echo '        <td class="col-action">' . $this->deleteForm($records[$i]->id, 'button') . '</td>';
                 echo '    </tr>';
             }
             echo '    </tbody>';
