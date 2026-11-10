@@ -27,3 +27,15 @@ body {
 .wp-core-ui select {
     max-width: 100%;
 }
+
+.mb-3 img {
+    width: 100%;
+}
+
+.album-admin-hide {
+    display: none;
+}
+
+.album-upload-btn {
+    cursor: pointer;
+}

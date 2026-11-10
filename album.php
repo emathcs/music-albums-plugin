@@ -25,6 +25,9 @@ if ( ! defined( 'AP_VERSION' ) ) {
     define( 'AP_VERSION', '1.0.0' );
 }
 
+// Plugin URL
+define( 'ALBUM_URL', plugin_dir_url( __FILE__ ) );
+
 /**
  * Create the tables into the database
  */
@@ -270,7 +273,10 @@ function albums_admin_enqueue_scripts( $hook ) {
     if ( ! ( isset( $sections[$hook] ) && $sections[$hook] ) ) {
         return;
     }
+    // Call the core WordPress media files
+    wp_enqueue_media();
     // Loading the assets
+    wp_enqueue_script('albums-media-library-js', plugins_url('/assets/js/admin-gallery.js', __FILE__), false , AP_VERSION, true);
     wp_enqueue_style( 'albums_bootstrap_min_css', plugins_url('/assets/css/bootstrap.min.css', __FILE__), array(), AP_VERSION );
     wp_enqueue_style( 'albums_admin_css', plugins_url('/assets/css/admin.css', __FILE__), array(), AP_VERSION );
 }

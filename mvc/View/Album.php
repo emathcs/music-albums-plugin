@@ -43,8 +43,10 @@ class AlbumView extends View {
 
     /**
      * Add render function
+     *
+     * @param Array $data Data to render
      */
-    public function add() {
+    public function add($data = []) {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
@@ -53,10 +55,23 @@ class AlbumView extends View {
         echo $form->init(['action' => "admin.php?page=albums-view-settings", 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+        // Cover image
+        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
+        echo '    <img src="" id="album-cover-img">';
+        echo '</div>';
+        echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview">';
+        echo '    <img src="' . $data['default_src'] . '" id="album-admin">';
+        echo '</div>';
+        echo '<div class="mb-3">';
+        // Select
+        echo '    <button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary">Select an image</button> ';
+        // Remove
+        echo '    <button type="button" id="remove-btn" class="album-remove-btn btn btn-warning album-admin-hide">Remove image</button>';
+        echo '</div>';
         // Cover
-        $input->setLabel('Cover');
+        $input->setLabel('');
         echo $input->create([
-            'type'     => 'text',
+            'type'     => 'hidden',
             'id'       => 'cover',
             'name'     => 'cover',
             'class'    => 'form-control',
@@ -98,11 +113,14 @@ class AlbumView extends View {
                 $buttonsTable = true;
                 $buttonView = new ButtonView();
             }
-
+            // Cover image
+            echo '<div class="mb-3 col-12 col-sm-4">';
+            echo '    <img src="' . $data['src'] . '">';
+            echo '</div>';
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
-            echo '            <td><b>Cover</b></td>';
+            echo '            <td><b>Media id</b></td>';
             echo '            <td>' . $record->cover . '</td>';
             echo '        </tr>';
             echo '        <tr>';
@@ -146,6 +164,19 @@ class AlbumView extends View {
         echo $form->init(['action' => "admin.php?page=albums-view-settings&album=" . $record->id, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+        // Cover image
+        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview">';
+        echo '    <img src="' . $data['src'] . '" id="album-cover-img">';
+        echo '</div>';
+        echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
+        echo '    <img src="' . $data['default_src'] . '" id="album-admin">';
+        echo '</div>';
+        echo '<div class="mb-3">';
+        // Select
+        echo '    <button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary album-admin-hide">Select an image</button> ';
+        // Remove
+        echo '    <button type="button" id="remove-btn" class="album-remove-btn btn btn-warning">Remove image</button>';
+        echo '</div>';
         // Id
         echo $input->create([
             'type'     => 'hidden',
@@ -155,9 +186,9 @@ class AlbumView extends View {
             'value'    => $record->id
         ]);
         // Cover
-        $input->setLabel('Cover');
+        $input->setLabel('');
         echo $input->create([
-            'type'     => 'text',
+            'type'     => 'hidden',
             'id'       => 'cover',
             'name'     => 'cover',
             'class'    => 'form-control',
