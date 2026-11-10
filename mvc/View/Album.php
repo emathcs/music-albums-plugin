@@ -55,10 +55,10 @@ class AlbumView extends View {
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Cover image
         $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
-        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-6 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
+        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
         echo '    <img src="" id="album-cover-img">';
         echo '</div>';
-        echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-6 album-upload-btn album-image-gallery-item-preview">';
+        echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview">';
         echo '    <img src="' . $src_default . '" id="album-admin">';
         echo '</div>';
         echo '<div class="mb-3">';
@@ -113,7 +113,7 @@ class AlbumView extends View {
                 $buttonView = new ButtonView();
             }
 
-            echo '<div class="mb-3 col-12 col-sm-6">';
+            echo '<div class="mb-3 col-12 col-sm-4">';
             echo '<img src="' . wp_get_attachment_image_url($record->cover, 'medium') . '">';
             echo '</div>';
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
@@ -163,6 +163,21 @@ class AlbumView extends View {
         echo $form->init(['action' => "admin.php?page=albums-view-settings&album=" . $record->id, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+        // Cover image
+        $src = wp_get_attachment_image_url($record->cover, 'medium');
+        $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
+        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview">';
+        echo '    <img src="' . $src . '" id="album-cover-img">';
+        echo '</div>';
+        echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
+        echo '    <img src="' . $src_default . '" id="album-admin">';
+        echo '</div>';
+        echo '<div class="mb-3">';
+        // Select
+        echo '<button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary album-admin-hide">Select an image</button> ';
+        // Remove
+        echo '<button type="button" id="remove-btn" class="album-remove-btn btn btn-warning">Remove image</button>';
+        echo '</div>';
         // Id
         echo $input->create([
             'type'     => 'hidden',
@@ -172,9 +187,9 @@ class AlbumView extends View {
             'value'    => $record->id
         ]);
         // Cover
-        $input->setLabel('Cover');
+        $input->setLabel('');
         echo $input->create([
-            'type'     => 'text',
+            'type'     => 'hidden',
             'id'       => 'cover',
             'name'     => 'cover',
             'class'    => 'form-control',
