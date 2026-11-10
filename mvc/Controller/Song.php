@@ -17,9 +17,13 @@ class SongController extends Controller {
      * List function
      */
     public function list() {
-        // Delete process
-        if (isset($_POST['id'])) {
-            $this->delete($_POST['id']);
+        // Delete
+        if (isset($_POST['delete']) && isset($_POST['model'])) {
+            // Song model
+            if ('song' === $_POST['model']) {
+                $this->setDeleteModel($this->getModel());
+            }
+            $this->delete();
         }
         // Get the records
         $records = $this->getModel()->select();
@@ -81,18 +85,17 @@ class SongController extends Controller {
                 );
             }
         }
-        // Delete a button
-        if ( isset( $_POST['submit-delete'] ) ) {
-            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
-                wp_die( 'Security check failed. Please try again.' );
+        // Delete Button
+        if (isset($_POST['delete']) && isset($_POST['model'])) {
+            // Song model
+            if ('song' === $_POST['model']) {
+                $this->setDeleteModel($buttonModel);
             }
-            $button_id = sanitize_text_field($_POST['id']);
-            $buttonModel->deleteById($button_id);
+            $this->delete();
         }
         // Get the record
         $record = $this->getModel()->selectById($id);
         // Get the related buttons
-        $buttonModel = new ButtonModel('buttons');
         $buttons = $buttonModel->selectBySongId($id);
         // Platforms
         $platformModel = new PlatformModel();

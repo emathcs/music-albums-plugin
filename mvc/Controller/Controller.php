@@ -55,6 +55,24 @@ class Controller {
     }
 
     /**
+     * Set Child Model
+     *
+     * @param Object $ChildModel Object to manage the related database table operations.
+     */
+    public function setChildModel($ChildModel = null) {
+        $this->ChildModel = $ChildModel;
+    }
+
+    /**
+     * Get Child Model
+     *
+     * @$return Object Object to manage the related database table operations.
+     */
+    public function getChildModel() {
+        return $this->ChildModel;
+    }
+
+    /**
      * Set Delete Model
      *
      * @param Object $Model Object to manage the database table operations.
@@ -70,24 +88,6 @@ class Controller {
      */
     public function getDeleteModel() {
         return $this->DeleteModel;
-    }
-
-    /**
-     * Set Child Model
-     *
-     * @param Object $ChildModel Object to manage the related database table operations.
-     */
-    public function setChildModel($ChildModel = null) {
-        $this->ChildModel = $ChildModel;
-    }
-
-    /**
-     * Get Model
-     *
-     * @$return Object Object to manage the related database table operations.
-     */
-    public function getChildModel() {
-        return $this->ChildModel;
     }
 
     /**
@@ -114,12 +114,12 @@ class Controller {
      * @return Boolean Status of the operation.
      */
     public function delete() {
-        if ( isset( $_POST['submit-delete'] ) ) {
-            if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'delete_custom_form_action' ) ) {
-                wp_die( 'Security check failed. Please try again.' );
+        if (isset( $_POST['delete'])) {
+            if (!isset( $_POST['custom_form_nonce']) || !wp_verify_nonce($_POST['custom_form_nonce'], 'delete_custom_form_action')) {
+                wp_die('Security check failed. Please try again.');
             }
             $id = sanitize_text_field($_POST['id']);
-            return $this->DeleteModel()->deleteById($id);
+            return $this->getDeleteModel()->deleteById($id);
         }
     }
 }
