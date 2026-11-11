@@ -166,7 +166,7 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Select.php';
 /**
  * MVC
  */
-require_once plugin_dir_path( __FILE__ ) . 'mvc/Core.php';
+require_once plugin_dir_path( __FILE__ ) . 'mvc/Load.php';
 
 /**
  * Rendering the fields in the admin section
