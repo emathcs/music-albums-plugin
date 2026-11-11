@@ -45,6 +45,11 @@ require_once plugin_dir_path( __FILE__ ) . 'wp-admin/includes/template.php';
  * Registering the plugin into the admin section
  */
 function albums_admin_menu() {
+    /**
+     * Albums
+     */
+
+    // List
     add_menu_page(
         'Albums',                      // Page title
         'Albums',                      // Menu title
@@ -88,15 +93,7 @@ function albums_admin_menu() {
     /**
      * Songs
      */
-    // List
-    add_submenu_page(
-        '',               // Parent menu slug
-        'Songs',          // Page title
-        '',               // Menu title
-        'manage_options', // Capability
-        'songs-settings', // Menu slug
-        'songs_html'      // Callback function
-    );
+
     // Add
     add_submenu_page(
         '',                   // Parent menu slug
@@ -106,6 +103,7 @@ function albums_admin_menu() {
         'songs-add-settings', // Menu slug
         'songs_add_html'      // Callback function
     );
+
     // View
     add_submenu_page(
         '',                    // Parent menu slug
@@ -115,6 +113,7 @@ function albums_admin_menu() {
         'songs-view-settings', // Menu slug
         'songs_view_html'      // Callback function
     );
+
     // Edit
     add_submenu_page(
         '',                    // Parent menu slug
@@ -128,39 +127,33 @@ function albums_admin_menu() {
     /**
      * Buttons
      */
-    // List
-    add_submenu_page(
-        '',               // Parent menu slug
-        'Buttons',          // Page title
-        '',               // Menu title
-        'manage_options', // Capability
-        'buttons-settings', // Menu slug
-        'buttons_html'      // Callback function
-    );
+
     // Add
     add_submenu_page(
-        '',                   // Parent menu slug
+        '',                     // Parent menu slug
         'Buttons',              // Page title
-        '',                   // Menu title
-        'manage_options',     // Capability
+        '',                     // Menu title
+        'manage_options',       // Capability
         'buttons-add-settings', // Menu slug
         'buttons_add_html'      // Callback function
     );
+
     // View
     add_submenu_page(
-        '',                    // Parent menu slug
+        '',                      // Parent menu slug
         'Buttons',               // Page title
-        '',                    // Menu title
-        'manage_options',      // Capability
+        '',                      // Menu title
+        'manage_options',        // Capability
         'buttons-view-settings', // Menu slug
         'buttons_view_html'      // Callback function
     );
+
     // Edit
     add_submenu_page(
-        '',                    // Parent menu slug
+        '',                      // Parent menu slug
         'Buttons',               // Page title
-        '',                    // Menu title
-        'manage_options',      // Capability
+        '',                      // Menu title
+        'manage_options',        // Capability
         'buttons-edit-settings', // Menu slug
         'buttons_edit_html'      // Callback function
     );
