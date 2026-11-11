@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Model.php';
-
 class ButtonModel extends Model {
     /**
      * Select by Album id function

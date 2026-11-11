@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Model.php';
-
 class SongModel extends Model {
     /**
      * Select by Album id function
