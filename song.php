@@ -1,11 +1,5 @@
 <?php
 
-// List
-function songs_html() {
-    $controller = new SongController();
-    $controller->list();
-}
-
 // Add
 function songs_add_html() {
     // Get the album id

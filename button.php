@@ -1,11 +1,5 @@
 <?php
 
-// List
-function buttons_html() {
-    $controller = new ButtonController();
-    $controller->list();
-}
-
 // Add
 function buttons_add_html() {
     $controller = new ButtonController();
