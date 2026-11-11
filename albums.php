@@ -217,12 +217,10 @@ function albums_admin_enqueue_scripts( $hook ) {
         'admin_page_albums-edit-settings' => true,
         'admin_page_albums-view-settings' => true,
         // Song
-        'admin_page_songs-settings'      => true,
         'admin_page_songs-add-settings'  => true,
         'admin_page_songs-view-settings' => true,
         'admin_page_songs-edit-settings' => true,
         // Button
-        'admin_page_buttons-settings'      => true,
         'admin_page_buttons-add-settings'  => true,
         'admin_page_buttons-view-settings' => true,
         'admin_page_buttons-edit-settings' => true,
