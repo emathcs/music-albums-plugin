@@ -439,3 +439,26 @@
     box-shadow: 0 15px 15px 5px rgba(0,0,0,.15);
     border: 1px solid #444444;
 }
+
+.album-song {
+    padding: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: 1px solid #444444;
+    margin: 0;
+}
+
+.album-song:hover {
+    background-color: #333333;
+}
+
+.album-songs-list {
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.album-song p {
+    margin-bottom: 0;
+}
