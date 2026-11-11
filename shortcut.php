@@ -167,7 +167,7 @@ function albums_song($song = null) {
         );
         // Total
         $total = count( $buttons );
-        $content .= '<div class="row album-song">';
+        $content .= '<div class="row albums-song">';
         $content .= '    <div class="col-6">';
         $content .= '        <p>' . $song->name. '</p>';
         $content .= '    </div>';
@@ -205,11 +205,34 @@ function albums_song_list( $atts = [], $content = null , $tag = '' ) {
     // Total
     $total = count($songs);
     // Generating the gallery
-    $local_content  = '<div class="albums-row">';
+    $local_content = '';
     for ($i = 0; $i < $total; $i++) {
         $local_content .=  albums_song( $songs[$i] );
     }
-    $local_content .= '</div>';
+    return $local_content . $content;
+}
+
+/**
+ * The [albums_cover_list] shortcode.
+ *
+ * @param Array  $atts    Shortcode attributes Default empty
+ * @param String $content Shortcode content    Default null
+ * @param String $tag     Shortcode tag (name) Default empty
+ * @return String Shortcode output.
+ */
+function albums_cover_list( $atts = [], $content = null , $tag = '' ) {
+    $id = $atts['id'] ? $atts['id'] : 0;
+    $local_content  = '';
+    if ( $id ) {
+        $local_content .= '<div class="albums-row">';
+        $local_content .= '    <div class="col-12 col-lg-6">';
+        $local_content .=          albums_cover_buttons( $atts, '', $tag );
+        $local_content .= '    </div>';
+        $local_content .= '    <div class="col-12 col-lg-6 albums-song-list">';
+        $local_content .=          albums_song_list( $atts, '', $tag );
+        $local_content .= '    </div>';
+        $local_content .= '</div>';
+    }
     return $local_content . $content;
 }
 
@@ -220,6 +243,7 @@ function albums_image_galery_init() {
     add_shortcode( 'albums_image_galery', 'albums_image_galery' );
     add_shortcode( 'albums_cover_buttons', 'albums_cover_buttons' );
     add_shortcode( 'albums_song_list', 'albums_song_list' );
+    add_shortcode( 'albums_cover_list', 'albums_cover_list' );
 }
 add_action( 'init', 'albums_image_galery_init' );
 
