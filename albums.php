@@ -178,6 +178,7 @@ require_once plugin_dir_path( __FILE__ ) . 'button.php';
  */
 function albums_admin_enqueue_scripts( $hook ) {
     $sections = [
+        // Album
         'toplevel_page_albums-settings'   => true,
         'admin_page_albums-add-settings'  => true,
         'admin_page_albums-edit-settings' => true,
