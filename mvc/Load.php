@@ -1,5 +1,10 @@
 <?php
 
+// Core
+require_once 'Core/Model.php';
+require_once 'Core/View.php';
+require_once 'Core/Controller.php';
+
 // Album
 require_once 'Model/Album.php';
 require_once 'View/Album.php';

@@ -1,7 +1,5 @@
 <?php
 
-require_once 'View.php';
-
 class AlbumView extends View {
     /**
      * List render function
