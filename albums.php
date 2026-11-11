@@ -157,37 +157,6 @@ function albums_admin_menu() {
 add_action( 'admin_menu', 'albums_admin_menu' );
 
 /**
- * Initializing and registering the settings via API settings
- */
-
-// Default values for the option
-function albums_local_args() {
-    return array(
-        'default'           => '',
-        'type'              => 'string',
-        'sanitize_callback' => 'sanitize_text_field',
-    );
-}
-
-// Registering the settings.
-function albums_admin_init() {
-    add_settings_section(
-        'albums_main_section', // Section ID
-        'Albums',              // Section Title
-        '',                    // Callback function to output section text
-        'albums-settings'      // Page slug where this section goes
-    );
-
-    // Registering the Album setting option in the wp_options table
-    register_setting(
-        'albums_settings_group', // Option group name
-        'albums_option',         // Actual option key name
-        albums_local_args()
-    );
-}
-add_action( 'admin_init', 'albums_admin_init' );
-
-/**
  * Loading HTML elements library
  */
 require_once plugin_dir_path( __FILE__ ) . 'html-elements/Form.php';
