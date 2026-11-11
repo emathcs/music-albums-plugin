@@ -38,7 +38,7 @@ require_once plugin_dir_path( __FILE__ ) . 'jal-install.php';
 register_activation_hook( __FILE__, 'jal_install' );
 
 /**
- * Registering the plugin into the admin section
+ * Register the plugin into the admin section
  */
 function albums_admin_menu() {
     /**
@@ -157,12 +157,12 @@ function albums_admin_menu() {
 add_action( 'admin_menu', 'albums_admin_menu' );
 
 /**
- * Loading HTML elements library
+ * Load HTML elements library
  */
 require_once plugin_dir_path( __FILE__ ) . 'html-elements/Load.php';
 
 /**
- * MVC
+ * Load the MVC
  */
 require_once plugin_dir_path( __FILE__ ) . 'mvc/Load.php';
 
@@ -205,6 +205,6 @@ function albums_admin_enqueue_scripts( $hook ) {
 add_action('admin_enqueue_scripts', 'albums_admin_enqueue_scripts');
 
 /**
- * Shortcut section.
+ * Shortcut section
  */
 require_once plugin_dir_path( __FILE__ ) . 'shortcut.php';
