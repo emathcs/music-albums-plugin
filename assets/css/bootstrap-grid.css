@@ -440,7 +440,7 @@
     border: 1px solid #444444;
 }
 
-.album-song {
+.row.albums-song {
     padding: 16px;
     padding-right: 16px;
     padding-left: 16px;
@@ -450,15 +450,17 @@
     margin: 0;
 }
 
-.album-song:hover {
+.row.albums-song:hover {
     background-color: #333333;
 }
 
-.album-songs-list {
+.albums-song-list {
     padding-left: 32px;
     padding-right: 32px;
 }
 
-.album-song p {
+.row.albums-song p {
+    color: #aaaaaa;
+    font-size: 16px;
     margin-bottom: 0;
 }
