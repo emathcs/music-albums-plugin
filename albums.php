@@ -169,42 +169,10 @@ require_once plugin_dir_path( __FILE__ ) . 'html-elements/Select.php';
 require_once plugin_dir_path( __FILE__ ) . 'mvc/Load.php';
 
 /**
- * Rendering the fields in the admin section
+ * Render function
  */
-
-// Albums admin page
-function albums_render_settings_page() {
-    $controller = new AlbumController();
-    $controller->list();
-}
-
-// Add a new album
-function albums_add_html() {
-    $controller = new AlbumController();
-    $controller->add();
-}
-
-// View album
-function albums_view_html() {
-    $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
-    $controller = new AlbumController();
-    $controller->view( $album_id );
-}
-
-// Edit album
-function albums_edit_html() {
-    $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
-    if ( ! $album_id ) {
-        return;
-    }
-    $controller = new AlbumController();
-    $controller->edit( $album_id );
-}
-
-// Songs functions
+require_once plugin_dir_path( __FILE__ ) . 'album.php';
 require_once plugin_dir_path( __FILE__ ) . 'song.php';
-
-// Buttons functions
 require_once plugin_dir_path( __FILE__ ) . 'button.php';
 
 /**
