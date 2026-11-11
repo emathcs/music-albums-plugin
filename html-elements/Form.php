@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Element.php';
-
 class Form extends Element {
     /**
      * Constructor

@@ -159,9 +159,7 @@ add_action( 'admin_menu', 'albums_admin_menu' );
 /**
  * Loading HTML elements library
  */
-require_once plugin_dir_path( __FILE__ ) . 'html-elements/Form.php';
-require_once plugin_dir_path( __FILE__ ) . 'html-elements/Input.php';
-require_once plugin_dir_path( __FILE__ ) . 'html-elements/Select.php';
+require_once plugin_dir_path( __FILE__ ) . 'html-elements/Load.php';
 
 /**
  * MVC
