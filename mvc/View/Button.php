@@ -2,7 +2,7 @@
 
 class ButtonView extends View {
     /**
-     * Table function
+     * Table
      *
      * @param Array $records Button records
      * @return String $html An HTML table
@@ -38,7 +38,7 @@ class ButtonView extends View {
     }
 
     /**
-     * List render function
+     * List page
      *
      * @param Array $data Data to render
      */
@@ -55,7 +55,7 @@ class ButtonView extends View {
     }
 
     /**
-     * Add render function
+     * Add page
      *
      * @param Array $data Data to render
      */
@@ -66,7 +66,7 @@ class ButtonView extends View {
         $input->setLabelClass('form-label');
         $select = new Select('mb-3');
         $select->setLabelClass('form-label');
-        // Model for redirection
+        // Models for redirection
         $parameters = '';
         if (isset($data['album_id']) && $data['album_id']) {
             $parameters = '&model=album&id=' . $data['album_id'];
@@ -74,6 +74,7 @@ class ButtonView extends View {
         if (isset($data['song_id']) && $data['song_id']) {
             $parameters = '&model=song&id=' . $data['song_id'];
         }
+
         // Panel
         echo $form->init(['action' => 'admin.php?page=buttons-view-settings' . $parameters, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
@@ -124,7 +125,7 @@ class ButtonView extends View {
     }
 
     /**
-     * View render function
+     * View page
      *
      * @param Array $data Data to render
      */
@@ -159,7 +160,7 @@ class ButtonView extends View {
     }
 
     /**
-     * Edit render function
+     * Edit page
      *
      * @param Array $data Data to render
      */
@@ -170,54 +171,57 @@ class ButtonView extends View {
         $select = new Select('mb-3');
         $select->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
+
         // Panel
         echo $this->panelOpen('Edit button');
-        echo $form->init(['action' => "admin.php?page=buttons-view-settings&button=" . $record->id, 'method' => 'post']);
-        // Security field: Nonce to prevent CSRF attacks
-        wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
-        // Id
-        echo $input->create([
-            'type'     => 'hidden',
-            'id'       => 'id',
-            'name'     => 'id',
-            'class'    => 'form-control',
-            'value'    => $record->id
-        ]);
-        // Album id
-        echo $input->create([
-            'type'     => 'hidden',
-            'id'       => 'album-id',
-            'name'     => 'album-id',
-            'class'    => 'form-control',
-            'value'    => $record->album_id
-        ]);
-        // Platform
-        $select->setLabel('Platform');
-        echo $select->create(
-            [
+        if ($record) {
+            echo $form->init(['action' => "admin.php?page=buttons-view-settings&button=" . $record->id, 'method' => 'post']);
+            // Security field: Nonce to prevent CSRF attacks
+            wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+            // Id
+            echo $input->create([
+                'type'     => 'hidden',
+                'id'       => 'id',
+                'name'     => 'id',
+                'class'    => 'form-control',
+                'value'    => $record->id
+            ]);
+            // Album id
+            echo $input->create([
+                'type'     => 'hidden',
+                'id'       => 'album-id',
+                'name'     => 'album-id',
+                'class'    => 'form-control',
+                'value'    => $record->album_id
+            ]);
+            // Platform
+            $select->setLabel('Platform');
+            echo $select->create(
+                [
+                    'type'     => 'text',
+                    'id'       => 'platform-id',
+                    'name'     => 'platform-id',
+                    'class'    => 'form-control',
+                    'required' => '',
+                    'value'    => $record->platform_id
+                ],
+                $data['platforms']
+            );
+            // Link
+            $input->setLabel('Link');
+            echo $input->create([
                 'type'     => 'text',
-                'id'       => 'platform-id',
-                'name'     => 'platform-id',
+                'id'       => 'link',
+                'name'     => 'link',
                 'class'    => 'form-control',
                 'required' => '',
-                'value'    => $record->platform_id
-            ],
-            $data['platforms']
-        );
-        // Link
-        $input->setLabel('Link');
-        echo $input->create([
-            'type'     => 'text',
-            'id'       => 'link',
-            'name'     => 'link',
-            'class'    => 'form-control',
-            'required' => '',
-            'value'    => $record->link
-        ]);
-        // Submit
-        echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
-        echo $form->end();
+                'value'    => $record->link
+            ]);
+            // Submit
+            echo $input->setLabel('');
+            echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
+            echo $form->end();
+            }
         echo $this->panelClose();
     }
 }
