@@ -6,16 +6,16 @@
  */
 
 /**
- * The buttons function.
+ * Generate buttons
  *
  * @param Object  $button Button record Default null
  * @param Boolean $label  Display label Default true
  * @return String Platform button
  */
-function albums_button($button = null, $label = true) {
-    $content  = '';
+function albums_button( $button = null, $label = true ) {
+    $local_content  = '';
     // Checking it the id is valid
-    if ($button) {
+    if ( $button ) {
         $platforms = [
             '1' => [
                 'icon'  => 'apple-music',
@@ -30,16 +30,16 @@ function albums_button($button = null, $label = true) {
                 'label' => 'Amazon Music'
             ]
         ];
-        $content .= '<a href="' . $button->link . '" target="_blank" class="btn btn-link ' . ($label ? '' : 'btn-sm') . '">';
-        $content .= '    <i class="bi bi-' . $platforms[$button->platform_id]['icon']. '"></i>';
-        $content .=      $label ? ' ' . $platforms[$button->platform_id]['label'] : '';
-        $content .= '</a> ';
+        $local_content .= '<a href="' . $button->link . '" target="_blank" class="btn btn-link ' . ( $label ? '' : 'btn-sm' ) . '">';
+        $local_content .= '    <i class="bi bi-' . $platforms[$button->platform_id]['icon']. '"></i>';
+        $local_content .=      $label ? ' ' . $platforms[$button->platform_id]['label'] : '';
+        $local_content .= '</a> ';
     }
-    return $content;
+    return $local_content;
 }
 
 /**
- * The column function.
+ * Generate a column
  *
  * @param Array  $id    Column id     Default null
  * @param String $type  Column type   Default null
@@ -47,10 +47,10 @@ function albums_button($button = null, $label = true) {
  * @param String $class Column class  Default 'albums-col-sm-3'
  * @return String Gallery item
  */
-function albums_col($id = null, $type = null, $i = 0, $class = 'albums-col-sm-3') {
-    $content  = '';
+function albums_col( $id = null, $type = null, $i = 0, $class = 'albums-col-sm-3' ) {
+    $local_content  = '';
     // Checking it the id is valid
-    if ($id) {
+    if ( $id ) {
         // Assuming the slug field contains an url
         $url = $type ? get_option(  $type. '_slug_' . $i . '_option', '' ) : '';
         // Checking if the url is not an url
@@ -60,17 +60,58 @@ function albums_col($id = null, $type = null, $i = 0, $class = 'albums-col-sm-3'
             $page_obj = get_page_by_path( $page_slug );
             $url = $page_obj ? get_permalink($page_obj->ID) : '';
         }
-        $content .= '<div class="albums-col albums-col-12 ' . $class . '" data-id="' . $id . '">';
-        $content .= strlen( $url ) ? '<a href="' . $url . '">' : '';
-        $content .= '    <img src="' . wp_get_attachment_image_url( $id , 'medium') . '" class="albums-gallery-image-item-img">';
-        $content .= strlen( $url ) ? '</a>' : '';
-        $content .= '</div>';
+        $local_content .= '<div class="albums-col albums-col-12 ' . $class . '" data-id="' . $id . '">';
+        $local_content .= strlen( $url ) ? '<a href="' . $url . '">' : '';
+        $local_content .= '    <img src="' . wp_get_attachment_image_url( $id , 'medium' ) . '" class="albums-gallery-image-item-img">';
+        $local_content .= strlen( $url ) ? '</a>' : '';
+        $local_content .= '</div>';
     }
-    return $content;
+    return $local_content;
 }
 
 /**
- * The [albums_image_galery] shortcode.
+ * Generate a song
+ *
+ * @param Object  $song Song record     Default null
+ * @param Boolean $label  Display label Default true
+ * @return String Song list item
+ */
+function albums_song( $song = null ) {
+    $local_content = '';
+    if ( $song ) {
+        global $wpdb;
+        // Get the Buttons
+        $id = $song->id;
+        $table_name = $wpdb->prefix . 'buttons';
+        $buttons = $wpdb->get_results(
+            $wpdb->prepare( "SELECT * FROM $table_name WHERE song_id=%d", $id )
+        );
+        // Total
+        $total = count( $buttons );
+        // Generate the song and buttons
+        $local_content .= '<div class="row albums-song">';
+        $local_content .= '    <div class="col-6">';
+        $local_content .= '        <p>' . $song->name. '</p>';
+        $local_content .= '    </div>';
+        $local_content .= '    <div class="col-6 text-end">';
+        for ( $i = 0; $i < $total; $i++ ) {
+            // Generate the buttons
+            $local_content .= albums_button( $buttons[$i] , false );
+        }
+        $local_content .= '    </div>';
+        $local_content .= '</div>';
+    }
+    return $local_content;
+}
+
+/**
+ *
+ * Shortcuts
+ *
+ */
+
+/**
+ * The [albums_image_galery] shortcode
  *
  * @param Array  $atts    Shortcode attributes Default empty
  * @param String $content Shortcode content    Default null
@@ -78,34 +119,35 @@ function albums_col($id = null, $type = null, $i = 0, $class = 'albums-col-sm-3'
  * @return String Shortcode output.
  */
 function albums_image_galery( $atts = [], $content = null , $tag = '' ) {
+    $local_content = '';
     global $wpdb;
+    // Get the Albums
     $table_name = $wpdb->prefix . 'albums';
     $records = $wpdb->get_results(
-        $wpdb->prepare( "SELECT * FROM $table_name")
+        $wpdb->prepare( "SELECT * FROM {$table_name}")
     );
-    if ( ! count($records) ) {
-        return $content;
+    if ( count( $records ) ) {
+        // Get the parameters
+        $type  = isset( $atts['type'] ) ? $atts['type'] : 'album';
+        $skip  = isset( $atts['skip'] ) ? $atts['skip'] : '';
+        $class = isset( $atts['class'] ) ? $atts['class'] : 'albums-col-sm-6 albums-col-md-4 albums-col-lg-4';
+        // Total
+        $total = count( $records );
+        // Start the gallery
+        $local_content .= '<div class="albums-row">';
+        for ( $i = 0; $i < $total; $i++ ) {
+            // Image id
+            $id = $i + 1 == $skip ? null : $records[$i]->cover;
+            // Generate an item
+            $local_content .= albums_col( $id , $type, $i, $class );
+        }
+        $local_content .= '</div>';
     }
-    // Getting the parameters
-    $type  = isset( $atts['type'] ) ? $atts['type'] : 'album';
-    $skip  = isset( $atts['skip'] ) ? $atts['skip'] : '';
-    $class = isset( $atts['class'] ) ? $atts['class'] : 'albums-col-sm-6 albums-col-md-4 albums-col-lg-4';
-    // Total
-    $total = count($records);
-    // Generating the gallery
-    $local_content = '<div class="albums-row">';
-    for ($i = 0; $i < $total; $i++) {
-        // Image id
-        $id = $i + 1 == $skip ? null : $records[$i]->cover;
-        // Generating an item
-        $local_content .= albums_col( $id , $type, $i, $class);
-    }
-    $local_content .= '</div>';
     return $local_content . $content;
 }
 
 /**
- * The [albums_cover_buttons] shortcode.
+ * The [albums_cover_buttons] shortcode
  *
  * @param Array  $atts    Shortcode attributes Default empty
  * @param String $content Shortcode content    Default null
@@ -113,76 +155,43 @@ function albums_image_galery( $atts = [], $content = null , $tag = '' ) {
  * @return String Shortcode output.
  */
 function albums_cover_buttons( $atts = [], $content = null , $tag = '' ) {
+    $local_content = '';
     $id = $atts['id'] ? $atts['id'] : 0;
-    if ( !$id ) {
-        return $content;
+    if ( is_int( $id ) ) {
+        global $wpdb;
+        // Get an Album
+        $table_name = $wpdb->prefix . 'albums';
+        $album = $wpdb->get_row(
+            $wpdb->prepare( "SELECT * FROM {$table_name} WHERE id=%d", $id )
+        );
+        if ( $album ) {
+            // Get the Buttons
+            $id = $album->id;
+            $table_name = $wpdb->prefix . 'buttons';
+            $buttons = $wpdb->get_results(
+                $wpdb->prepare( "SELECT * FROM $table_name WHERE album_id=%d", $id )
+            );
+            // Get the parameters
+            $class = isset( $atts['class'] ) ? $atts['class'] : '';
+            // Total
+            $total = count( $buttons );
+            // Generate the gallery
+            $local_content .= '<div class="albums-row">';
+            $local_content .=      albums_col( $album->cover, null, 0, $class );
+            $local_content .= '    <div class="albums-col albums-col-12">';
+            for ( $i = 0; $i < $total; $i++ ) {
+                // Gererate the buttons
+                $local_content .= albums_button( $buttons[$i] );
+            }
+            $local_content .= '    </div>';
+            $local_content .= '</div>';
+        }
     }
-    global $wpdb;
-    // Album
-    $table_name = $wpdb->prefix . 'albums';
-    $album = $wpdb->get_row(
-        $wpdb->prepare( "SELECT * FROM $table_name WHERE id=%d", $id)
-    );
-    if ( ! $album ) {
-        return $content;
-    }
-    // Buttons
-    $id = $album->id;
-    $table_name = $wpdb->prefix . 'buttons';
-    $buttons = $wpdb->get_results(
-        $wpdb->prepare( "SELECT * FROM $table_name WHERE album_id=%d", $id)
-    );
-    // Getting the parameters
-    $class = isset( $atts['class'] ) ? $atts['class'] : '';
-    // Total
-    $total = count($buttons);
-    // Generating the gallery
-    $local_content  = '<div class="albums-row">';
-    $local_content .=      albums_col( $album->cover, null, 0, $class );
-    $local_content .= '    <div class="albums-col albums-col-12">';
-    for ($i = 0; $i < $total; $i++) {
-        $local_content .= albums_button($buttons[$i]);
-    }
-    $local_content .= '    </div>';
-    $local_content .= '</div>';
     return $local_content . $content;
 }
 
 /**
- * The song function.
- *
- * @param Object  $song Song record     Default null
- * @param Boolean $label  Display label Default true
- * @return String Song list item
- */
-function albums_song($song = null) {
-    $content = '';
-    if ( $song ) {
-        global $wpdb;
-        // Buttons
-        $id = $song->id;
-        $table_name = $wpdb->prefix . 'buttons';
-        $buttons = $wpdb->get_results(
-            $wpdb->prepare( "SELECT * FROM $table_name WHERE song_id=%d", $id)
-        );
-        // Total
-        $total = count( $buttons );
-        $content .= '<div class="row albums-song">';
-        $content .= '    <div class="col-6">';
-        $content .= '        <p>' . $song->name. '</p>';
-        $content .= '    </div>';
-        $content .= '    <div class="col-6 text-end">';
-        for ($i = 0; $i < $total; $i++) {
-            $content .= albums_button( $buttons[$i] , false);
-        }
-        $content .= '    </div>';
-        $content .= '</div>';
-    }
-    return $content;
-}
-
-/**
- * The [albums_song_list] shortcode.
+ * The [albums_song_list] shortcode
  *
  * @param Array  $atts    Shortcode attributes Default empty
  * @param String $content Shortcode content    Default null
@@ -190,30 +199,29 @@ function albums_song($song = null) {
  * @return String Shortcode output.
  */
 function albums_song_list( $atts = [], $content = null , $tag = '' ) {
-    $id = $atts['id'] ? $atts['id'] : 0;
-    if ( !$id ) {
-        return $content;
-    }
-    global $wpdb;
-    // Song
-    $table_name = $wpdb->prefix . 'songs';
-    $songs = $wpdb->get_results(
-        $wpdb->prepare( "SELECT * FROM $table_name WHERE album_id=%d", $id)
-    );
-    // Getting the parameters
-    $class = isset( $atts['class'] ) ? $atts['class'] : '';
-    // Total
-    $total = count($songs);
-    // Generating the gallery
     $local_content = '';
-    for ($i = 0; $i < $total; $i++) {
-        $local_content .=  albums_song( $songs[$i] );
+    $id = $atts['id'] ? $atts['id'] : 0;
+    if ( is_int( $id ) ) {
+        global $wpdb;
+        // Song
+        $table_name = $wpdb->prefix . 'songs';
+        $songs = $wpdb->get_results(
+            $wpdb->prepare( "SELECT * FROM {$table_name} WHERE album_id=%d", $id )
+        );
+        // Get the parameters
+        $class = isset( $atts['class'] ) ? $atts['class'] : '';
+        // Total
+        $total = count( $songs );
+        // Generate the gallery
+        for ( $i = 0; $i < $total; $i++ ) {
+            $local_content .=  albums_song( $songs[$i] );
+        }
     }
     return $local_content . $content;
 }
 
 /**
- * The [albums_cover_list] shortcode.
+ * The [albums_cover_list] shortcode
  *
  * @param Array  $atts    Shortcode attributes Default empty
  * @param String $content Shortcode content    Default null
@@ -221,9 +229,9 @@ function albums_song_list( $atts = [], $content = null , $tag = '' ) {
  * @return String Shortcode output.
  */
 function albums_cover_list( $atts = [], $content = null , $tag = '' ) {
-    $id = $atts['id'] ? $atts['id'] : 0;
     $local_content  = '';
-    if ( $id ) {
+    $id = $atts['id'] ? $atts['id'] : 0;
+    if ( is_int( $id ) ) {
         $local_content .= '<div class="albums-row">';
         $local_content .= '    <div class="col-12 col-lg-6">';
         $local_content .=          albums_cover_buttons( $atts, '', $tag );
@@ -237,7 +245,7 @@ function albums_cover_list( $atts = [], $content = null , $tag = '' ) {
 }
 
 /**
- * Central location to create all shortcodes.
+ * Central location to create all shortcodes
  */
 function albums_image_galery_init() {
     add_shortcode( 'albums_image_galery', 'albums_image_galery' );
