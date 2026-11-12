@@ -209,3 +209,22 @@ add_action('admin_enqueue_scripts', 'albums_admin_enqueue_scripts');
  * Shortcut section
  */
 require_once plugin_dir_path( __FILE__ ) . 'shortcut.php';
+
+/**
+ * Redirection function
+ */
+function albums_redirections() {
+    $sentinel = false;
+    $page = isset( $_GET['page'] ) ? $_GET['page'] : null;
+    if ( 'albums-view-settings' === $page ) {
+        $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
+        if ( 0 === $albums_id && 0 === count($_POST) ) {
+            $sentinel = true;
+        }
+    }
+    if ( $sentinel ) {
+        wp_safe_redirect( admin_url( 'admin.php?page=albums-settings' ) );
+        exit;
+    }
+}
+add_action( 'admin_init', 'albums_redirections' );
