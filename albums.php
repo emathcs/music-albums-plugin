@@ -215,13 +215,15 @@ require_once plugin_dir_path( __FILE__ ) . 'shortcut.php';
  */
 function albums_redirections() {
     $sentinel = false;
+    // Albums add in view page
     $page = isset( $_GET['page'] ) ? $_GET['page'] : null;
     if ( 'albums-view-settings' === $page ) {
         $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
-        if ( 0 === $albums_id && 0 === count($_POST) ) {
+        if ( 0 === $album_id && 0 === count($_POST) ) {
             $sentinel = true;
         }
     }
+
     if ( $sentinel ) {
         wp_safe_redirect( admin_url( 'admin.php?page=albums-settings' ) );
         exit;
