@@ -72,7 +72,13 @@ class ButtonController extends Controller {
                     'album_id'    => $album_id,
                     'platform_id' => $platform_id
                 ];
-                $id = $this->getModel()->insert($data);
+                $format = [
+                    '%s',
+                    '%d',
+                    '%d',
+                    '%d'
+                ];
+                $id = $this->getModel()->insert($data, $format);
             }
         }
         // This process has been added here to avoid to redirect to this page from edit page
