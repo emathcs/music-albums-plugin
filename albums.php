@@ -214,19 +214,43 @@ require_once plugin_dir_path( __FILE__ ) . 'shortcut.php';
  * Redirection function
  */
 function albums_redirections() {
-    $sentinel = false;
     // Albums add in view page
     $page = isset( $_GET['page'] ) ? $_GET['page'] : null;
     if ( 'albums-view-settings' === $page ) {
-        $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
-        if ( 0 === $album_id && 0 === count($_POST) ) {
-            $sentinel = true;
+        $model_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
+        if ( 0 === $model_id && 0 === count($_POST) ) {
+            wp_safe_redirect( admin_url( 'admin.php?page=albums-settings' ) );
+            exit;
         }
     }
 
-    if ( $sentinel ) {
-        wp_safe_redirect( admin_url( 'admin.php?page=albums-settings' ) );
-        exit;
+    // Buttons add in view page
+    $page = isset( $_GET['page'] ) ? $_GET['page'] : null;
+    if ( 'buttons-view-settings' === $page ) {
+        $model_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
+        if ( isset( $_GET['album'] ) && 0 === count($_POST) ) {
+            wp_safe_redirect( admin_url( 'admin.php?page=albums-view-settings&album=' . $model_id) );
+            exit;
+        }
+    }
+    // Buttons add in view page
+    $page = isset( $_GET['page'] ) ? $_GET['page'] : null;
+    if ( 'buttons-view-settings' === $page ) {
+        $model_id = isset( $_GET['song'] ) ? $_GET['song'] : 0 ;
+        if ( isset( $_GET['song'] ) && 0 === count($_POST) ) {
+            wp_safe_redirect( admin_url( 'admin.php?page=songs-view-settings&song=' . $model_id) );
+            exit;
+        }
+    }
+
+    // Albums add in view page
+    $page = isset( $_GET['page'] ) ? $_GET['page'] : null;
+    if ( 'songs-view-settings' === $page ) {
+        $model_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
+        if ( $model_id && 0 === count($_POST) ) {
+            wp_safe_redirect( admin_url( 'admin.php?page=albums-view-settings&album=' . $model_id) );
+            exit;
+        }
     }
 }
 add_action( 'admin_init', 'albums_redirections' );
