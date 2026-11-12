@@ -2,13 +2,14 @@
 
 class AlbumView extends View {
     /**
-     * List render function
+     * List page
      *
      * @param Array $data Data to render
      */
     public function list($data = []) {
         $records = isset($data['records']) ? $data['records'] : [];
         $total = count($records);
+
         // Panel
         echo $this->panelOpen('Albums');
         echo '<div class="mb-3">';
@@ -40,7 +41,7 @@ class AlbumView extends View {
     }
 
     /**
-     * Add render function
+     * Add page
      *
      * @param Array $data Data to render
      */
@@ -48,6 +49,7 @@ class AlbumView extends View {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+
         // Panel
         echo $this->panelOpen('Add a new album');
         echo $form->init(['action' => "admin.php?page=albums-view-settings", 'method' => 'post']);
@@ -92,25 +94,29 @@ class AlbumView extends View {
     }
 
     /**
-     * View render function
+     * View page
      *
      * @param Array $data Data to render
      */
     public function view($data = []) {
         $record = isset($data['record']) ? $data['record'] : [];
+
         // Panel
         echo $this->panelOpen( 'View album' );
         if ($record) {
-            $songsTable = false;
-            if (isset($data['songs']) && count($data['songs'])) {
-                $songsTable = true;
-                $songView = new SongView();
-            }
+            // Get the Button view
             $buttonsTable = false;
             if (isset($data['buttons']) && count($data['buttons'])) {
                 $buttonsTable = true;
                 $buttonView = new ButtonView();
             }
+            // Get the Song view
+            $songsTable = false;
+            if (isset($data['songs']) && count($data['songs'])) {
+                $songsTable = true;
+                $songView = new SongView();
+            }
+
             // Cover image
             echo '<div class="mb-3 col-12 col-sm-4">';
             echo '    <img src="' . $data['src'] . '">';
@@ -133,11 +139,13 @@ class AlbumView extends View {
             echo '    <a href="?page=buttons-add-settings&album=' . $record->id . '" class="btn btn-sm btn-warning">Add a new button</a>';
             echo '    <a href="?page=songs-add-settings&album=' . $record->id . '" class="btn btn-sm btn-info">Add a new song</a>';
             echo '</div>';
+            // Button view
             if ($buttonsTable) {
                 echo '<br><hr><br>';
                 echo '<h2>Buttons</h2>';
                 echo $buttonView->table($data['buttons'], $data['platforms']);
             }
+            // Song view
             if ($songsTable) {
                 echo '<br><hr><br>';
                 echo '<h2>Songs</h2>';
@@ -148,7 +156,7 @@ class AlbumView extends View {
     }
 
     /**
-     * Edit render function
+     * Edit page
      *
      * @param Array $data Data to render
      */
@@ -157,56 +165,59 @@ class AlbumView extends View {
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
+
         // Panel
         echo $this->panelOpen('Edit album');
-        echo $form->init(['action' => "admin.php?page=albums-view-settings&album=" . $record->id, 'method' => 'post']);
-        // Security field: Nonce to prevent CSRF attacks
-        wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
-        // Cover image
-        echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview">';
-        echo '    <img src="' . $data['src'] . '" id="album-cover-img">';
-        echo '</div>';
-        echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
-        echo '    <img src="' . $data['default_src'] . '" id="album-admin">';
-        echo '</div>';
-        echo '<div class="mb-3">';
-        // Select
-        echo '    <button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary album-admin-hide">Select an image</button> ';
-        // Remove
-        echo '    <button type="button" id="remove-btn" class="album-remove-btn btn btn-warning">Remove image</button>';
-        echo '</div>';
-        // Id
-        echo $input->create([
-            'type'     => 'hidden',
-            'id'       => 'id',
-            'name'     => 'id',
-            'class'    => 'form-control',
-            'value'    => $record->id
-        ]);
-        // Cover
-        $input->setLabel('');
-        echo $input->create([
-            'type'     => 'hidden',
-            'id'       => 'cover',
-            'name'     => 'cover',
-            'class'    => 'form-control',
-            'required' => '',
-            'value'    => $record->cover
-        ]);
-        // Name
-        $input->setLabel('Name');
-        echo $input->create([
-            'type'     => 'text',
-            'id'       => 'name',
-            'name'     => 'name',
-            'class'    => 'form-control',
-            'required' => '',
-            'value'    => $record->name
-        ]);
-        // Submit
-        echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
-        echo $form->end();
+        if ($record) {
+            echo $form->init(['action' => "admin.php?page=albums-view-settings&album=" . $record->id, 'method' => 'post']);
+            // Security field: Nonce to prevent CSRF attacks
+            wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+            // Cover image
+            echo '<div id="album-image-gallery-item-preview" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview">';
+            echo '    <img src="' . $data['src'] . '" id="album-cover-img">';
+            echo '</div>';
+            echo '<div id="album-image-gallery-item-upload" class="mb-3 col-12 col-sm-4 album-upload-btn album-image-gallery-item-preview album-admin-hide">';
+            echo '    <img src="' . $data['default_src'] . '" id="album-admin">';
+            echo '</div>';
+            echo '<div class="mb-3">';
+            // Select
+            echo '    <button type="button" id="upload-btn" class="album-upload-btn btn btn-secondary album-admin-hide">Select an image</button> ';
+            // Remove
+            echo '    <button type="button" id="remove-btn" class="album-remove-btn btn btn-warning">Remove image</button>';
+            echo '</div>';
+            // Id
+            echo $input->create([
+                'type'     => 'hidden',
+                'id'       => 'id',
+                'name'     => 'id',
+                'class'    => 'form-control',
+                'value'    => $record->id
+            ]);
+            // Cover
+            $input->setLabel('');
+            echo $input->create([
+                'type'     => 'hidden',
+                'id'       => 'cover',
+                'name'     => 'cover',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => $record->cover
+            ]);
+            // Name
+            $input->setLabel('Name');
+            echo $input->create([
+                'type'     => 'text',
+                'id'       => 'name',
+                'name'     => 'name',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => $record->name
+            ]);
+            // Submit
+            echo $input->setLabel('');
+            echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
+            echo $form->end();
+        }
         echo $this->panelClose();
     }
 }
