@@ -60,7 +60,11 @@ class AlbumController extends Controller {
                     'cover' => $cover,
                     'name'  => $name
                 ];
-                $id = $this->getModel()->insert($data);
+                $format = [
+                    '%d',
+                    '%s'
+                ];
+                $id = $this->getModel()->insert($data, $format);
             }
         }
         // This process has been added here to avoid to redirect to this page from edit page
