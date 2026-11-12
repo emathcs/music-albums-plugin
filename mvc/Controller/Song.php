@@ -12,7 +12,7 @@ class SongController extends Controller {
     }
 
     /**
-     * List function
+     * List
      */
     public function list() {
         // Delete
@@ -30,7 +30,7 @@ class SongController extends Controller {
     }
 
     /**
-     * Add function
+     * Add
      *
      * @param Integer $album_id Album id
      */
@@ -40,7 +40,7 @@ class SongController extends Controller {
     }
 
     /**
-     * View function
+     * View
      *
      * @param Integer $id Song id
      */
@@ -103,7 +103,7 @@ class SongController extends Controller {
     }
 
     /**
-     * Edit function
+     * Edit
      *
      * @param Integer $id Song id
      */

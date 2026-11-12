@@ -12,7 +12,7 @@ class AlbumController extends Controller {
     }
 
     /**
-     * List function
+     * List
      */
     public function list() {
         // Delete
@@ -30,7 +30,7 @@ class AlbumController extends Controller {
     }
 
     /**
-     * Add function
+     * Add
      */
     public function add() {
         // Default album image
@@ -40,7 +40,7 @@ class AlbumController extends Controller {
     }
 
     /**
-     * View function
+     * View
      *
      * @param Integer $id Album id
      */
@@ -118,7 +118,7 @@ class AlbumController extends Controller {
     }
 
     /**
-     * Edit function
+     * Edit
      *
      * @param Integer $id Album id
      */
