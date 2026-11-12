@@ -12,7 +12,7 @@ class AlbumController extends Controller {
     }
 
     /**
-     * List function
+     * List
      */
     public function list() {
         // Delete
@@ -30,7 +30,7 @@ class AlbumController extends Controller {
     }
 
     /**
-     * Add function
+     * Add
      */
     public function add() {
         // Default album image
@@ -40,7 +40,7 @@ class AlbumController extends Controller {
     }
 
     /**
-     * View function
+     * View
      *
      * @param Integer $id Album id
      */
@@ -108,23 +108,31 @@ class AlbumController extends Controller {
         // Platforms
         $platformModel = new PlatformModel();
         $platforms = $platformModel->getListFormat();
-        // Image section
-        $src = wp_get_attachment_image_url($record->cover, 'medium');
+        // Image section // Default album image
+        $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
+        if ($record) {
+            $src = wp_get_attachment_image_url($record->cover, 'medium');
+        }
         // View
         $this->getView()->view(['record' => $record, 'songs' => $songs, 'buttons' => $buttons, 'platforms' => $platforms, 'src' => $src]);
     }
 
     /**
-     * Edit function
+     * Edit
      *
      * @param Integer $id Album id
      */
     public function edit($id = 0) {
         // Get the record
         $record = $this->getModel()->selectById($id);
-        // Image section
-        $src = wp_get_attachment_image_url($record->cover, 'medium');
+        // Images
+        $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         $default_src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
+        // Check if
+        if ($record) {
+            // Image section
+            $src = wp_get_attachment_image_url($record->cover, 'medium');
+        }
         // View
         $this->getView()->edit(['record' => $record, 'src' => $src, 'default_src' => $default_src]);
     }

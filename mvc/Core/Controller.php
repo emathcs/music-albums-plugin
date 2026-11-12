@@ -24,9 +24,9 @@ class Controller {
     /**
      * Constructor
      *
-     * @param Object $Model Object to manage the database table operations.
-     * @param Object $View Object to render HTML.
-     * @param Object $ChildModel Object to manage the related database table operations.
+     * @param Object $Model Object to manage the database table operations
+     * @param Object $View  Object to render HTML
+     * @param Object $ChildModel Object to manage the related database table operations
      */
     public function __construct($Model = null, $View = null, $ChildModel = null) {
         // Model
@@ -40,7 +40,7 @@ class Controller {
     /**
      * Set Model
      *
-     * @param Object $Model Object to manage the database table operations.
+     * @param Object $Model Object to manage the database table operations
      */
     public function setModel($Model = null) {
         $this->Model = $Model;
@@ -49,7 +49,7 @@ class Controller {
     /**
      * Get Model
      *
-     * @return Object Object to manage the database table operations.
+     * @return Object Object to manage the database table operations
      */
     public function getModel() {
         return $this->Model;
@@ -58,7 +58,7 @@ class Controller {
     /**
      * Set Child Model
      *
-     * @param Object $ChildModel Object to manage the related database table operations.
+     * @param Object $ChildModel Object to manage the related database table operations
      */
     public function setChildModel($ChildModel = null) {
         $this->ChildModel = $ChildModel;
@@ -67,7 +67,7 @@ class Controller {
     /**
      * Get Child Model
      *
-     * @$return Object Object to manage the related database table operations.
+     * @$return Object Object to manage the related database table operations
      */
     public function getChildModel() {
         return $this->ChildModel;
@@ -76,7 +76,7 @@ class Controller {
     /**
      * Set Delete Model
      *
-     * @param Object $Model Object to manage the database table operations.
+     * @param Object $Model Object to manage the database table operations
      */
     public function setDeleteModel($Model = null) {
         $this->DeleteModel = $Model;
@@ -85,7 +85,7 @@ class Controller {
     /**
      * Get Delete Model
      *
-     * @return Object Object to manage the database table operations.
+     * @return Object Object to manage the database table operations
      */
     public function getDeleteModel() {
         return $this->DeleteModel;
@@ -94,7 +94,7 @@ class Controller {
     /**
      * Set View
      *
-     * @param Object $View Object to render HTML.
+     * @param Object $View Object to render HTML
      */
     public function setView($View = null) {
         $this->View = $View;
@@ -103,7 +103,7 @@ class Controller {
     /**
      * Get View
      *
-     * @param Object Object to render HTML.
+     * @param Object Object to render HTML
      */
     public function getView() {
         return $this->View;
@@ -112,7 +112,7 @@ class Controller {
     /**
      * Delete function
      *
-     * @return Boolean Status of the operation.
+     * @return Boolean Status of the operation
      */
     public function delete() {
         if (isset( $_POST['delete'])) {

@@ -22,9 +22,6 @@ function albums_view_html() {
 // Edit
 function albums_edit_html() {
     $album_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
-    if ( ! $album_id ) {
-        return;
-    }
     $controller = new AlbumController();
     $controller->edit( $album_id );
 }

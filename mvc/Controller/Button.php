@@ -14,7 +14,7 @@ class ButtonController extends Controller {
     }
 
     /**
-     * List function
+     * List
      */
     public function list() {
         // Delete
@@ -34,7 +34,7 @@ class ButtonController extends Controller {
     }
 
     /**
-     * Add function
+     * Add
      */
     public function add() {
         // Album id
@@ -48,7 +48,7 @@ class ButtonController extends Controller {
     }
 
     /**
-     * View function
+     * View
      *
      * @param Integer $id Button id
      */
@@ -108,7 +108,7 @@ class ButtonController extends Controller {
     }
 
     /**
-     * Edit function
+     * Edit
      *
      * @param Integer $id Button id
      */

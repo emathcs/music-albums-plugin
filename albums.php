@@ -209,3 +209,48 @@ add_action('admin_enqueue_scripts', 'albums_admin_enqueue_scripts');
  * Shortcut section
  */
 require_once plugin_dir_path( __FILE__ ) . 'shortcut.php';
+
+/**
+ * Redirection function
+ */
+function albums_redirections() {
+    // Albums add in view page
+    $page = isset( $_GET['page'] ) ? $_GET['page'] : null;
+    if ( 'albums-view-settings' === $page ) {
+        $model_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
+        if ( 0 === $model_id && 0 === count($_POST) ) {
+            wp_safe_redirect( admin_url( 'admin.php?page=albums-settings' ) );
+            exit;
+        }
+    }
+
+    // Buttons add in view page
+    if ( 'buttons-view-settings' === $page ) {
+        $model    = isset( $_GET['model'] ) ? $_GET['model'] : 0 ;
+        $model_id = isset( $_GET['id'] ) ? $_GET['id'] : 0 ;
+        // Albums
+        if ('album' === $model) {
+            if ( 0 === count($_POST) ) {
+                wp_safe_redirect( admin_url( 'admin.php?page=albums-view-settings&album=' . $model_id) );
+                exit;
+            }
+        }
+        // Song
+        if ('song' === $model) {
+            if ( 0 === count($_POST) ) {
+                wp_safe_redirect( admin_url( 'admin.php?page=songs-view-settings&song=' . $model_id) );
+                exit;
+            }
+        }
+    }
+
+    // Albums add in view page
+    if ( 'songs-view-settings' === $page ) {
+        $model_id = isset( $_GET['album'] ) ? $_GET['album'] : 0 ;
+        if ( $model_id && 0 === count($_POST) ) {
+            wp_safe_redirect( admin_url( 'admin.php?page=albums-view-settings&album=' . $model_id) );
+            exit;
+        }
+    }
+}
+add_action( 'admin_init', 'albums_redirections' );

@@ -18,9 +18,6 @@ function songs_view_html() {
 // Edit
 function songs_edit_html() {
     $song_id = isset( $_GET['song'] ) ? $_GET['song'] : 0 ;
-    if ( ! $song_id ) {
-        return;
-    }
     $controller = new SongController();
     $controller->edit( $song_id );
 }
