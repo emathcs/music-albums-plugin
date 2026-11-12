@@ -62,13 +62,13 @@ class SongView extends View {
         $input->setLabelClass('form-label');
         $album_id = isset($data['album_id']) ? $data['album_id'] : 0;
         // Model for redirection
-        $model_id = '';
+        $parameters = '';
         if (isset($data['album_id']) && $data['album_id']) {
-            $model_id = '&album=' . $data['album_id'];
+            $parameters = '&album=' . $data['album_id'];
         }
         // Panel
         echo $this->panelOpen('Add a new song');
-        echo $form->init(['action' => 'admin.php?page=songs-view-settings' . $model_id, 'method' => 'post']);
+        echo $form->init(['action' => 'admin.php?page=songs-view-settings' . $parameters, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Album id

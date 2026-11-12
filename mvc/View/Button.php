@@ -67,15 +67,15 @@ class ButtonView extends View {
         $select = new Select('mb-3');
         $select->setLabelClass('form-label');
         // Model for redirection
-        $model_id = '';
+        $parameters = '';
         if (isset($data['album_id']) && $data['album_id']) {
-            $model_id = '&album=' . $data['album_id'];
+            $parameters = '&model=album&id=' . $data['album_id'];
         }
         if (isset($data['song_id']) && $data['song_id']) {
-            $model_id = '&song=' . $data['song_id'];
+            $parameters = '&model=song&id=' . $data['song_id'];
         }
         // Panel
-        echo $form->init(['action' => 'admin.php?page=buttons-view-settings' . $model_id, 'method' => 'post']);
+        echo $form->init(['action' => 'admin.php?page=buttons-view-settings' . $parameters, 'method' => 'post']);
         // Security field: Nonce to prevent CSRF attacks
         wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
         // Album id
