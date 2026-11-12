@@ -78,11 +78,10 @@ class Model {
      * @return Object Object record
      */
     public function selectById($id = 0) {
-        $record = $this->getDb()->get_results("SELECT * FROM {$this->getTable()} WHERE id={$id}");
-        if ($record) {
-            return $record[0];
-        }
-        return null;
+        $record = $this->getDb()->get_row(
+            $this->getDb()->prepare("SELECT * FROM {$this->getTable()} WHERE id=%d", $id)
+        );
+        return $record;
     }
 
     /**
