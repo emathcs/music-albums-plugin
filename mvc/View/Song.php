@@ -36,12 +36,13 @@ class SongView extends View {
     }
 
     /**
-     * List render function
+     * List page
      *
      * @param Array $data Data to render
      */
-    public function list($records = []) {
+    public function list($data = []) {
         $records = isset($data['records']) ? $data['records'] : [];
+
         // Panel
         echo $this->panelOpen('Songs');
         echo '<div class="mb-3">';
@@ -52,7 +53,7 @@ class SongView extends View {
     }
 
     /**
-     * Add render function
+     * Add page
      *
      * @param Array $data Data to render
      */
@@ -66,6 +67,7 @@ class SongView extends View {
         if (isset($data['album_id']) && $data['album_id']) {
             $parameters = '&album=' . $data['album_id'];
         }
+
         // Panel
         echo $this->panelOpen('Add a new song');
         echo $form->init(['action' => 'admin.php?page=songs-view-settings' . $parameters, 'method' => 'post']);
@@ -96,15 +98,17 @@ class SongView extends View {
     }
 
     /**
-     * View render function
+     * View page
      *
      * @param Array $data Data to render
      */
     public function view($data = []) {
         $record = isset($data['record']) ? $data['record'] : [];
+
         // Panel
         echo $this->panelOpen( 'View song' );
         if ($record) {
+            // Get the Button view
             $buttonsTable = false;
             if (isset($data['buttons']) && count($data['buttons'])) {
                 $buttonsTable = true;
@@ -123,6 +127,7 @@ class SongView extends View {
             echo '    <a href="?page=songs-edit-settings&song=' . $record->id .'" class="btn btn-sm btn-primary">Edit song</a>';
             echo '    <a href="?page=buttons-add-settings&song=' . $record->id . '" class="btn btn-sm btn-warning">Add a new button</a>';
             echo '</div>';
+            // Button view
             if ($buttonsTable) {
                 echo '<br><hr><br>';
                 echo '<h2>Buttons</h2>';
@@ -133,7 +138,7 @@ class SongView extends View {
     }
 
     /**
-     * Edit function
+     * Edit page
      *
      * @param Array $data Data to render
      */
@@ -142,33 +147,36 @@ class SongView extends View {
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
+
         // Panel
         echo $this->panelOpen('Edit song');
-        echo $form->init(['action' => "admin.php?page=songs-view-settings&song=" . $record->id, 'method' => 'post']);
-        // Security field: Nonce to prevent CSRF attacks
-        wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
-        // Id
-        echo $input->create([
-            'type'     => 'hidden',
-            'id'       => 'id',
-            'name'     => 'id',
-            'class'    => 'form-control',
-            'value'    => $record->id
-        ]);
-        // Name
-        $input->setLabel('Name');
-        echo $input->create([
-            'type'     => 'text',
-            'id'       => 'name',
-            'name'     => 'name',
-            'class'    => 'form-control',
-            'required' => '',
-            'value'    => $record->name
-        ]);
-        // Submit
-        echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
-        echo $form->end();
+        if ($record) {
+            echo $form->init(['action' => "admin.php?page=songs-view-settings&song=" . $record->id, 'method' => 'post']);
+            // Security field: Nonce to prevent CSRF attacks
+            wp_nonce_field( 'save_custom_form_action', 'custom_form_nonce' );
+            // Id
+            echo $input->create([
+                'type'     => 'hidden',
+                'id'       => 'id',
+                'name'     => 'id',
+                'class'    => 'form-control',
+                'value'    => $record->id
+            ]);
+            // Name
+            $input->setLabel('Name');
+            echo $input->create([
+                'type'     => 'text',
+                'id'       => 'name',
+                'name'     => 'name',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => $record->name
+            ]);
+            // Submit
+            echo $input->setLabel('');
+            echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
+            echo $form->end();
+        }
         echo $this->panelClose();
     }
 }
