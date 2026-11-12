@@ -3,13 +3,15 @@
 class View {
     /**
      * Open panel
+     *
+     * @return String HTML code to start a panel
      */
     public function panelOpen($title = '') {
         $render  = '<div class="albums-wrap">';
         $render .= '    <div class="container albums-panel">';
         $render .= '        <div class="row">';
         $render .= '            <div class="col-xs">';
-        $render .= '                <h1>' . esc_html( $title ) . '</h1>';
+        $render .= '                <h1>' . esc_html($title) . '</h1>';
         $render .= '            </div>';
         $render .= '            <div class="col-xs">';
         return $render;
@@ -17,6 +19,8 @@ class View {
 
     /**
      * Close panel
+     *
+     * @return String HTML code to close a panel
      */
     public function panelClose() {
         $render  = '            </div>';
@@ -28,11 +32,14 @@ class View {
 
     /**
      * Delete form
+     *
+     * @return String HTML code to generate the delete form
      */
     public function deleteForm($id = 0, $model = '') {
         $form  = new Form();
         $input = new Input();
 
+        // Form
         $html  = $form->init(['action' => "", 'method' => 'post']);
         $html .= wp_nonce_field( 'delete_custom_form_action', 'custom_form_nonce', true, false );
         $html .= $input->setLabel('');
@@ -54,6 +61,7 @@ class View {
         $html .= $input->setLabel('');
         $html .= $input->create(['type' => 'submit', 'name' => 'delete', 'value' => 'Delete', 'class' => 'btn btn-sm btn-danger']);
         $html .= $form->end();
+
         return $html;
     }
 }
