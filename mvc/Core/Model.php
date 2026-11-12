@@ -66,7 +66,9 @@ class Model {
      * @return Array Object record array
      */
     public function select() {
-        return $this->getDb()->get_results("SELECT * FROM {$this->getTable()}");
+        return $this->getDb()->get_results(
+            $this->getDb()->prepare("SELECT * FROM {$this->getTable()}")
+        );
     }
 
     /**
