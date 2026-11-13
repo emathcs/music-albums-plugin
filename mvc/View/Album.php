@@ -72,8 +72,8 @@ class AlbumView extends View {
         $input->setLabel('');
         echo $input->create([
             'type'     => 'hidden',
-            'id'       => 'cover',
-            'name'     => 'cover',
+            'id'       => 'image-id',
+            'name'     => 'image_id',
             'class'    => 'form-control',
             'required' => ''
         ]);
