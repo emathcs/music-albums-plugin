@@ -53,16 +53,19 @@ class AlbumController extends Controller {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
-            $cover = sanitize_text_field($_POST['cover']);
-            $name  = sanitize_text_field($_POST['name']);
-            if (!(empty($name) || empty($cover))) {
+            $name     = sanitize_text_field($_POST['name']);
+            $image_id = sanitize_text_field($_POST['image_id']);
+            $post_id  = sanitize_text_field($_POST['post_id']);
+            if (!(empty($name) || empty($image_id) || empty($post_id))) {
                 $data = [
-                    'cover' => $cover,
-                    'name'  => $name
+                    'name'     => $name,
+                    'image_id' => $image_id,
+                    'post_id'  => $post_id
                 ];
                 $format = [
+                    '%s',
                     '%d',
-                    '%s'
+                    '%d'
                 ];
                 $id = $this->getModel()->insert($data, $format);
             }
@@ -72,17 +75,20 @@ class AlbumController extends Controller {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
-            $id    = sanitize_text_field($_POST['id']);
-            $cover = sanitize_text_field($_POST['cover']);
-            $name  = sanitize_text_field($_POST['name']);
-            if (!(empty($name) || empty($cover))) {
+            $id       = sanitize_text_field($_POST['id']);
+            $name     = sanitize_text_field($_POST['name']);
+            $image_id = sanitize_text_field($_POST['image_id']);
+            $post_id  = sanitize_text_field($_POST['post_id']);
+            if (!(empty($name) || empty($image_id) || empty($post_id))) {
                 $data = [
-                    'cover' => $cover,
-                    'name'  => $name
+                    'name'     => $name,
+                    'image_id' => $image_id,
+                    'post_id'  => $post_id
                 ];
                 $format_data = [
                     '%s',
-                    '%s'
+                    '%d',
+                    '%d'
                 ];
                 $this->getModel()->updateById(
                     $id,
@@ -115,7 +121,7 @@ class AlbumController extends Controller {
         // Image section // Default album image
         $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         if ($record) {
-            $src = wp_get_attachment_image_url($record->cover, 'medium');
+            $src = wp_get_attachment_image_url($record->image_id, 'medium');
         }
         // View
         $this->getView()->view(['record' => $record, 'songs' => $songs, 'buttons' => $buttons, 'platforms' => $platforms, 'src' => $src]);
@@ -132,10 +138,10 @@ class AlbumController extends Controller {
         // Images
         $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         $default_src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
-        // Check if
+        // Check if there is a record
         if ($record) {
             // Image section
-            $src = wp_get_attachment_image_url($record->cover, 'medium');
+            $src = wp_get_attachment_image_url($record->image_id, 'medium');
         }
         // View
         $this->getView()->edit(['record' => $record, 'src' => $src, 'default_src' => $default_src]);

@@ -41,29 +41,26 @@ function albums_button( $button = null, $label = true ) {
 /**
  * Generate a column
  *
- * @param Array  $id    Column id     Default null
- * @param String $type  Column type   Default null
- * @param String $i     Column number Default 0
- * @param String $class Column class  Default 'albums-col-sm-3'
+ * @param Array  $image_id Image ID  Default 0
+ * @param String $post_id  Post ID   Default 0
+ * @param String $class    CSS class Default 'albums-col-sm-3'
  * @return String Gallery item
  */
-function albums_col( $id = null, $type = null, $i = 0, $class = 'albums-col-sm-3' ) {
+function albums_col( $image_id = null, $post_id = 0, $class = 'albums-col-sm-3' ) {
     $local_content  = '';
     // Checking it the id is valid
-    if ( $id ) {
-        // Assuming the slug field contains an url
-        $url = $type ? get_option(  $type. '_slug_' . $i . '_option', '' ) : '';
-        // Checking if the url is not an url
-        if ( ! str_contains( $url, 'http' ) && strlen( $url ) ) {
-            // Generating an url
-            $page_slug = $url;
-            $page_obj = get_page_by_path( $page_slug );
-            $url = $page_obj ? get_permalink($page_obj->ID) : '';
+    if ( $image_id ) {
+        // Not a valid Post ID
+        $url = '';
+        // Check if the Post ID > 0
+        if ( $post_id > 0 ) {
+            // Generate the url
+            $url = get_permalink( $post_id );
         }
-        $local_content .= '<div class="albums-col albums-col-12 ' . $class . '" data-id="' . $id . '">';
-        $local_content .= strlen( $url ) ? '<a href="' . $url . '">' : '';
-        $local_content .= '    <img src="' . wp_get_attachment_image_url( $id , 'medium' ) . '" class="albums-gallery-image-item-img">';
-        $local_content .= strlen( $url ) ? '</a>' : '';
+        $local_content .= '<div class="albums-col albums-col-12 ' . $class . '" data-id="' . $image_id . '">';
+        $local_content .=      strlen( $url ) ? '<a href="' . esc_url( $url ) . '">' : '';
+        $local_content .= '        <img src="' . wp_get_attachment_image_url( $image_id , 'medium' ) . '" class="albums-gallery-image-item-img">';
+        $local_content .=      strlen( $url ) ? '</a>' : '';
         $local_content .= '</div>';
     }
     return $local_content;
@@ -111,14 +108,14 @@ function albums_song( $song = null ) {
  */
 
 /**
- * The [albums_image_galery] shortcode
+ * The [albums_image_gallery] shortcode
  *
  * @param Array  $atts    Shortcode attributes Default empty
  * @param String $content Shortcode content    Default null
  * @param String $tag     Shortcode tag (name) Default empty
  * @return String Shortcode output.
  */
-function albums_image_galery( $atts = [], $content = null , $tag = '' ) {
+function albums_image_gallery( $atts = [], $content = null , $tag = '' ) {
     $local_content = '';
     global $wpdb;
     // Get the Albums
@@ -128,7 +125,6 @@ function albums_image_galery( $atts = [], $content = null , $tag = '' ) {
     );
     if ( count( $records ) ) {
         // Get the parameters
-        $type  = isset( $atts['type'] ) ? $atts['type'] : 'album';
         $skip  = isset( $atts['skip'] ) ? $atts['skip'] : '';
         $class = isset( $atts['class'] ) ? $atts['class'] : 'albums-col-sm-6 albums-col-md-4 albums-col-lg-4';
         // Total
@@ -136,10 +132,12 @@ function albums_image_galery( $atts = [], $content = null , $tag = '' ) {
         // Start the gallery
         $local_content .= '<div class="albums-row">';
         for ( $i = 0; $i < $total; $i++ ) {
-            // Image id
-            $id = $i + 1 == $skip ? null : $records[$i]->cover;
+            // Post ID
+            $post_id = $records[$i]->post_id;
+            // Image ID
+            $image_id = $i + 1 == $skip ? null : $records[$i]->image_id;
             // Generate an item
-            $local_content .= albums_col( $id , $type, $i, $class );
+            $local_content .= albums_col( $image_id , $post_id, $class );
         }
         $local_content .= '</div>';
     }
@@ -156,8 +154,8 @@ function albums_image_galery( $atts = [], $content = null , $tag = '' ) {
  */
 function albums_cover_buttons( $atts = [], $content = null , $tag = '' ) {
     $local_content = '';
-    $id = $atts['id'] ? $atts['id'] : 0;
-    if ( is_int( $id ) ) {
+    $id = isset( $atts['id'] ) ? $atts['id'] : 0;
+    if ( $id > 0 ) {
         global $wpdb;
         // Get an Album
         $table_name = $wpdb->prefix . 'albums';
@@ -177,7 +175,7 @@ function albums_cover_buttons( $atts = [], $content = null , $tag = '' ) {
             $total = count( $buttons );
             // Generate the gallery
             $local_content .= '<div class="albums-row">';
-            $local_content .=      albums_col( $album->cover, null, 0, $class );
+            $local_content .=      albums_col( $album->image_id, 0, $class );
             $local_content .= '    <div class="albums-col albums-col-12">';
             for ( $i = 0; $i < $total; $i++ ) {
                 // Gererate the buttons
@@ -200,8 +198,8 @@ function albums_cover_buttons( $atts = [], $content = null , $tag = '' ) {
  */
 function albums_song_list( $atts = [], $content = null , $tag = '' ) {
     $local_content = '';
-    $id = $atts['id'] ? $atts['id'] : 0;
-    if ( is_int( $id ) ) {
+    $id = isset( $atts['id'] ) ? $atts['id'] : 0;
+    if ( $id > 0 ) {
         global $wpdb;
         // Song
         $table_name = $wpdb->prefix . 'songs';
@@ -230,8 +228,8 @@ function albums_song_list( $atts = [], $content = null , $tag = '' ) {
  */
 function albums_cover_list( $atts = [], $content = null , $tag = '' ) {
     $local_content  = '';
-    $id = $atts['id'] ? $atts['id'] : 0;
-    if ( is_int( $id ) ) {
+    $id = isset( $atts['id'] ) ? $atts['id'] : 0;
+    if ( $id > 0 ) {
         $local_content .= '<div class="albums-row">';
         $local_content .= '    <div class="col-12 col-lg-6">';
         $local_content .=          albums_cover_buttons( $atts, '', $tag );
@@ -248,7 +246,7 @@ function albums_cover_list( $atts = [], $content = null , $tag = '' ) {
  * Central location to create all shortcodes
  */
 function albums_image_galery_init() {
-    add_shortcode( 'albums_image_galery', 'albums_image_galery' );
+    add_shortcode( 'albums_image_gallery', 'albums_image_gallery' );
     add_shortcode( 'albums_cover_buttons', 'albums_cover_buttons' );
     add_shortcode( 'albums_song_list', 'albums_song_list' );
     add_shortcode( 'albums_cover_list', 'albums_cover_list' );

@@ -1,14 +1,7 @@
 jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
     var galleryFrame;
-    var type;
-    var number;
-
-    // Setting an image
+    // Set an image
     $('.album-upload-btn').on('click', function(e) {
-        console.log(1);
-        // Updating the preview and the buttons
-        // type   = $(this).data('type');
-        // number = $(this).data('album');
         e.preventDefault();
         // If the media frame already exists, reopen it.
         if (galleryFrame) {
@@ -42,8 +35,8 @@ jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
             });
 
             // Populate the input field with a comma-separated list of IDs
-            $('#cover').val(imageIds);
-            // Updating the preview and the buttons
+            $('#image-id').val(imageIds);
+            // Update the preview and the buttons
             $('#upload-btn').addClass('album-admin-hide');
             $('#remove-btn').removeClass('album-admin-hide');
             $('#album-image-gallery-item-preview').html(previewHtml);
@@ -57,9 +50,9 @@ jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
 
     // Removing the image
     $('.album-remove-btn').on('click', function(e) {
-        // Removing the image from the hidden imput
-        $('#cover').val('');
-        // Updating the preview and the buttons
+        // Remove the image from the hidden imput
+        $('#image-id').val('');
+        // Update the preview and the buttons
         $('#album-image-gallery-item-preview').html('');
         $('#remove-btn').addClass('album-admin-hide');
         $('#upload-btn').removeClass('album-admin-hide');

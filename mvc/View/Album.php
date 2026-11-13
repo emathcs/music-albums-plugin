@@ -68,12 +68,12 @@ class AlbumView extends View {
         // Remove
         echo '    <button type="button" id="remove-btn" class="album-remove-btn btn btn-warning album-admin-hide">Remove image</button>';
         echo '</div>';
-        // Cover
+        // Image ID
         $input->setLabel('');
         echo $input->create([
             'type'     => 'hidden',
-            'id'       => 'cover',
-            'name'     => 'cover',
+            'id'       => 'image-id',
+            'name'     => 'image_id',
             'class'    => 'form-control',
             'required' => ''
         ]);
@@ -83,6 +83,15 @@ class AlbumView extends View {
             'type'     => 'text',
             'id'       => 'name',
             'name'     => 'name',
+            'class'    => 'form-control',
+            'required' => ''
+        ]);
+        // Post ID
+        $input->setLabel('Post ID');
+        echo $input->create([
+            'type'     => 'text',
+            'id'       => 'post-id',
+            'name'     => 'post_id',
             'class'    => 'form-control',
             'required' => ''
         ]);
@@ -124,12 +133,16 @@ class AlbumView extends View {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
-            echo '            <td><b>Media id</b></td>';
-            echo '            <td>' . $record->cover . '</td>';
-            echo '        </tr>';
-            echo '        <tr>';
             echo '            <td><b>Name</b></td>';
             echo '            <td>' . $record->name . '</td>';
+            echo '        </tr>';
+            echo '        <tr>';
+            echo '            <td><b>Image ID</b></td>';
+            echo '            <td>' . $record->image_id . '</td>';
+            echo '        </tr>';
+            echo '        <tr>';
+            echo '            <td><b>Post ID</b></td>';
+            echo '            <td>' . $record->post_id . '</td>';
             echo '        </tr>';
             echo '    </tbody>';
             echo '</table>';
@@ -197,11 +210,11 @@ class AlbumView extends View {
             $input->setLabel('');
             echo $input->create([
                 'type'     => 'hidden',
-                'id'       => 'cover',
-                'name'     => 'cover',
+                'id'       => 'image-id',
+                'name'     => 'image_id',
                 'class'    => 'form-control',
                 'required' => '',
-                'value'    => $record->cover
+                'value'    => $record->image_id
             ]);
             // Name
             $input->setLabel('Name');
@@ -212,6 +225,16 @@ class AlbumView extends View {
                 'class'    => 'form-control',
                 'required' => '',
                 'value'    => $record->name
+            ]);
+            // Post ID
+            $input->setLabel('Post ID');
+            echo $input->create([
+                'type'     => 'text',
+                'id'       => 'post-id',
+                'name'     => 'post_id',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => $record->post_id
             ]);
             // Submit
             echo $input->setLabel('');
