@@ -35,7 +35,7 @@ jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
             });
 
             // Populate the input field with a comma-separated list of IDs
-            $('#image_id').val(imageIds);
+            $('#image-id').val(imageIds);
             // Update the preview and the buttons
             $('#upload-btn').addClass('album-admin-hide');
             $('#remove-btn').removeClass('album-admin-hide');
@@ -51,7 +51,7 @@ jQuery(document).all ? jQuery(window) : jQuery(document).ready(function($) {
     // Removing the image
     $('.album-remove-btn').on('click', function(e) {
         // Remove the image from the hidden imput
-        $('#image_id').val('');
+        $('#image-id').val('');
         // Update the preview and the buttons
         $('#album-image-gallery-item-preview').html('');
         $('#remove-btn').addClass('album-admin-hide');

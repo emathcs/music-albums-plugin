@@ -53,16 +53,19 @@ class AlbumController extends Controller {
             if ( ! isset( $_POST['custom_form_nonce'] ) || ! wp_verify_nonce( $_POST['custom_form_nonce'], 'save_custom_form_action' ) ) {
                 wp_die( 'Security check failed. Please try again.' );
             }
-            $cover = sanitize_text_field($_POST['cover']);
-            $name  = sanitize_text_field($_POST['name']);
-            if (!(empty($name) || empty($cover))) {
+            $name     = sanitize_text_field($_POST['name']);
+            $image_id = sanitize_text_field($_POST['image_id']);
+            $post_id  = sanitize_text_field($_POST['post_id']);
+            if (!(empty($name) || empty($image_id) || empty($post_id))) {
                 $data = [
-                    'cover' => $cover,
-                    'name'  => $name
+                    'name'     => $name,
+                    'image_id' => $image_id,
+                    'post_id'  => $post_id
                 ];
                 $format = [
+                    '%s',
                     '%d',
-                    '%s'
+                    '%d'
                 ];
                 $id = $this->getModel()->insert($data, $format);
             }
