@@ -19,8 +19,9 @@ function jal_install() {
     $table_1 = $wpdb->prefix . 'albums';
     $sql  = "CREATE TABLE ". $table_1 . " (";
     $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    cover varchar(255) NOT NULL,";
-    $sql .= "    name varchar(255) NOT NULL";
+    $sql .= "    name varchar(255) NOT NULL,";
+    $sql .= "    image_id int(255) NOT NULL,";
+    $sql .= "    post_id int(255) NOT NULL";
     $sql .= ") " . $charset_collate . ";";
     dbDelta( $sql );
     // Songs
