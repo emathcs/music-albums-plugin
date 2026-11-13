@@ -210,11 +210,11 @@ class AlbumView extends View {
             $input->setLabel('');
             echo $input->create([
                 'type'     => 'hidden',
-                'id'       => 'cover',
-                'name'     => 'cover',
+                'id'       => 'image-id',
+                'name'     => 'image_id',
                 'class'    => 'form-control',
                 'required' => '',
-                'value'    => $record->cover
+                'value'    => $record->image_id
             ]);
             // Name
             $input->setLabel('Name');
@@ -225,6 +225,16 @@ class AlbumView extends View {
                 'class'    => 'form-control',
                 'required' => '',
                 'value'    => $record->name
+            ]);
+            // Post ID
+            $input->setLabel('Post ID');
+            echo $input->create([
+                'type'     => 'text',
+                'id'       => 'post-id',
+                'name'     => 'post_id',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => $record->post_id
             ]);
             // Submit
             echo $input->setLabel('');
