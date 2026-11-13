@@ -68,7 +68,7 @@ class AlbumView extends View {
         // Remove
         echo '    <button type="button" id="remove-btn" class="album-remove-btn btn btn-warning album-admin-hide">Remove image</button>';
         echo '</div>';
-        // Cover
+        // Image ID
         $input->setLabel('');
         echo $input->create([
             'type'     => 'hidden',
@@ -86,7 +86,7 @@ class AlbumView extends View {
             'class'    => 'form-control',
             'required' => ''
         ]);
-        // Name
+        // Post ID
         $input->setLabel('Post ID');
         echo $input->create([
             'type'     => 'text',
