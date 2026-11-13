@@ -463,5 +463,16 @@
 
 .btn-platform.btn-link {
     padding: 0 0.5rem 0 0.5rem;
-    color: #666666;
+}
+
+.dark .row.albums-song p {
+    color: #777777;
+}
+
+.dark .row.albums-song {
+    border-bottom: 1px solid #555555;
+}
+
+.dark .row.albums-song:hover {
+    background-color: #222222;
 }

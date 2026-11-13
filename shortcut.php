@@ -30,7 +30,7 @@ function albums_button( $button = null, $label = true ) {
                 'label' => 'Amazon Music'
             ]
         ];
-        $local_content .= '<a href="' . $button->link . '" target="_blank" class="btn btn-link btn-platform">';
+        $local_content .= '<a href="' . $button->link . '" target="_blank" class="btn btn-link btn-platform link-secondary">';
         $local_content .= '    <i class="bi bi-' . $platforms[$button->platform_id]['icon']. '"></i>';
         $local_content .=      $label ? ' ' . $platforms[$button->platform_id]['label'] : '';
         $local_content .= '</a> ';
@@ -231,7 +231,8 @@ function albums_cover_list( $atts = [], $content = null , $tag = '' ) {
     $local_content  = '';
     $id = isset( $atts['id'] ) ? $atts['id'] : 0;
     if ( $id > 0 ) {
-        $local_content .= '<div class="albums-row">';
+        $container_class = isset( $atts['container_class'] ) ? $atts['container_class'] : '';
+        $local_content .= '<div class="albums-row ' . $container_class . '">';
         $local_content .= '    <div class="col-12 col-lg-6">';
         $local_content .=          albums_cover_buttons( $atts, '', $tag );
         $local_content .= '    </div>';
