@@ -30,7 +30,7 @@ function albums_button( $button = null, $label = true ) {
                 'label' => 'Amazon Music'
             ]
         ];
-        $local_content .= '<a href="' . $button->link . '" target="_blank" class="btn btn-link ' . ( $label ? '' : 'btn-sm' ) . '">';
+        $local_content .= '<a href="' . $button->link . '" target="_blank" class="btn btn-link btn-platform">';
         $local_content .= '    <i class="bi bi-' . $platforms[$button->platform_id]['icon']. '"></i>';
         $local_content .=      $label ? ' ' . $platforms[$button->platform_id]['label'] : '';
         $local_content .= '</a> ';
@@ -69,11 +69,12 @@ function albums_col( $image_id = null, $post_id = 0, $class = 'albums-col-sm-3' 
 /**
  * Generate a song
  *
+ * @param Integer $li List item         Default 0
  * @param Object  $song Song record     Default null
  * @param Boolean $label  Display label Default true
  * @return String Song list item
  */
-function albums_song( $song = null ) {
+function albums_song( $li = 0, $song = null ) {
     $local_content = '';
     if ( $song ) {
         global $wpdb;
@@ -87,10 +88,10 @@ function albums_song( $song = null ) {
         $total = count( $buttons );
         // Generate the song and buttons
         $local_content .= '<div class="row albums-song">';
-        $local_content .= '    <div class="col-6">';
-        $local_content .= '        <p>' . $song->name. '</p>';
+        $local_content .= '    <div class="col-8">';
+        $local_content .= '        <p>' . ($li < 10 ? '&nbsp;' : '') . $li . '&nbsp;&nbsp;&nbsp;&nbsp;' . $song->name. '</p>';
         $local_content .= '    </div>';
-        $local_content .= '    <div class="col-6 text-end">';
+        $local_content .= '    <div class="col-4 text-end">';
         for ( $i = 0; $i < $total; $i++ ) {
             // Generate the buttons
             $local_content .= albums_button( $buttons[$i] , false );
@@ -212,7 +213,7 @@ function albums_song_list( $atts = [], $content = null , $tag = '' ) {
         $total = count( $songs );
         // Generate the gallery
         for ( $i = 0; $i < $total; $i++ ) {
-            $local_content .=  albums_song( $songs[$i] );
+            $local_content .=  albums_song( $i + 1, $songs[$i] );
         }
     }
     return $local_content . $content;
@@ -258,5 +259,6 @@ add_action( 'init', 'albums_image_galery_init' );
  */
 function albums_wp_enqueue_scripts() {
     wp_enqueue_style( 'albums_grid_css', plugins_url('/assets/css/bootstrap-grid.css', __FILE__), array(), '1.0.0' );
+    wp_enqueue_style( 'albums_icons_css', plugins_url('/assets/css/bootstrap-icons.min.css', __FILE__), array(), '1.0.0' );
 }
 add_action( 'wp_enqueue_scripts', 'albums_wp_enqueue_scripts' );
