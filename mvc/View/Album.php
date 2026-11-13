@@ -86,6 +86,15 @@ class AlbumView extends View {
             'class'    => 'form-control',
             'required' => ''
         ]);
+        // Name
+        $input->setLabel('Post ID');
+        echo $input->create([
+            'type'     => 'text',
+            'id'       => 'post-id',
+            'name'     => 'post_id',
+            'class'    => 'form-control',
+            'required' => ''
+        ]);
         // Submit
         echo $input->setLabel('');
         echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Save', 'class' => 'btn btn-sm btn-primary']);
