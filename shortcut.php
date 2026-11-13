@@ -155,7 +155,7 @@ function albums_image_gallery( $atts = [], $content = null , $tag = '' ) {
 function albums_cover_buttons( $atts = [], $content = null , $tag = '' ) {
     $local_content = '';
     $id = isset( $atts['id'] ) ? $atts['id'] : 0;
-    if ( is_int( $id ) ) {
+    if ( $id > 0 ) {
         global $wpdb;
         // Get an Album
         $table_name = $wpdb->prefix . 'albums';
@@ -199,7 +199,7 @@ function albums_cover_buttons( $atts = [], $content = null , $tag = '' ) {
 function albums_song_list( $atts = [], $content = null , $tag = '' ) {
     $local_content = '';
     $id = isset( $atts['id'] ) ? $atts['id'] : 0;
-    if ( is_int( $id ) ) {
+    if ( $id > 0 ) {
         global $wpdb;
         // Song
         $table_name = $wpdb->prefix . 'songs';
@@ -229,7 +229,7 @@ function albums_song_list( $atts = [], $content = null , $tag = '' ) {
 function albums_cover_list( $atts = [], $content = null , $tag = '' ) {
     $local_content  = '';
     $id = isset( $atts['id'] ) ? $atts['id'] : 0;
-    if ( is_int( $id ) ) {
+    if ( $id > 0 ) {
         $local_content .= '<div class="albums-row">';
         $local_content .= '    <div class="col-12 col-lg-6">';
         $local_content .=          albums_cover_buttons( $atts, '', $tag );
