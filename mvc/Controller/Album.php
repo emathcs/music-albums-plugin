@@ -118,7 +118,7 @@ class AlbumController extends Controller {
         // Image section // Default album image
         $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         if ($record) {
-            $src = wp_get_attachment_image_url($record->cover, 'medium');
+            $src = wp_get_attachment_image_url($record->image_id, 'medium');
         }
         // View
         $this->getView()->view(['record' => $record, 'songs' => $songs, 'buttons' => $buttons, 'platforms' => $platforms, 'src' => $src]);
