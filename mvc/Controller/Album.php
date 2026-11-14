@@ -58,7 +58,7 @@ class AlbumController extends Controller {
                 wp_die( 'Security check failed. Please try again.' );
             }
             $name     = sanitize_text_field($_POST['name']);
-            $type_id  = sanitize_text_field($_POST['type_id']);
+            $type_id  = sanitize_text_field($_POST['type-id']);
             $image_id = sanitize_text_field($_POST['image_id']);
             $post_id  = sanitize_text_field($_POST['post_id']);
             if (!(empty($name) || empty($type_id) || empty($image_id) || empty($post_id))) {
@@ -84,16 +84,19 @@ class AlbumController extends Controller {
             }
             $id       = sanitize_text_field($_POST['id']);
             $name     = sanitize_text_field($_POST['name']);
+            $type_id  = sanitize_text_field($_POST['type-id']);
             $image_id = sanitize_text_field($_POST['image_id']);
             $post_id  = sanitize_text_field($_POST['post_id']);
             if (!(empty($name) || empty($image_id) || empty($post_id))) {
                 $data = [
                     'name'     => $name,
+                    'type_id'  => $type_id,
                     'image_id' => $image_id,
                     'post_id'  => $post_id
                 ];
                 $format_data = [
                     '%s',
+                    '%d',
                     '%d',
                     '%d'
                 ];
