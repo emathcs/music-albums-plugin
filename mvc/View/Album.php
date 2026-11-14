@@ -49,6 +49,8 @@ class AlbumView extends View {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $select = new Select('mb-3');
+        $select->setLabelClass('form-label');
         $navigation = new Navigation('mb-3');
 
         // Panel
@@ -87,6 +89,19 @@ class AlbumView extends View {
             'class'    => 'form-control',
             'required' => ''
         ]);
+        // Type
+        $select->setLabel('Type');
+        echo $select->create(
+            [
+                'type'     => 'text',
+                'id'       => 'type-id',
+                'name'     => 'type_id',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => ''
+            ],
+            $data['types']
+        );
         // Post ID
         $input->setLabel('Post ID');
         echo $input->create([
@@ -137,19 +152,23 @@ class AlbumView extends View {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
-            echo '            <td><b>Id</b></td>';
+            echo '            <th>Id</th>';
             echo '            <td>' . $record->id . '</td>';
             echo '        </tr>';
             echo '        <tr>';
-            echo '            <td><b>Name</b></td>';
+            echo '            <th>Name</th>';
             echo '            <td>' . $record->name . '</td>';
             echo '        </tr>';
             echo '        <tr>';
-            echo '            <td><b>Image ID</b></td>';
+            echo '            <th>Type</th>';
+            echo '            <td>' . $data['types'][$record->type_id] . '</td>';
+            echo '        </tr>';
+            echo '        <tr>';
+            echo '            <th>Image ID</th>';
             echo '            <td>' . $record->image_id . '</td>';
             echo '        </tr>';
             echo '        <tr>';
-            echo '            <td><b>Post ID</b></td>';
+            echo '            <th>Post ID</th>';
             echo '            <td>' . $record->post_id . '</td>';
             echo '        </tr>';
             echo '    </tbody>';
@@ -190,6 +209,8 @@ class AlbumView extends View {
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
+        $select = new Select('mb-3');
+        $select->setLabelClass('form-label');
         $navigation = new Navigation('mb-3');
 
         // Panel
@@ -239,6 +260,19 @@ class AlbumView extends View {
                 'required' => '',
                 'value'    => $record->name
             ]);
+            // Type
+            $select->setLabel('Type');
+            echo $select->create(
+                [
+                    'type'     => 'text',
+                    'id'       => 'platform-id',
+                    'name'     => 'platform-id',
+                    'class'    => 'form-control',
+                    'required' => '',
+                    'value'    => $record->type_id
+                ],
+                $data['types']
+            );
             // Post ID
             $input->setLabel('Post ID');
             echo $input->create([

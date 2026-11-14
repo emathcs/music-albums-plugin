@@ -7,8 +7,10 @@ class AlbumController extends Controller {
     public function __construct() {
         $Model = new AlbumModel('albums');
         $View  = new AlbumView();
+        // ModelChild
+        $ChildModel = new TypeModel();
         // Parent constructor
-        parent::__construct($Model, $View);
+        parent::__construct($Model, $View, $ChildModel);
     }
 
     /**
@@ -33,10 +35,12 @@ class AlbumController extends Controller {
      * Add
      */
     public function add() {
+        // Types
+        $types = $this->getChildModel()->getOptionsFormat();
         // Default album image
         $default_src = $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         // View
-        $this->getView()->add(['default_src' => $default_src]);
+        $this->getView()->add(['default_src' => $default_src, 'types' => $types]);
     }
 
     /**
@@ -54,16 +58,19 @@ class AlbumController extends Controller {
                 wp_die( 'Security check failed. Please try again.' );
             }
             $name     = sanitize_text_field($_POST['name']);
+            $type_id  = sanitize_text_field($_POST['type-id']);
             $image_id = sanitize_text_field($_POST['image_id']);
             $post_id  = sanitize_text_field($_POST['post_id']);
-            if (!(empty($name) || empty($image_id) || empty($post_id))) {
+            if (!(empty($name) || empty($type_id) || empty($image_id) || empty($post_id))) {
                 $data = [
                     'name'     => $name,
+                    'type_id'  => $type_id,
                     'image_id' => $image_id,
                     'post_id'  => $post_id
                 ];
                 $format = [
                     '%s',
+                    '%d',
                     '%d',
                     '%d'
                 ];
@@ -77,16 +84,19 @@ class AlbumController extends Controller {
             }
             $id       = sanitize_text_field($_POST['id']);
             $name     = sanitize_text_field($_POST['name']);
+            $type_id  = sanitize_text_field($_POST['type-id']);
             $image_id = sanitize_text_field($_POST['image_id']);
             $post_id  = sanitize_text_field($_POST['post_id']);
             if (!(empty($name) || empty($image_id) || empty($post_id))) {
                 $data = [
                     'name'     => $name,
+                    'type_id'  => $type_id,
                     'image_id' => $image_id,
                     'post_id'  => $post_id
                 ];
                 $format_data = [
                     '%s',
+                    '%d',
                     '%d',
                     '%d'
                 ];
@@ -118,13 +128,22 @@ class AlbumController extends Controller {
         // Platforms
         $platformModel = new PlatformModel();
         $platforms = $platformModel->getListFormat();
+        // Types
+        $types = $this->getChildModel()->getListFormat();
         // Image section // Default album image
         $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         if ($record) {
             $src = wp_get_attachment_image_url($record->image_id, 'medium');
         }
         // View
-        $this->getView()->view(['record' => $record, 'songs' => $songs, 'buttons' => $buttons, 'platforms' => $platforms, 'src' => $src]);
+        $this->getView()->view([
+            'src'       => $src,
+            'songs'     => $songs,
+            'types'     => $types,
+            'record'    => $record,
+            'buttons'   => $buttons,
+            'platforms' => $platforms,
+        ]);
     }
 
     /**
@@ -135,6 +154,8 @@ class AlbumController extends Controller {
     public function edit($id = 0) {
         // Get the record
         $record = $this->getModel()->selectById($id);
+        // Types
+        $types = $this->getChildModel()->getOptionsFormat();
         // Images
         $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         $default_src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
@@ -144,6 +165,6 @@ class AlbumController extends Controller {
             $src = wp_get_attachment_image_url($record->image_id, 'medium');
         }
         // View
-        $this->getView()->edit(['record' => $record, 'src' => $src, 'default_src' => $default_src]);
+        $this->getView()->edit(['record' => $record, 'src' => $src, 'types' => $types, 'default_src' => $default_src]);
     }
 }
