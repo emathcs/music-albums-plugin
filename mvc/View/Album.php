@@ -155,7 +155,7 @@ class AlbumView extends View {
             echo '    </tbody>';
             echo '</table>';
             echo '<div class="mb-3">';
-            echo '    <a href="?page=albums-settings" class="btn btn-warning">Go to Albums</a>';
+            echo '    <a href="?page=albums-settings" class="btn btn-warning">Go to the Albums</a>';
             echo '    <a href="?page=albums-edit-settings&album=' . $record->id .'" class="btn btn-secondary">Edit album</a>';
             echo '    <a href="?page=albums-add-settings" class="btn btn-primary">Add a new album</a>';
             echo '</div>';
