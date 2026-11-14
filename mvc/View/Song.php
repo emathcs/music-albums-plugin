@@ -62,6 +62,8 @@ class SongView extends View {
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
         $album_id = isset($data['album_id']) ? $data['album_id'] : 0;
+        $navigation = new Navigation('mb-3');
+
         // Model for redirection
         $parameters = '';
         if (isset($data['album_id']) && $data['album_id']) {
@@ -90,9 +92,12 @@ class SongView extends View {
             'class'    => 'form-control',
             'required' => ''
         ]);
-        // Submit
+        // Navigation buttons
         echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Save', 'class' => 'btn btn-sm btn-primary']);
+        echo $navigation->buttons(
+            ['href' => '?page=albums-view-settings&album=' . $album_id , 'label' => 'Go to the album', 'class' => 'btn btn-warning'],
+            ['type' => 'submit', 'name' => 'submit', 'value' =>'Save information', 'class' => 'btn btn-primary']
+        );
         echo $form->end();
         echo $this->panelClose();
     }
@@ -149,6 +154,7 @@ class SongView extends View {
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
+        $navigation = new Navigation('mb-3');
 
         // Panel
         echo $this->panelOpen('Edit song');
@@ -174,9 +180,12 @@ class SongView extends View {
                 'required' => '',
                 'value'    => $record->name
             ]);
-            // Submit
+            // Navigation buttons
             echo $input->setLabel('');
-            echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
+            echo $navigation->buttons(
+                ['href' => '?page=songs-view-settings&song=' . $record->id , 'label' => 'Go to the song', 'class' => 'btn btn-warning'],
+                ['type' => 'submit', 'name' => 'submit', 'value' =>'Save information', 'class' => 'btn btn-primary']
+            );
             echo $form->end();
         }
         echo $this->panelClose();
