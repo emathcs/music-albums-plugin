@@ -18,15 +18,15 @@ function albums_button( $button = null, $label = true ) {
     if ( $button ) {
         $platforms = [
             '1' => [
-                'icon'  => 'apple-music',
+                'icon'  => 'apple-music-streaming',
                 'label' => 'Apple Music'
             ],
             '2' => [
-                'icon'  => 'spotify',
+                'icon'  => 'spotify-streaming',
                 'label' => 'Spotify'
             ],
             '3' => [
-                'icon'  => 'amazon',
+                'icon'  => 'amazon-streaming',
                 'label' => 'Amazon Music'
             ]
         ];
