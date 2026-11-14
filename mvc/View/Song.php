@@ -117,7 +117,7 @@ class SongView extends View {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
-            echo '            <td>Name</td>';
+            echo '            <th>Name</th>';
             echo '            <td>' . $record->name . '</td>';
             echo '        </tr>';
             echo '    </tbody>';

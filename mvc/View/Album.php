@@ -133,6 +133,10 @@ class AlbumView extends View {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
+            echo '            <td><b>Id</b></td>';
+            echo '            <td>' . $record->id . '</td>';
+            echo '        </tr>';
+            echo '        <tr>';
             echo '            <td><b>Name</b></td>';
             echo '            <td>' . $record->name . '</td>';
             echo '        </tr>';
