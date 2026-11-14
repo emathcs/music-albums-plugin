@@ -18,21 +18,21 @@ function albums_button( $button = null, $label = true ) {
     if ( $button ) {
         $platforms = [
             '1' => [
-                'icon'  => 'apple-music',
+                'icon'  => 'apple-music-streaming',
                 'label' => 'Apple Music'
             ],
             '2' => [
-                'icon'  => 'spotify',
+                'icon'  => 'spotify-streaming',
                 'label' => 'Spotify'
             ],
             '3' => [
-                'icon'  => 'amazon',
+                'icon'  => 'amazon-streaming',
                 'label' => 'Amazon Music'
             ]
         ];
         $local_content .= '<a href="' . $button->link . '" target="_blank" class="btn btn-link btn-platform link-secondary">';
         $local_content .= '    <i class="bi bi-' . $platforms[$button->platform_id]['icon']. '"></i>';
-        $local_content .=      $label ? ' ' . $platforms[$button->platform_id]['label'] : '';
+        $local_content .=      $label ? ' <span class="label">' . $platforms[$button->platform_id]['label'] . '</span>' : '';
         $local_content .= '</a> ';
     }
     return $local_content;
@@ -88,10 +88,10 @@ function albums_song( $li = 0, $song = null ) {
         $total = count( $buttons );
         // Generate the song and buttons
         $local_content .= '<div class="row albums-song">';
-        $local_content .= '    <div class="col-8">';
+        $local_content .= '    <div class="col-7">';
         $local_content .= '        <p>' . ($li < 10 ? '&nbsp;' : '') . $li . '&nbsp;&nbsp;&nbsp;&nbsp;' . $song->name. '</p>';
         $local_content .= '    </div>';
-        $local_content .= '    <div class="col-4 text-end">';
+        $local_content .= '    <div class="col-5 text-end">';
         for ( $i = 0; $i < $total; $i++ ) {
             // Generate the buttons
             $local_content .= albums_button( $buttons[$i] , false );
