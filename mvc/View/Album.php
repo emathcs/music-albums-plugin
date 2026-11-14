@@ -190,6 +190,7 @@ class AlbumView extends View {
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
+        $navigation = new Navigation('mb-3');
 
         // Panel
         echo $this->panelOpen('Edit album');
@@ -248,9 +249,12 @@ class AlbumView extends View {
                 'required' => '',
                 'value'    => $record->post_id
             ]);
-            // Submit
+            // Navigation buttons
             echo $input->setLabel('');
-            echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
+            echo $navigation->buttons(
+                ['href' => '?page=albums-settings', 'label' => 'Go to albums', 'class' => 'btn btn-warning'],
+                ['type' => 'submit', 'name' => 'submit', 'value' =>'Update information', 'class' => 'btn btn-primary']
+            );
             echo $form->end();
         }
         echo $this->panelClose();
