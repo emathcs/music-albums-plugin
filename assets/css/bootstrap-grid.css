@@ -447,22 +447,23 @@
     border-bottom: 1px solid #eeeeee;
 }
 
-.row.albums-song:hover {
-    background-color: #eeeeee;
+.albums-song:first-child {
+    border-top: 1px solid #eeeeee;
 }
 
-.albums-song-list {
-    padding-left: 32px;
-    padding-right: 32px;
+.row.albums-song:hover {
+    background-color: #eeeeee;
 }
 
 .row.albums-song p {
     font-size: 16px;
     margin-bottom: 0;
+    color: #666666;
 }
 
 .btn-platform.btn-link {
     padding: 0 0.5rem 0 0.5rem;
+    text-decoration: none;
 }
 
 .dark .row.albums-song p {
@@ -475,4 +476,17 @@
 
 .dark .row.albums-song:hover {
     background-color: #222222;
+}
+
+@media (max-width: 575px) {
+    .btn-platform.btn-link .label {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .albums-song-list {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
 }
