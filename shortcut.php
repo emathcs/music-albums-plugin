@@ -120,10 +120,22 @@ function albums_image_gallery( $atts = [], $content = null , $tag = '' ) {
     $local_content = '';
     global $wpdb;
     // Get the Albums
+    $type = isset( $atts['type'] ) ? $atts['type'] : '';
     $table_name = $wpdb->prefix . 'albums';
-    $records = $wpdb->get_results(
-        $wpdb->prepare( "SELECT * FROM {$table_name}")
-    );
+    if ( 'albums' == $type || 'singles' == $type ) {
+        $types = [
+            'albums'  => 1,
+            'singles' => 2
+        ];
+        $records = $wpdb->get_results(
+            $wpdb->prepare( "SELECT * FROM {$table_name} WHERE type_id=%d", $types[$type])
+        );
+    }
+    else {
+        $records = $wpdb->get_results(
+            $wpdb->prepare( "SELECT * FROM {$table_name}")
+        );
+    }
     if ( count( $records ) ) {
         // Get the parameters
         $skip  = isset( $atts['skip'] ) ? $atts['skip'] : '';
