@@ -13,7 +13,7 @@ class AlbumView extends View {
         // Panel
         echo $this->panelOpen('Albums');
         echo '<div class="mb-3">';
-        echo '    <a href="?page=albums-add-settings" class="btn btn-sm btn-primary">Add a new album</a>';
+        echo '    <a href="?page=albums-add-settings" class="btn btn-primary">Add a new album</a>';
         echo '</div>';
         if ($total) {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
@@ -49,6 +49,7 @@ class AlbumView extends View {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $navigation = new Navigation('mb-3');
 
         // Panel
         echo $this->panelOpen('Add a new album');
@@ -95,9 +96,12 @@ class AlbumView extends View {
             'class'    => 'form-control',
             'required' => ''
         ]);
-        // Submit
+        // Navigation buttons
         echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Save', 'class' => 'btn btn-sm btn-primary']);
+        echo $navigation->buttons(
+            ['href' => '?page=albums-settings', 'label' => 'Go to the albums', 'class' => 'btn btn-warning'],
+            ['type' => 'submit', 'name' => 'submit', 'value' =>'Save information', 'class' => 'btn btn-primary']
+        );
         echo $form->end();
         echo $this->panelClose();
     }
@@ -133,6 +137,10 @@ class AlbumView extends View {
             echo '<table class="table table-sm table-striped table-hover table-bordered">';
             echo '    <tbody>';
             echo '        <tr>';
+            echo '            <td><b>Id</b></td>';
+            echo '            <td>' . $record->id . '</td>';
+            echo '        </tr>';
+            echo '        <tr>';
             echo '            <td><b>Name</b></td>';
             echo '            <td>' . $record->name . '</td>';
             echo '        </tr>';
@@ -147,21 +155,25 @@ class AlbumView extends View {
             echo '    </tbody>';
             echo '</table>';
             echo '<div class="mb-3">';
-            echo '    <a href="?page=albums-settings" class="btn btn-sm btn-secondary">Go to Albums</a>';
-            echo '    <a href="?page=albums-edit-settings&album=' . $record->id .'" class="btn btn-sm btn-primary">Edit album</a>';
-            echo '    <a href="?page=buttons-add-settings&album=' . $record->id . '" class="btn btn-sm btn-warning">Add a new button</a>';
-            echo '    <a href="?page=songs-add-settings&album=' . $record->id . '" class="btn btn-sm btn-info">Add a new song</a>';
+            echo '    <a href="?page=albums-settings" class="btn btn-warning">Go to the Albums</a>';
+            echo '    <a href="?page=albums-edit-settings&album=' . $record->id .'" class="btn btn-secondary">Edit album</a>';
+            echo '    <a href="?page=albums-add-settings" class="btn btn-primary">Add a new album</a>';
             echo '</div>';
             // Button view
+            echo '<br><hr><br>';
+            echo '<h2>Buttons</h2>';
+            echo '<a href="?page=buttons-add-settings&album=' . $record->id . '" class="btn btn-primary">Add a new button</a>';
+            echo '<br>';
             if ($buttonsTable) {
-                echo '<br><hr><br>';
-                echo '<h2>Buttons</h2>';
+                echo '<br>';
                 echo $buttonView->table($data['buttons'], $data['platforms']);
             }
             // Song view
+            echo '<br><hr><br>';
+            echo '<h2>Songs</h2>';
+            echo '<a href="?page=songs-add-settings&album=' . $record->id . '" class="btn btn-primary">Add a new song</a>';
+            echo '<br><br>';
             if ($songsTable) {
-                echo '<br><hr><br>';
-                echo '<h2>Songs</h2>';
                 echo $songView->table($data['songs']);
             }
         }
@@ -178,6 +190,7 @@ class AlbumView extends View {
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
+        $navigation = new Navigation('mb-3');
 
         // Panel
         echo $this->panelOpen('Edit album');
@@ -236,9 +249,12 @@ class AlbumView extends View {
                 'required' => '',
                 'value'    => $record->post_id
             ]);
-            // Submit
+            // Navigation buttons
             echo $input->setLabel('');
-            echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
+            echo $navigation->buttons(
+                ['href' => '?page=albums-view-settings&album=' . $record->id, 'label' => 'Go to the album', 'class' => 'btn btn-warning'],
+                ['type' => 'submit', 'name' => 'submit', 'value' =>'Update information', 'class' => 'btn btn-primary']
+            );
             echo $form->end();
         }
         echo $this->panelClose();
