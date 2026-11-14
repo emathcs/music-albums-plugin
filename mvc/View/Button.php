@@ -66,13 +66,21 @@ class ButtonView extends View {
         $input->setLabelClass('form-label');
         $select = new Select('mb-3');
         $select->setLabelClass('form-label');
+        $navigation = new Navigation('mb-3');
+
         // Models for redirection
+        $goTo = '';
+        $goToLabel = '';
         $parameters = '';
         if (isset($data['album_id']) && $data['album_id']) {
+            $goToLabel = 'Go to the album';
             $parameters = '&model=album&id=' . $data['album_id'];
+            $goTo = '?page=albums-view-settings&album=' . $data['album_id'] ;
         }
         if (isset($data['song_id']) && $data['song_id']) {
+            $goToLabel = 'Go to the song';
             $parameters = '&model=song&id=' . $data['song_id'];
+            $goTo = '?page=songs-view-settings&song=' . $data['song_id'] ;
         }
 
         // Panel
@@ -117,9 +125,12 @@ class ButtonView extends View {
             'class'    => 'form-control',
             'required' => ''
         ]);
-        // Submit
+        // Navigation buttons
         echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Save', 'class' => 'btn btn-sm btn-primary']);
+        echo $navigation->buttons(
+            ['href' =>  $goTo, 'label' => $goToLabel, 'class' => 'btn btn-warning'],
+            ['type' => 'submit', 'name' => 'submit', 'value' =>'Save information', 'class' => 'btn btn-primary']
+        );
         echo $form->end();
         echo $this->panelClose();
     }
@@ -177,6 +188,7 @@ class ButtonView extends View {
         $select = new Select('mb-3');
         $select->setLabelClass('form-label');
         $record = isset($data['record']) ? $data['record'] : [];
+        $navigation = new Navigation('mb-3');
 
         // Panel
         echo $this->panelOpen('Edit button');
@@ -223,9 +235,12 @@ class ButtonView extends View {
                 'required' => '',
                 'value'    => $record->link
             ]);
-            // Submit
+            // Navigation buttons
             echo $input->setLabel('');
-            echo $input->create(['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update', 'class' => 'btn btn-sm btn-primary']);
+            echo $navigation->buttons(
+                ['href' =>  '?page=buttons-view-settings&button=' . $record->id, 'label' => 'Go to the button', 'class' => 'btn btn-warning'],
+                ['type' => 'submit', 'name' => 'submit', 'value' =>'Update information', 'class' => 'btn btn-primary']
+            );
             echo $form->end();
         }
         echo $this->panelClose();
