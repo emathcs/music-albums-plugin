@@ -125,13 +125,23 @@ class AlbumController extends Controller {
         // Platforms
         $platformModel = new PlatformModel();
         $platforms = $platformModel->getListFormat();
+         // Types
+        $typeModel = new TypeModel();
+        $types = $typeModel->getListFormat();
         // Image section // Default album image
         $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         if ($record) {
             $src = wp_get_attachment_image_url($record->image_id, 'medium');
         }
         // View
-        $this->getView()->view(['record' => $record, 'songs' => $songs, 'buttons' => $buttons, 'platforms' => $platforms, 'src' => $src]);
+        $this->getView()->view([
+            'record'    => $record,
+            'songs'     => $songs,
+            'buttons'   => $buttons,
+            'platforms' => $platforms,
+            'types'     => $types,
+            'src'       => $src
+        ]);
     }
 
     /**
