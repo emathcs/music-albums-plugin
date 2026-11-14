@@ -7,8 +7,10 @@ class AlbumController extends Controller {
     public function __construct() {
         $Model = new AlbumModel('albums');
         $View  = new AlbumView();
+        // ModelChild
+        $ChildModel = new TypeModel();
         // Parent constructor
-        parent::__construct($Model, $View);
+        parent::__construct($Model, $View, $ChildModel);
     }
 
     /**
@@ -33,10 +35,12 @@ class AlbumController extends Controller {
      * Add
      */
     public function add() {
+        // Types
+        $types = $this->getChildModel()->getOptionsFormat();
         // Default album image
         $default_src = $src_default = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         // View
-        $this->getView()->add(['default_src' => $default_src]);
+        $this->getView()->add(['default_src' => $default_src, 'types' => $types]);
     }
 
     /**

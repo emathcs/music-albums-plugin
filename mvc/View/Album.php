@@ -49,6 +49,8 @@ class AlbumView extends View {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $select = new Select('mb-3');
+        $select->setLabelClass('form-label');
         $navigation = new Navigation('mb-3');
 
         // Panel
@@ -87,6 +89,19 @@ class AlbumView extends View {
             'class'    => 'form-control',
             'required' => ''
         ]);
+        // Type
+        $select->setLabel('Type');
+        echo $select->create(
+            [
+                'type'     => 'text',
+                'id'       => 'type-id',
+                'name'     => 'type_id',
+                'class'    => 'form-control',
+                'required' => '',
+                'value'    => ''
+            ],
+            $data['types']
+        );
         // Post ID
         $input->setLabel('Post ID');
         echo $input->create([
