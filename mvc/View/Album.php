@@ -49,6 +49,7 @@ class AlbumView extends View {
         $form  = new Form();
         $input = new Input('mb-3');
         $input->setLabelClass('form-label');
+        $navigation = new Navigation('mb-3');
 
         // Panel
         echo $this->panelOpen('Add a new album');
@@ -95,9 +96,12 @@ class AlbumView extends View {
             'class'    => 'form-control',
             'required' => ''
         ]);
-        // Submit
+        // Navigation buttons
         echo $input->setLabel('');
-        echo $input->create(['type' => 'submit', 'name' => 'submit', 'value' =>'Save', 'class' => 'btn btn-sm btn-primary']);
+        echo $navigation->buttons(
+            ['href' => '?page=albums-settings', 'label' => 'Go to albums', 'class' => 'btn btn-warning'],
+            ['type' => 'submit', 'name' => 'submit', 'value' =>'Save information', 'class' => 'btn btn-primary']
+        );
         echo $form->end();
         echo $this->panelClose();
     }
