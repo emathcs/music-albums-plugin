@@ -18,29 +18,30 @@ function jal_install() {
     // Albums
     $table_1 = $wpdb->prefix . 'albums';
     $sql  = "CREATE TABLE ". $table_1 . " (";
-    $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    name varchar(255) NOT NULL,";
-    $sql .= "    image_id int(255) NOT NULL,";
-    $sql .= "    post_id int(255) NOT NULL";
+    $sql .= "    id INT(11) AUTO_INCREMENT PRIMARY KEY,";
+    $sql .= "    name VARCHAR(255) NOT NULL,";
+    $sql .= "    type_id TINYINT NOT NULL,";
+    $sql .= "    image_id BIGINT(20) NOT NULL,";
+    $sql .= "    post_id BIGINT(20) NOT NULL";
     $sql .= ") " . $charset_collate . ";";
     dbDelta( $sql );
     // Songs
     $table_2 = $wpdb->prefix . 'songs';
     $sql  = "CREATE TABLE ". $table_2 . " (";
-    $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    name varchar(255) NOT NULL,";
-    $sql .= "    album_id int(11),";
+    $sql .= "    id INT(11) AUTO_INCREMENT PRIMARY KEY,";
+    $sql .= "    name VARCHAR(255) NOT NULL,";
+    $sql .= "    album_id INT(11),";
     $sql .= "    FOREIGN KEY (album_id) REFERENCES " . $table_1 . "(id) ON DELETE CASCADE";
     $sql .= ") " . $charset_collate . ";";
     dbDelta( $sql );
     // Buttons
     $table_3 = $wpdb->prefix . 'buttons';
     $sql  = "CREATE TABLE ". $table_3 . " (";
-    $sql .= "    id int(11) AUTO_INCREMENT PRIMARY KEY,";
-    $sql .= "    link varchar(255) NOT NULL,";
-    $sql .= "    platform_id int(11) NOT NULL,";
-    $sql .= "    album_id int(11),";
-    $sql .= "    song_id int(11),";
+    $sql .= "    id INT(11) AUTO_INCREMENT PRIMARY KEY,";
+    $sql .= "    link VARCHAR(255) NOT NULL,";
+    $sql .= "    platform_id TINYINT NOT NULL,";
+    $sql .= "    album_id INT(11),";
+    $sql .= "    song_id INT(11),";
     $sql .= "    FOREIGN KEY (album_id) REFERENCES " . $table_1 . "(id) ON DELETE CASCADE,";
     $sql .= "    FOREIGN KEY (song_id) REFERENCES " . $table_2 . "(id) ON DELETE CASCADE";
     $sql .= ") " . $charset_collate . ";";
