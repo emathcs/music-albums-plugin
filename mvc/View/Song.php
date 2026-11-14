@@ -128,14 +128,14 @@ class SongView extends View {
             echo '    </tbody>';
             echo '</table>';
             echo '<div class="mb-3">';
-            echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-warning">Go to the album</a>';
-            echo '    <a href="?page=songs-edit-settings&song=' . $record->id .'" class="btn btn-sm btn-secondary">Edit song</a>';
-            echo '    <a href="?page=songs-add-settings&album=' . $record->album_id . '" class="btn btn-sm btn-primary">Add a new song</a>';
+            echo '    <a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-warning">Go to the album</a>';
+            echo '    <a href="?page=songs-edit-settings&song=' . $record->id .'" class="btn btn-secondary">Edit song</a>';
+            echo '    <a href="?page=songs-add-settings&album=' . $record->album_id . '" class="btn btn-primary">Add a new song</a>';
             echo '</div>';
             // Button view
             echo '<br><hr><br>';
             echo '<h2>Buttons</h2>';
-            echo '<a href="?page=buttons-add-settings&song=' . $record->id . '" class="btn btn-sm btn-primary">Add a new button</a>';
+            echo '<a href="?page=buttons-add-settings&song=' . $record->id . '" class="btn btn-primary">Add a new button</a>';
             echo '<br><br>';
             if ($buttonsTable) {
                 echo $buttonView->table($data['buttons'], $data['platforms']);

@@ -159,17 +159,17 @@ class ButtonView extends View {
             echo '</table>';
             echo '<div class="mb-3">';
             if ($record->album_id) {
-                echo '<a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-sm btn-warning">Go to the album</a> ';
+                echo '<a href="?page=albums-view-settings&album=' . $record->album_id .'" class="btn btn-warning">Go to the album</a> ';
             }
             if ($record->song_id) {
-                echo '<a href="?page=songs-view-settings&song=' . $record->song_id .'" class="btn btn-sm btn-warning">Go to the song</a> ';
+                echo '<a href="?page=songs-view-settings&song=' . $record->song_id .'" class="btn btn-warning">Go to the song</a> ';
             }
-            echo '<a href="?page=buttons-edit-settings&button=' . $record->id .'" class="btn btn-sm btn-secondary">Edit button</a> ';
+            echo '<a href="?page=buttons-edit-settings&button=' . $record->id .'" class="btn btn-secondary">Edit button</a> ';
             if ($record->album_id) {
-                echo '<a href="?page=buttons-add-settings&album=' . $record->album_id . '" class="btn btn-sm btn-primary">Add a new button</a>';
+                echo '<a href="?page=buttons-add-settings&album=' . $record->album_id . '" class="btn btn-primary">Add a new button</a>';
             }
             if ($record->song_id) {
-                echo '<a href="?page=buttons-add-settings&song=' . $record->song_id .'" class="btn btn-sm btn-primary">Add a new button</a>';
+                echo '<a href="?page=buttons-add-settings&song=' . $record->song_id .'" class="btn btn-primary">Add a new button</a>';
             }
             echo '</div>';
         }
