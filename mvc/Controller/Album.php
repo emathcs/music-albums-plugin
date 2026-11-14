@@ -125,9 +125,8 @@ class AlbumController extends Controller {
         // Platforms
         $platformModel = new PlatformModel();
         $platforms = $platformModel->getListFormat();
-         // Types
-        $typeModel = new TypeModel();
-        $types = $typeModel->getListFormat();
+        // Types
+        $types = $this->getChildModel()->getListFormat();
         // Image section // Default album image
         $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         if ($record) {
@@ -135,12 +134,12 @@ class AlbumController extends Controller {
         }
         // View
         $this->getView()->view([
-            'record'    => $record,
+            'src'       => $src,
             'songs'     => $songs,
+            'types'     => $types,
+            'record'    => $record,
             'buttons'   => $buttons,
             'platforms' => $platforms,
-            'types'     => $types,
-            'src'       => $src
         ]);
     }
 
@@ -152,6 +151,8 @@ class AlbumController extends Controller {
     public function edit($id = 0) {
         // Get the record
         $record = $this->getModel()->selectById($id);
+        // Types
+        $types = $this->getChildModel()->getOptionsFormat();
         // Images
         $src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
         $default_src = esc_url(ALBUM_URL . 'assets/images/default-cover.png');
@@ -161,6 +162,6 @@ class AlbumController extends Controller {
             $src = wp_get_attachment_image_url($record->image_id, 'medium');
         }
         // View
-        $this->getView()->edit(['record' => $record, 'src' => $src, 'default_src' => $default_src]);
+        $this->getView()->edit(['record' => $record, 'src' => $src, 'types' => $types, 'default_src' => $default_src]);
     }
 }
