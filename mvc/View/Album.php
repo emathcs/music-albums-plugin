@@ -265,8 +265,8 @@ class AlbumView extends View {
             echo $select->create(
                 [
                     'type'     => 'text',
-                    'id'       => 'platform-id',
-                    'name'     => 'platform-id',
+                    'id'       => 'type-id',
+                    'name'     => 'type-id',
                     'class'    => 'form-control',
                     'required' => '',
                     'value'    => $record->type_id
@@ -287,7 +287,7 @@ class AlbumView extends View {
             echo $input->setLabel('');
             echo $navigation->buttons(
                 ['href' => '?page=albums-view-settings&album=' . $record->id, 'label' => 'Go to the album', 'class' => 'btn btn-warning'],
-                ['type' => 'submit', 'name' => 'submit', 'value' =>'Update information', 'class' => 'btn btn-primary']
+                ['type' => 'submit', 'name' => 'submit-edit', 'value' =>'Update information', 'class' => 'btn btn-primary']
             );
             echo $form->end();
         }
